@@ -14,6 +14,8 @@ public class JoyconExample : MonoBehaviour {
     private Joycon.Button? m_pressedButtonL;
     private Joycon.Button? m_pressedButtonR;
 
+    private Vector2 test = new Vector2(0.0f, 0.0f);
+
     private void Start()
     {
         m_joycons = JoyconManager.Instance.j;
@@ -42,21 +44,25 @@ public class JoyconExample : MonoBehaviour {
                 m_pressedButtonR = button;
             }
         }
+        
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            m_joyconL.SetRumble(160, 320, 0.6f, 200);
+            m_joyconL.SetRumble(test.x, test.y, 1.0f, 200);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             m_joyconR.SetRumble(160, 320, 0.6f, 200);
         }
+
+        
     }
 
     private void OnGUI()
     {
         var style = GUI.skin.GetStyle("label");
         style.fontSize = 24;
+        style.normal.textColor = Color.black;
 
         if (m_joycons == null || m_joycons.Count <= 0)
         {
