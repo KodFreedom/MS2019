@@ -107,6 +107,15 @@ public class ElectricalValue : MonoBehaviour {
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
+        /*if (inputManager.GetPunchL())
+        {
+            Energy -= 5.0f;
+        }
+
+        if (inputManager.GetPunchR())
+        {
+            Energy -= 5.0f;
+        }*/
     }
 
     public float GetEnergy()
