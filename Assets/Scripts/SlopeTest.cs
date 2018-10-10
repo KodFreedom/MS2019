@@ -36,7 +36,7 @@ public class SlopeTest : MonoBehaviour {
 
         transform.rotation = Quaternion.Euler(vec);
 
-        Debug.Log(transform.rotation.eulerAngles);
+        //Debug.Log(transform.rotation.eulerAngles);
         
     }
 }

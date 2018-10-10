@@ -182,60 +182,150 @@ public class InputManager : MonoBehaviour
         Text DbgTextUI = m_DbgTextUI.GetComponent<Text>();
 
         //if (GetPressButtonL(JOYCON_BUTTON.L))
-        //Debug.Log(m_joyconL.GetVector().eulerAngles / 360.0f);
-
-        Vector3 vec = new Vector3(0.0f, 1.0f, 0.0f);
-        vec = m_joyconL.GetVector() * vec;
-        //Debug.Log(m_joyconL.GetVector().eulerAngles / 360.0f);
-        //Debug.Log(vec);
+        //Debug.Log(m_joyconL.GetVector().eulerAngles );
         
-        float spoolSizeZ = m_joyconL.GetVector().z; if (spoolSizeZ < 0.0f) spoolSizeZ *= -1;
-        float spoolSizeW = m_joyconL.GetVector().w; if (spoolSizeW < 0.0f) spoolSizeW *= -1;
-        float spoolSize = spoolSizeZ + spoolSizeW;
-        if (spoolSize < 0.4f)
+        
+        /*float spoolUp = m_joyconL.GetVector().eulerAngles.y;    // 上を向いているとき、spoorUpは180近くになる(+-は初期角度による)
+        Debug.Log(spoolUp);
+        if (spoolUp < 160.0f || spoolUp > 200.0f)
         {
+            Debug.Log("傾きが大きい");
+            return;
+        }*/
 
-            for (int i = PunchWaitArray - 1; i >= 1; i--)
-            {
-                m_PunchiVec[i] = m_PunchiVec[i - 1];
-            }
-            m_PunchiVec[0] = m_joyconL.GetAccel();
-
-
-            bool turnPunchFlag = false;
-            for (int i = 0; i < 15; i++)
-            {
-                if (m_PunchiVec[i].y < -1.0f)
-                {
-                    turnPunchFlag = true;
-                    break;
-                }
-            }
-            if (turnPunchFlag == false)
-            {
-                int punchFrame = 7;
-                int punchCount = 0;
-                for (int i = 0; i < punchFrame; i++)
-                {
-                    //if (m_PunchiVec[0].z < m_PunchiVec[PunchWaitArray - 1] - 2.0f)
-                    if (m_PunchiVec[i].y > 0.3f + spoolSize * 1.0f)
-                    {
-                        punchCount++;
-                        //Debug.Log("成功:" + punchCount + " 速さ:" + m_PunchiVec[i].y + " しきい値:" + spoolSize);
-                    }
-                }
-                if (punchCount >= punchFrame)
-                {
-                    m_IsPunch = true;
-                    m_DbgNumPunchi++;
-                }
-            }
-
-            
-
+        if(GetTwistL() > 5.0f)
+        {
+            Debug.Log("ジャイロが大きい");
+            return;
         }
 
+
+        // 保管フレームの更新
+        for (int i = PunchWaitArray - 1; i >= 1; i--)
+        {
+            m_PunchiVec[i] = m_PunchiVec[i - 1];
+        }
+        m_PunchiVec[0] = m_joyconL.GetAccel();
+
+
+        
+
+
+
+        /*bool turnPunchFlag = false;
+        for (int i = 0; i < 15; i++)
+        {
+            if (m_PunchiVec[i].y < -1.0f)
+            {
+                turnPunchFlag = true;
+                break;
+            }
+        }
+        if (turnPunchFlag == false)
+        {
+            int punchFrame = 7;
+            int punchCount = 0;
+            for (int i = 0; i < punchFrame; i++)
+            {
+                if (m_PunchiVec[i].y > 0.3f)
+                {
+                    punchCount++;
+                    //Debug.Log("成功:" + punchCount + " 速さ:" + m_PunchiVec[i].y + " しきい値:" + "なし");
+                }
+            }
+            if (punchCount >= punchFrame)
+            {
+                m_IsPunch = true;
+                m_DbgNumPunchi++;
+                SetVibrationL(50.0f, 20.0f, 10.0f, 1);
+            }
+        }*/
+
+        /*int minusPanchCount = 0;
+        for (int i = 0; i < 20; i++)
+        {
+            if (m_PunchiVec[i].y < -0.3f)
+            {
+                minusPanchCount++;
+            }
+        }
+        if (minusPanchCount >= 15)
+        {
+            Debug.Log("逆パンチ");
+            return;
+        }*/
+
+
+
+        float maxSpeed = -100.0f;
+        int AccelPlusCount = 0;
+        for (int i = 0; i < 7; i++)
+        {
+            if (m_PunchiVec[i].y > 0.3f)
+            {
+                AccelPlusCount++;
+                Debug.Log("成功:" + AccelPlusCount + " 速さ:" + m_PunchiVec[i].y);
+            }
+            if (maxSpeed < m_PunchiVec[i].y) maxSpeed = m_PunchiVec[i].y;
+        }
+
+        bool IsAccelPlus = false;
+        if (AccelPlusCount >= 3)
+        {
+            IsAccelPlus = true;
+        }
+
+        if (maxSpeed < 0.0f) return;
+
+        if(maxSpeed - m_PunchiVec[0].y > 2.0f && IsAccelPlus == true && m_PunchiVec[0].y < -0.8f)
+        {
+            m_IsPunch = true;
+            m_DbgNumPunchi++;
+            SetVibrationL(50.0f, 20.0f, 1.0f, 5);
+
+            float defference = maxSpeed - m_PunchiVec[0].y;
+            Debug.Log("パンチした！" + " 速さ:" + m_PunchiVec[0].y + " 最大の速さ:" + maxSpeed + " その差" + defference);
+        }
+
+
+
+        // 瞬間的に突き出せばパンチとする
+        /*int speedPunchCount = 0;
+        for(int i = 0; i < 5; i++)
+        {
+            if(m_PunchiVec[i].magnitude > 1.80f)
+            {
+                speedPunchCount++;
+            }
+        }
+        if(speedPunchCount >= 3)
+        {
+            m_IsPunch = true;
+            m_DbgNumPunchi++;
+            SetVibrationL(50.0f, 20.0f, 10.0f, 1);
+        }*/
+
+
+        // 長く前に突き出せばパンチとする
+        /*for (int i = 0; i < 15; i++)
+        {
+            if (m_PunchiVec[i].y > 0.3f)
+            {
+                AccelPlusCount++;
+            }
+        }
+        if(AccelPlusCount >= 15)
+        {
+            m_IsPunch = true;
+            m_DbgNumPunchi++;
+            SetVibrationL(50.0f, 20.0f, 10.0f, 1);
+        }*/
+
+
         DbgTextUI.text = m_DbgNumPunchi.ToString();
+
+
+        //Debug.Log(GetShakeL() + " : " + m_joyconL.GetAccel());
     }
 }
 
