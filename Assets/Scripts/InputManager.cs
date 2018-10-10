@@ -7,13 +7,12 @@ using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
-    // ボタンの種類列挙
-    public enum JOYCON_BUTTON
+    public enum JOYCON_BUTTON_LEFT
     {
-        DPAD_DOWN = 0,  DPAD_B = 0,
-        DPAD_RIGHT = 1, DPAD_A = 1,
-        DPAD_LEFT = 2,  DPAD_Y = 2,
-        DPAD_UP = 3,    DPAD_X = 3,
+        DPAD_DOWN = 0,
+        DPAD_RIGHT = 1,
+        DPAD_LEFT = 2,
+        DPAD_UP = 3,
         SL = 4,
         SR = 5,
         MINUS = 6,
@@ -21,9 +20,43 @@ public class InputManager : MonoBehaviour
         PLUS = 8,
         CAPTURE = 9,
         STICK = 10,
-        L = 11, R = 11,
-        ZL = 12, ZR = 12,
+        L = 11,
+        ZL = 12,
     }
+
+    public enum JOYCON_BUTTON_RIGHT
+    {
+        DPAD_B = 0,
+        DPAD_A = 1,
+        DPAD_Y = 2,
+        DPAD_X = 3,
+        SL = 4,
+        SR = 5,
+        MINUS = 6,
+        HOME = 7,
+        PLUS = 8,
+        CAPTURE = 9,
+        STICK = 10,
+        R = 11,
+        ZR = 12,
+    }
+
+    /*public enum JOYCON_ACTION
+    {
+        PUNCH = 0,          // パンチ
+        SPECIAL_SKILL = 1,  // 必殺技
+        TWIST = 2,          // ひねったか
+        SHAKE = 3           // 振ったか
+    }
+
+    public enum JOYCON_MOTION
+    {
+        ACCLEL = 0, // 加速度
+        GYRO = 1,   // 回転速度
+        SLOPE = 2   // 傾き
+    }*/
+
+
 
     private static readonly Joycon.Button[] m_buttons =
         Enum.GetValues(typeof(Joycon.Button)) as Joycon.Button[];
@@ -34,15 +67,16 @@ public class InputManager : MonoBehaviour
     private Joycon.Button? m_pressedButtonL;
     private Joycon.Button? m_pressedButtonR;
 
-
+    private const int JoyconType = 2;        // ジョイコン数
     private const int PunchWaitArray = 200;  // 加速度を保持するフレーム
-    private Vector3[,] m_PunchiVec = new Vector3[2, PunchWaitArray];    // 加速度を保持
-    private bool[] m_IsPunch = new bool[2];    // パンチしたか
+    private Vector3[,] m_PunchiVec = new Vector3[JoyconType, PunchWaitArray];    // 加速度を保持
+    private bool[] m_IsPunch = new bool[JoyconType];    // パンチしたか
 
+    private bool IsDebug = true;
     public GameObject m_DbgTextUI;
     public int m_DbgNumPunchi;
 
-    
+
 
     private void Start()
     {
@@ -62,7 +96,7 @@ public class InputManager : MonoBehaviour
 
         m_IsPunch[0] = false;
         m_IsPunch[1] = false;
-
+        
         m_DbgNumPunchi = 0;
 
     }
@@ -70,120 +104,130 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         Punch();
+        
+        if(IsDebug) Dbg();
     }
 
-    // ひねりの回転の大きさを取得（ジョイコンL）
-    public float GetTwistL()
-    {
-        var gyro = m_joyconL.GetGyro();
 
-        return gyro.magnitude;
+    // 左ジョイコンのボタンの取得
+    public bool GetPressButtonL(JOYCON_BUTTON_LEFT button)
+    {
+        return m_joyconL.GetButton((Joycon.Button)button);
     }
-
-    public float GetTwistR()
+    public bool GetTriggerButtonL(JOYCON_BUTTON_LEFT button)
     {
-        var gyro = m_joyconR.GetGyro();
-
-        return gyro.magnitude;
+        return m_joyconL.GetButtonDown((Joycon.Button)button);
     }
-
-    // 振った大きさを取得（ジョイコンL）
-    public float GetShakeL()
+    public bool GetReleaseButtonL(JOYCON_BUTTON_LEFT button)
     {
-        var accel = m_joyconL.GetAccel();
-
-        return accel.magnitude;
+        return m_joyconL.GetButtonUp((Joycon.Button)button);
     }
     
-    public float GetShakeR()
+    // 右ジョイコンのボタンの取得
+    public bool GetPressButtonR(JOYCON_BUTTON_RIGHT button)
     {
-        var accel = m_joyconR.GetAccel();
-
-        return accel.magnitude;
+        return m_joyconR.GetButton((Joycon.Button)button);
+    }
+    public bool GetTriggerButtonR(JOYCON_BUTTON_RIGHT button)
+    {
+        return m_joyconR.GetButtonDown((Joycon.Button)button);
+    }
+    public bool GetReleaseButtonR(JOYCON_BUTTON_RIGHT button)
+    {
+        return m_joyconR.GetButtonUp((Joycon.Button)button);
     }
 
-    // 傾きを取得（ジョイコンL）
-    public Quaternion GetSlopeL()
-    {
-        var slope = m_joyconL.GetVector();
-
-        return slope;
-    }
-
-    public Quaternion GetSlopeR()
-    {
-        var slope = m_joyconR.GetVector();
-
-        return slope;
-    }
-
-    // パンチしたか取得（ジョイコンL）
+    // パンチしたか取得
     public bool GetPunchL()
     {
         return m_IsPunch[0];
     }
-
     public bool GetPunchR()
     {
         return m_IsPunch[1];
     }
 
-    // ボタンの取得（ジョイコンL）
-    public bool GetPressButtonL(JOYCON_BUTTON button)
+    // 加速度を取得
+    public Vector3 GetAccelL()
     {
-        return m_joyconL.GetButton((Joycon.Button)button);
+        return m_joyconL.GetAccel();
+    }
+    public Vector3 GetAccelR()
+    {
+        return m_joyconR.GetAccel();
     }
 
-    public bool GetTriggerButtonL(JOYCON_BUTTON button)
-    {
-        return m_joyconL.GetButtonDown((Joycon.Button)button);
-    }
-
-    public bool GetReleaseButtonL(JOYCON_BUTTON button)
-    {
-        return m_joyconL.GetButtonUp((Joycon.Button)button);
-    }
-    
-    public bool GetPressButtonR(JOYCON_BUTTON button)
-    {
-        return m_joyconR.GetButton((Joycon.Button)button);
-    }
-
-    public bool GetTriggerButtonR(JOYCON_BUTTON button)
-    {
-        return m_joyconR.GetButtonDown((Joycon.Button)button);
-    }
-
-    public bool GetReleaseButtonR(JOYCON_BUTTON button)
-    {
-        return m_joyconR.GetButtonUp((Joycon.Button)button);
-    }
-
-    // 振動させる（ジョイコンL）
-    public void SetVibrationL(float width, float height, float power, int time)
-    {
-        m_joyconL.SetRumble(width, height, power, time);
-    }
-
-    public void SetVibrationR(float width, float height, float power, int time)
-    {
-        m_joyconR.SetRumble(width, height, power, time);
-    }
-
+    // 回転速度を取得
     public Vector3 GetGyroL()
     {
         return m_joyconL.GetGyro();
     }
-
     public Vector3 GetGyroR()
     {
         return m_joyconR.GetGyro();
     }
 
+    // 傾きを取得
+    public Quaternion GetSlopeL()
+    {
+        return m_joyconL.GetVector();
+    }
+    public Quaternion GetSlopeR()
+    {
+        return m_joyconR.GetVector();
+    }
 
+    // ひねりの回転の大きさを取得
+    public float GetTwistL()
+    {
+        return m_joyconL.GetGyro().magnitude;
+    }
+    public float GetTwistR()
+    {
+        return m_joyconR.GetGyro().magnitude;
+    }
+
+    // 振った大きさを取得
+    public float GetShakeL()
+    {
+        return m_joyconL.GetAccel().magnitude;
+    }
+    public float GetShakeR()
+    {
+        return m_joyconR.GetAccel().magnitude;
+    }
+
+    // 振動させる
+    public void SetVibrationL(float width, float height, float power, int time)
+    {
+        m_joyconL.SetRumble(width, height, power, time);
+    }
+    public void SetVibrationR(float width, float height, float power, int time)
+    {
+        m_joyconR.SetRumble(width, height, power, time);
+    }
+
+    /*public Vector3 GetMotionL(JOYCON_MOTION motion)
+    {
+        switch(motion)
+        {
+            case JOYCON_MOTION.ACCLEL:
+                return m_joyconL.GetAccel();
+
+            case JOYCON_MOTION.GYRO:
+                return m_joyconL.GetGyro();
+
+            case JOYCON_MOTION.SLOPE:
+                return m_joyconL.GetVector().eulerAngles;
+        }
+
+        return new Vector3(0.0f, 0.0f, 0.0f);
+    }*/
+
+    // 後でクラス化したい
     private void Punch()
     {
-        Text DbgTextUI = m_DbgTextUI.GetComponent<Text>();
+        
 
         for (int joyconType = 0; joyconType < 2; joyconType++)
         {
@@ -219,7 +263,7 @@ public class InputManager : MonoBehaviour
             }
 
 
-            // 保管フレームの更新
+            // 加速度フレーム保管の更新
             for (int i = PunchWaitArray - 1; i >= 1; i--)
             {
                 m_PunchiVec[joyconType, i] = m_PunchiVec[joyconType, i - 1];
@@ -264,8 +308,8 @@ public class InputManager : MonoBehaviour
             {
                 m_IsPunch[joyconType] = true;
                 m_DbgNumPunchi++;
-                if(joyconType == 0) SetVibrationL(50.0f, 20.0f, 0.3f, 10);
-                else SetVibrationR(50.0f, 20.0f, 0.3f, 10);
+                if(joyconType == 0) SetVibrationL(150.0f, 120.0f, 0.6f, 10);
+                else SetVibrationR(150.0f, 120.0f, 0.6f, 10);
 
                 float defference = maxSpeed - m_PunchiVec[joyconType, 0].y;
                 Debug.Log("パンチした！" + " 速さ:" + m_PunchiVec[joyconType, 0].y + " 最大の速さ:" + maxSpeed + " その差" + defference);
@@ -306,12 +350,16 @@ public class InputManager : MonoBehaviour
             }*/
 
 
-            DbgTextUI.text = m_DbgNumPunchi.ToString();
-
-
-            //Debug.Log(GetShakeL() + " : " + m_joyconL.GetAccel());
+            
         }
 
+    }
+    
+    private void Dbg()
+    {
+        Text DbgTextUI = m_DbgTextUI.GetComponent<Text>();
+
+        DbgTextUI.text = m_DbgNumPunchi.ToString();
     }
 }
 

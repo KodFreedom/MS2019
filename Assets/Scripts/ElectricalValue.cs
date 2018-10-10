@@ -37,23 +37,7 @@ public class ElectricalValue : MonoBehaviour {
 
         Energy += TotalTwist;
 
-
-        /*
-        float TotalShake = 0.0f;
-        float shake;
-        shake = inputManager.GetShakeL();
-        if (shake > 3.0f)
-            TotalShake += shake;
-
-        shake = inputManager.GetShakeR();
-        if (shake > 3.0f)
-            TotalShake += shake;
-
-        TotalShake *= 0.25f;
-
-        Energy += TotalShake;
-
-    */
+        
 
         Text textUI = TextUI.GetComponent<Text>();
 
@@ -65,60 +49,60 @@ public class ElectricalValue : MonoBehaviour {
             Energy -= 500.0f;
         }
 
-        if(inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.L))
+        if(inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.L))
         {
             Energy -= 1.0f;
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.DPAD_LEFT))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_LEFT))
         {
             Energy -= 1.0f;
         }
 
-        if (inputManager.GetPressButtonR(InputManager.JOYCON_BUTTON.ZR))
+        if (inputManager.GetPressButtonR(InputManager.JOYCON_BUTTON_RIGHT.ZR))
         {
             Energy -= 1.0f;
         }
 
 
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.DPAD_UP))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_UP))
         {
             testVib.y -= 1.0f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.DPAD_LEFT))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_LEFT))
         {
             testVib.x -= 1.0f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.DPAD_DOWN))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_DOWN))
         {
             testVib.y += 1.0f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.DPAD_RIGHT))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_RIGHT))
         {
             testVib.x += 1.0f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.SL))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.SL))
         {
             powerVib -= 0.01f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.SR))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.SR))
         {
             powerVib += 0.01f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON.ZL))
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.ZL))
         {
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
         }
