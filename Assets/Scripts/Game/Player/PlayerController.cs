@@ -1,4 +1,4 @@
-﻿#define HaveJoyCon
+﻿//#define HaveJoyCon
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +7,6 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    private static readonly bool kIsJoycon = false;
-
     private struct InputInfo
     {
         public bool left_punch;
@@ -114,8 +112,6 @@ public class PlayerController : MonoBehaviour
     private void UpdateInput()
     {
 #if HaveJoyCon
-        
-#endif
         var input = GameManager.Instance.MyInput;
         input_info_.left_punch = Input.GetKeyDown(KeyCode.Q) | input.GetPunchL();
         input_info_.right_punch = Input.GetKeyDown(KeyCode.E) | input.GetPunchR();
@@ -123,6 +119,14 @@ public class PlayerController : MonoBehaviour
         input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
         input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
         input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+#else
+        input_info_.left_punch = Input.GetKeyDown(KeyCode.Q);
+        input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
+        input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
+        input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
+        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f;
+        input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 1f : 0f;
+#endif
     }
 
     // モーション

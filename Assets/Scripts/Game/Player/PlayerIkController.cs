@@ -59,14 +59,14 @@ public class PlayerIkController : MonoBehaviour
 
         if (kLeftHandIkHandler)
         {
-            kLeftHandIkHandler.rotation = Quaternion.Euler(left_hand_euler_);
+            kLeftHandIkHandler.localRotation = Quaternion.Euler(left_hand_euler_);
             animator_.SetIKPosition(AvatarIKGoal.LeftHand, kLeftHandIkHandler.position);
             animator_.SetIKRotation(AvatarIKGoal.LeftHand, kLeftHandIkHandler.rotation);
         }
 
         if (kRightHandIkHandler)
         {
-            kRightHandIkHandler.rotation = Quaternion.Euler(right_hand_euler_);
+            kRightHandIkHandler.localRotation = Quaternion.Euler(right_hand_euler_);
             animator_.SetIKPosition(AvatarIKGoal.RightHand, kRightHandIkHandler.position);
             animator_.SetIKRotation(AvatarIKGoal.RightHand, kRightHandIkHandler.rotation);
         }
