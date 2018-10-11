@@ -222,6 +222,8 @@ public class InputManager : MonoBehaviour
         m_joyconR.SetRumble(width, height, power, time);
     }
 
+
+
     /*public Vector3 GetMotionL(JOYCON_MOTION motion)
     {
         switch(motion)
@@ -289,7 +291,7 @@ public class InputManager : MonoBehaviour
                 if (m_AccelBuff[joyconType, i].y > 0.3f)
                 {
                     AccelPlusCount++;
-                    Debug.Log("成功:" + AccelPlusCount + " 速さ:" + m_AccelBuff[joyconType, i].y);
+                    //Debug.Log("成功:" + AccelPlusCount + " 速さ:" + m_AccelBuff[joyconType, i].y);
                 }
                 if (maxSpeed < m_AccelBuff[joyconType, i].y) maxSpeed = m_AccelBuff[joyconType, i].y;
             }
@@ -358,20 +360,23 @@ public class InputManager : MonoBehaviour
     {
         m_IsSpecialSkill = false;
 
+        if (GetPressButtonL(JOYCON_BUTTON_LEFT.L) == false || GetPressButtonR(JOYCON_BUTTON_RIGHT.R) == false)
+            return;
+
         int SpecialSkillCount = 0;
 
         for (int joyconType = 0; joyconType < 2; joyconType++)
         {
-            float maxSpeed = -100.0f;   // 最大速度
+            float minSpeed = 100.0f;   // 最大速度
             int AccelPlusCount = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0 + (1 - joyconType) * 15; i < 20 + (1 - joyconType) * 15; i++)
             {
                 if (m_AccelBuff[joyconType, i].x < 0.2f)
                 {
                     AccelPlusCount++;
                     //Debug.Log("成功:" + AccelPlusCount + " 速さ:" + m_AccelBuff[joyconType, i].x);
                 }
-                if (maxSpeed > m_AccelBuff[joyconType, i].x) maxSpeed = m_AccelBuff[joyconType, i].x;
+                if (minSpeed > m_AccelBuff[joyconType, i].x) minSpeed = m_AccelBuff[joyconType, i].x;
             }
 
             bool IsAccelPlus = false;   // 振り下ろす操作の成功可否
@@ -382,7 +387,7 @@ public class InputManager : MonoBehaviour
             
 
             // 振り下ろしつつ、最後に止めたときに必殺技
-            if (maxSpeed - m_AccelBuff[joyconType, 0].x < -0.5 && m_AccelBuff[joyconType, 0].x > 0.5f && IsAccelPlus == true)
+            if (minSpeed - m_AccelBuff[joyconType, (1 - joyconType) * 15].x < -0.3 && m_AccelBuff[joyconType, (1 - joyconType) * 15].x > 0.3f && IsAccelPlus == true)
             {
                 SpecialSkillCount++;
                 //m_DbgNumPunchi++;
