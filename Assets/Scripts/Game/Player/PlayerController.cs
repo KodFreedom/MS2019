@@ -1,0 +1,136 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class PlayerController : MonoBehaviour
+{
+    private struct InputInfo
+    {
+        public bool left_punch;
+        public bool right_punch;
+        public bool mode_change;
+        public bool ultra;
+        public bool charge;
+    }
+
+    public NavMeshAgent NavAgent { get; private set; }
+    public Animator MyAnimator { get; private set; }
+    public BattleAreaController BattleArea { get; set; }
+    public EnemyController TargetEnemy { get; set; }
+    public PlayerFieldNavigationState FieldNavigationState { get; private set; }
+    public PlayerBattleNavigationState BattleNavigationState { get; private set; }
+    public PlayerNormalMode NormalMode { get; private set; }
+    public PlayerThunderMode ThunderMode { get; private set; }
+    public PlayerParameter Parameter { get; private set; }
+    public GameObject PunchCollider { get; private set; }
+    public float Attack { get { return current_mode_.Attack(this); } }
+    public bool ModeChange { get { return input_info_.mode_change; } }
+    public bool Ultra { get { return input_info_.ultra; } }
+
+    private PlayerIkController ik_controller_ = null;
+    private PlayerNavigationState current_navigation_state_ = null;
+    private PlayerMode current_mode_ = null;
+    private InputInfo input_info_;
+    
+    public string kMode; // Debug表示
+    public string kState; // Debug表示
+
+    /// <summary>
+    /// 移動ステートの切り替え
+    /// </summary>
+    /// <param name="next_state"></param>
+    public void Change(PlayerNavigationState next_state)
+    {
+        if(current_navigation_state_ != null)
+        {
+            current_navigation_state_.Uninit(this);
+        }
+
+        current_navigation_state_ = next_state;
+        current_navigation_state_.Init(this);
+    }
+
+    /// <summary>
+    /// 戦闘モードの切り替え
+    /// </summary>
+    /// <param name="next_mode"></param>
+    public void Change(PlayerMode next_mode)
+    {
+        if (current_mode_ != null)
+        {
+            current_mode_.Uninit(this);
+        }
+
+        current_mode_ = next_mode;
+        current_mode_.Init(this);
+    }
+
+    private void Start ()
+    {
+        MyAnimator = GetComponent<Animator>();
+        ik_controller_ = GetComponent<PlayerIkController>();
+        NavAgent = GetComponent<NavMeshAgent>();
+        Parameter = GetComponent<PlayerParameter>();
+        PunchCollider = transform.Find("PunchCollider").gameObject;
+
+        FieldNavigationState = new PlayerFieldNavigationState();
+        BattleNavigationState = new PlayerBattleNavigationState();
+
+        NormalMode = new PlayerNormalMode();
+        ThunderMode = new PlayerThunderMode();
+
+        Change(NormalMode);
+        Change(FieldNavigationState);
+    }
+	
+	private void Update ()
+    {
+        UpdateInput();
+        UpdateAnimator();
+        UpdateCharge();
+        current_navigation_state_.Update(this);
+        current_mode_.Update(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        current_navigation_state_.OnTriggerEnter(this, other);
+        current_mode_.OnTriggerEnter(this, other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        current_navigation_state_.OnTriggerExit(this, other);
+        current_mode_.OnTriggerExit(this, other);
+    }
+
+    // 入力
+    private void UpdateInput()
+    {
+        input_info_.left_punch = Input.GetKeyDown(KeyCode.Q);
+        input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
+        input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
+        input_info_.charge = Input.GetKey(KeyCode.LeftShift);
+        input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
+    }
+
+    // モーション
+    private void UpdateAnimator()
+    {
+        MyAnimator.SetBool("LeftPunch", input_info_.left_punch);
+        MyAnimator.SetBool("RightPunch", input_info_.right_punch);
+    }
+
+    // 充電
+    private void UpdateCharge()
+    {
+        bool enable_charge_ = MyAnimator.GetFloat("EnableCharge") == 1f ? true : false;
+        ik_controller_.SetActive(enable_charge_);
+
+        if(enable_charge_ && input_info_.charge)
+        {
+            Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime);
+        }
+    }
+}
