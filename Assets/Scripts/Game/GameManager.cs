@@ -7,9 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager instance_ = null;
     public static GameManager Instance { get { return instance_; } }
 
-    private GameData data_ = null;
-    public GameData Data { get { return data_; } }
-
+    public GameData Data { get; private set; }
+    public InputManager MyInput { get; private set; }
     private StageLoader stage_loader_ = null;
 
     public void StageClear()
@@ -28,7 +27,8 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
 
-        data_ = new GameData();
+        Data = new GameData();
+        MyInput = GetComponent<InputManager>();
         stage_loader_ = GetComponent<StageLoader>();
         stage_loader_.Init();
     }
