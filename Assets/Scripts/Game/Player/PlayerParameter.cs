@@ -32,7 +32,7 @@ public class PlayerParameter : MonoBehaviour
     private void Start()
     {
         MaxEnergy = 100f;
-        CurrentEnergy = MaxEnergy;
+        CurrentEnergy = 0f;
         Timer = 0f;
     }
 }

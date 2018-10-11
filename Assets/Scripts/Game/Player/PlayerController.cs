@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     
     public string kMode; // Debug表示
     public string kState; // Debug表示
+    [SerializeField] TextMesh kUi = null;
 
     /// <summary>
     /// 移動ステートの切り替え
@@ -124,8 +126,8 @@ public class PlayerController : MonoBehaviour
         input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
         input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
         input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
-        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f;
-        input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 1f : 0f;
+        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? 10f : 0f;
+        input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 10f : 0f;
 #endif
     }
 
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour
             ik_controller_.RotateRight(-input_info_.right_charge);
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
                 * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
+            kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
         }
     }
 }
