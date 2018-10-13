@@ -71,6 +71,13 @@ public class PlayerController : MonoBehaviour
         current_mode_.Init(this);
     }
 
+    public void OnPunchHit()
+    {
+        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
+    }
+
     private void Start ()
     {
         MyAnimator = GetComponent<Animator>();
@@ -91,11 +98,13 @@ public class PlayerController : MonoBehaviour
 	
 	private void Update ()
     {
+        Parameter.Tick(Time.deltaTime);
         UpdateInput();
         UpdateAnimator();
         UpdateCharge();
         current_navigation_state_.Update(this);
         current_mode_.Update(this);
+        UpdateUi();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -150,7 +159,14 @@ public class PlayerController : MonoBehaviour
             ik_controller_.RotateRight(-input_info_.right_charge);
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
                 * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
-            kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
+            
         }
+    }
+
+    // Ui
+    private void UpdateUi()
+    {
+        kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
+        kUi.text += "\nTime : " + Parameter.Timer.ToString("000.00");
     }
 }

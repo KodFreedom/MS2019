@@ -4,20 +4,46 @@ using UnityEngine;
 
 public class PlayerParameter : MonoBehaviour
 {
+    [System.Serializable]
+    private struct KnockbackInfo
+    {
+        public float speed;
+        public float returnTime;
+        public float freezeTime;
+        public float cameraShakeRange;
+        public float cameraShakeTime;
+    }
+
+    [System.Serializable]
+    private struct PunchInfo
+    {
+        public float attackNormal;
+        public float attackThunder;
+        public float cameraShakeRange;
+        public float cameraShakeTime;
+    }
+
     [SerializeField] float kThunderModeCost = 1f;
     [SerializeField] float kUltraCost = 50f;
     [SerializeField] float kChargeSpeed = 1f;
-    [SerializeField] float kAttackNormal = 1f;
-    [SerializeField] float kAttackThunder = 1.5f;
+    [SerializeField] PunchInfo kPunchInfo = new PunchInfo();
+    [SerializeField] KnockbackInfo kKnockbackInfo = new KnockbackInfo();
 
     public float MaxEnergy { get; private set; }
     public float CurrentEnergy { get; private set; }
     public float ThunderModeCost { get { return kThunderModeCost; } }
     public float UltraCost { get { return kUltraCost; } }
     public float ChargeSpeed { get { return kChargeSpeed; } }
-    public float AttackNormal { get { return kAttackNormal; } }
-    public float AttackThunder { get { return kAttackThunder; } }
+    public float AttackNormal { get { return kPunchInfo.attackNormal; } }
+    public float AttackThunder { get { return kPunchInfo.attackThunder; } }
+    public float PunchCameraShakeRange { get { return kPunchInfo.cameraShakeRange; } }
+    public float PunchCameraShakeTime { get { return kPunchInfo.cameraShakeTime; } }
     public float Timer { get; private set; }
+    public float KnockbackSpeed { get { return kKnockbackInfo.speed; } }
+    public float KnockbackReturnTime { get { return kKnockbackInfo.returnTime; } }
+    public float KnockbackFreezeTime { get { return kKnockbackInfo.freezeTime; } }
+    public float KnockbackCameraShakeRange { get { return kKnockbackInfo.cameraShakeRange; } }
+    public float KnockbackCameraShakeTime { get { return kKnockbackInfo.cameraShakeTime; } }
 
     public void ChangeEnergy(float amount)
     {

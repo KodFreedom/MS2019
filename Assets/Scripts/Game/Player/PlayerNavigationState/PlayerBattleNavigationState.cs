@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerBattleNavigationState : PlayerNavigationState
 {
-    private static int kEnemyLayer = LayerMask.NameToLayer("Enemy");
+    private static int kEnemyLayer;
     private float wait_time_ = 0f;
+    private float knockback_speed_ = 0f;
+    private float knockback_acc_ = 0f;
+    private float knockback_freeze_time_ = 0f;
 
     public override void Init(PlayerController player)
     {
+        kEnemyLayer = LayerMask.NameToLayer("Enemy");
         player.kState = "PlayerBattleNavigationState";
         FindEnemy(player);
     }
@@ -19,24 +23,13 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
-        if(wait_time_ > 0f)
+        if (knockback_acc_ != 0f)
         {
-            wait_time_ -= Time.deltaTime;
-            return;
+            Knockback(player);
         }
-
-        if (player.TargetEnemy == null)
+        else
         {
-            FindEnemy(player);
-        }
-
-        if (player.NavAgent.isStopped == true)
-        {
-            if(player.TargetEnemy.IsDead)
-            {
-                player.TargetEnemy = null;
-                wait_time_ = 1f;
-            }
+            Navgation(player);
         }
     }
 
@@ -44,10 +37,25 @@ public class PlayerBattleNavigationState : PlayerNavigationState
     {
         if (other.gameObject.layer == kEnemyLayer)
         {
+            if (other.gameObject == player.TargetEnemy.gameObject)
+            {
+                player.NavAgent.isStopped = true;
+                player.TargetEnemy.OnBeginFight();
+            }
+            else if (other.gameObject.name.Equals("PunchCollider"))
+            {
+                Hitted(player);
+            }
+        }
+    }
+
+    public override void OnTriggerExit(PlayerController player, Collider other)
+    {
+        if (other.gameObject.layer == kEnemyLayer)
+        {
             if (other.GetComponent<EnemyController>() == player.TargetEnemy)
             {
-                // 目標にたどり着いた
-                player.NavAgent.isStopped = true;
+                player.TargetEnemy.OnExitFight();
             }
         }
     }
@@ -68,6 +76,65 @@ public class PlayerBattleNavigationState : PlayerNavigationState
             // enemyに向かって移動する
             player.NavAgent.SetDestination(player.TargetEnemy.transform.position);
             player.NavAgent.isStopped = false;
+        }
+    }
+
+    private void Navgation(PlayerController player)
+    {
+        if (wait_time_ > 0f)
+        {
+            wait_time_ -= Time.deltaTime;
+            return;
+        }
+
+        if (player.TargetEnemy == null)
+        {
+            FindEnemy(player);
+        }
+
+        if (player.NavAgent.isStopped == true)
+        {
+            if (player.TargetEnemy.IsDead)
+            {
+                player.TargetEnemy = null;
+                wait_time_ = 1f;
+            }
+        }
+    }
+
+    private void Hitted(PlayerController player)
+    {
+        // v0t = 2vpt0
+        float player_speed = player.NavAgent.speed;
+        knockback_speed_ = player.Parameter.KnockbackSpeed;
+        float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
+        knockback_acc_ = -knockback_speed_ / knockback_time;
+
+        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        camera_shake.Shake(player.Parameter.KnockbackCameraShakeRange, player.Parameter.KnockbackCameraShakeTime);
+    }
+
+    private void Knockback(PlayerController player)
+    {
+        if(knockback_freeze_time_ > 0f)
+        {
+            knockback_freeze_time_ -= Time.deltaTime;
+            if(knockback_freeze_time_ <= 0f)
+            {
+                knockback_speed_ = 0f;
+                knockback_acc_ = 0f;
+                player.NavAgent.isStopped = false;
+            }
+            return;
+        }
+
+        player.transform.position += -player.transform.forward * knockback_speed_ * Time.deltaTime;
+        knockback_speed_ += knockback_acc_ * Time.deltaTime;
+
+        if(knockback_speed_ < 0f)
+        {
+            knockback_freeze_time_ = player.Parameter.KnockbackFreezeTime;
         }
     }
 }
