@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿//#define HaveJoyCon
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,7 +14,8 @@ public class PlayerController : MonoBehaviour
         public bool right_punch;
         public bool mode_change;
         public bool ultra;
-        public bool charge;
+        public float left_charge;
+        public float right_charge;
     }
 
     public NavMeshAgent NavAgent { get; private set; }
@@ -35,6 +39,7 @@ public class PlayerController : MonoBehaviour
     
     public string kMode; // Debug表示
     public string kState; // Debug表示
+    [SerializeField] TextMesh kUi = null;
 
     /// <summary>
     /// 移動ステートの切り替え
@@ -66,6 +71,13 @@ public class PlayerController : MonoBehaviour
         current_mode_.Init(this);
     }
 
+    public void OnPunchHit()
+    {
+        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
+    }
+
     private void Start ()
     {
         MyAnimator = GetComponent<Animator>();
@@ -86,11 +98,13 @@ public class PlayerController : MonoBehaviour
 	
 	private void Update ()
     {
+        Parameter.Tick(Time.deltaTime);
         UpdateInput();
         UpdateAnimator();
         UpdateCharge();
         current_navigation_state_.Update(this);
         current_mode_.Update(this);
+        UpdateUi();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -108,11 +122,22 @@ public class PlayerController : MonoBehaviour
     // 入力
     private void UpdateInput()
     {
+#if HaveJoyCon
+        var input = GameManager.Instance.MyInput;
+        input_info_.left_punch = Input.GetKeyDown(KeyCode.Q) | input.GetPunchL();
+        input_info_.right_punch = Input.GetKeyDown(KeyCode.E) | input.GetPunchR();
+        input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
+        input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
+        input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
+        input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
+#else
         input_info_.left_punch = Input.GetKeyDown(KeyCode.Q);
         input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
         input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
-        input_info_.charge = Input.GetKey(KeyCode.LeftShift);
         input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
+        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? 10f : 0f;
+        input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 10f : 0f;
+#endif
     }
 
     // モーション
@@ -128,9 +153,20 @@ public class PlayerController : MonoBehaviour
         bool enable_charge_ = MyAnimator.GetFloat("EnableCharge") == 1f ? true : false;
         ik_controller_.SetActive(enable_charge_);
 
-        if(enable_charge_ && input_info_.charge)
+        if (enable_charge_)
         {
-            Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime);
+            ik_controller_.RotateLeft(-input_info_.left_charge);
+            ik_controller_.RotateRight(-input_info_.right_charge);
+            Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
+                * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
+            
         }
+    }
+
+    // Ui
+    private void UpdateUi()
+    {
+        kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
+        kUi.text += "\nTime : " + Parameter.Timer.ToString("000.00");
     }
 }
