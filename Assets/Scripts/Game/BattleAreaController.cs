@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattleAreaController : MonoBehaviour
 {
     private List<EnemyController> enemies_ = new List<EnemyController>();
+    public List<EnemyController> Enemies { get { return enemies_; } }
 
     public void Register(PlayerController player)
     {

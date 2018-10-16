@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,9 +29,13 @@ public class PlayerController : MonoBehaviour
     public PlayerThunderMode ThunderMode { get; private set; }
     public PlayerParameter Parameter { get; private set; }
     public GameObject PunchCollider { get; private set; }
+    public GameObject UltraCollider { get; private set; }
+    public PlayableDirector UltraController { get; private set; }
     public float Attack { get { return current_mode_.Attack(this); } }
     public bool ModeChange { get { return input_info_.mode_change; } }
     public bool Ultra { get { return input_info_.ultra; } }
+    public bool IsPlayingEvent = false;
+    public bool EnableUltraCollider = false;
 
     private PlayerIkController ik_controller_ = null;
     private PlayerNavigationState current_navigation_state_ = null;
@@ -85,6 +90,13 @@ public class PlayerController : MonoBehaviour
         NavAgent = GetComponent<NavMeshAgent>();
         Parameter = GetComponent<PlayerParameter>();
         PunchCollider = transform.Find("PunchCollider").gameObject;
+        PunchCollider.SetActive(false);
+        UltraCollider = transform.Find("UltraCollider").gameObject;
+        UltraCollider.SetActive(false);
+        UltraController = GetComponent<PlayableDirector>();
+        UltraController.Stop();
+        IsPlayingEvent = false;
+        EnableUltraCollider = false;
 
         FieldNavigationState = new PlayerFieldNavigationState();
         BattleNavigationState = new PlayerBattleNavigationState();
@@ -151,6 +163,8 @@ public class PlayerController : MonoBehaviour
     private void UpdateCharge()
     {
         bool enable_charge_ = MyAnimator.GetFloat("EnableCharge") == 1f ? true : false;
+        enable_charge_ = UltraController.state == PlayState.Playing ? false : enable_charge_;
+
         ik_controller_.SetActive(enable_charge_);
 
         if (enable_charge_)

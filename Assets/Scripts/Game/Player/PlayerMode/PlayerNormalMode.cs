@@ -21,7 +21,7 @@ public class PlayerNormalMode : PlayerMode
 
     public override void Update(PlayerController player)
     {
-        base.Update(player);
+        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
 
         if (player.ModeChange == true)
         {

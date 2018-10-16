@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerParameter : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class PlayerParameter : MonoBehaviour
     [SerializeField] float kChargeSpeed = 1f;
     [SerializeField] PunchInfo kPunchInfo = new PunchInfo();
     [SerializeField] KnockbackInfo kKnockbackInfo = new KnockbackInfo();
+    [SerializeField] CinemachineTargetGroup kUltraTargetGroup;
+    public float kTimeScale = 1f;
 
     public float MaxEnergy { get; private set; }
     public float CurrentEnergy { get; private set; }
@@ -44,6 +47,7 @@ public class PlayerParameter : MonoBehaviour
     public float KnockbackFreezeTime { get { return kKnockbackInfo.freezeTime; } }
     public float KnockbackCameraShakeRange { get { return kKnockbackInfo.cameraShakeRange; } }
     public float KnockbackCameraShakeTime { get { return kKnockbackInfo.cameraShakeTime; } }
+    public CinemachineTargetGroup UltraTargetGroup { get { return kUltraTargetGroup; } }
 
     public void ChangeEnergy(float amount)
     {
