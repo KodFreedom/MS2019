@@ -1398,6 +1398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 373414435}
   - component: {fileID: 373414434}
+  - component: {fileID: 373414436}
   m_Layer: 0
   m_Name: CM vcamFirstPerson2
   m_TagString: Untagged
@@ -1421,8 +1422,8 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 237199518}
-  m_Follow: {fileID: 237199518}
+  m_LookAt: {fileID: 653291443}
+  m_Follow: {fileID: 653291443}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -1436,14 +1437,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 373414433}
-  m_LocalRotation: {x: -0.059089486, y: 0.8743289, z: 0.11016712, w: 0.468957}
-  m_LocalPosition: {x: -1.4350159, y: 0.93877393, z: 1.0941167}
+  m_LocalRotation: {x: 0.13035527, y: 0.83609873, z: -0.22581398, w: 0.48265362}
+  m_LocalPosition: {x: -2.0629816, y: 3.1087022, z: 2.861613}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1952956977}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &373414436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 373414433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c47eeef59b87c2499a792124f5618b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &379124241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1617,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4218746163019158, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
@@ -2521,6 +2533,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &653291443 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4070457501661144, guid: ef17805184f19d24aa64b82be07b4c61,
+    type: 2}
+  m_PrefabInternal: {fileID: 2065507547}
 --- !u!1 &663798232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,7 +3753,7 @@ Transform:
   m_Children:
   - {fileID: 416857752}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1036380162
 MonoBehaviour:
@@ -5724,7 +5741,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1626893684
 MonoBehaviour:
@@ -5838,7 +5855,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1633954588
 GameObject:
@@ -7096,7 +7113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: -1.21, y: 1.2, z: 1.22}
+  m_FollowOffset: {x: -2.01, y: 1.37, z: 1.22}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -7114,7 +7131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 1.64, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
   m_HorizontalDamping: 0
@@ -7303,13 +7320,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2006104801}
   - component: {fileID: 2006104800}
+  - component: {fileID: 2006104802}
   m_Layer: 0
   m_Name: CM vcamTargetGroup1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2006104800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7325,7 +7343,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 9
   m_LookAt: {fileID: 1626893683}
   m_Follow: {fileID: 1626893683}
   m_Lens:
@@ -7341,14 +7359,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2006104799}
-  m_LocalRotation: {x: 0.21144512, y: 0.3937498, z: -0.09358239, w: 0.8896597}
-  m_LocalPosition: {x: -19.045, y: 19.935963, z: -17.457834}
+  m_LocalRotation: {x: 0.20652016, y: 0.4157503, z: -0.097532056, w: 0.8803344}
+  m_LocalPosition: {x: -19.045, y: 20, z: -18.115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 652046733}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2006104802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2006104799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c47eeef59b87c2499a792124f5618b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2011667326
 GameObject:
   m_ObjectHideFlags: 0
@@ -7736,7 +7765,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4636169490710206, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 320234851218288004, guid: ef17805184f19d24aa64b82be07b4c61,
         type: 2}
@@ -7768,6 +7797,21 @@ Prefab:
       propertyPath: kUltraTargetGroup
       value: 
       objectReference: {fileID: 1626893684}
+    - target: {fileID: 114944353055695090, guid: ef17805184f19d24aa64b82be07b4c61,
+        type: 2}
+      propertyPath: kUltraInfo.cameraShakeRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944353055695090, guid: ef17805184f19d24aa64b82be07b4c61,
+        type: 2}
+      propertyPath: kUltraInfo.cameraShakeTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944353055695090, guid: ef17805184f19d24aa64b82be07b4c61,
+        type: 2}
+      propertyPath: kPunchInfo.cameraShakeTime
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
   m_IsPrefabAsset: 0

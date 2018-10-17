@@ -24,10 +24,18 @@ public class PlayerParameter : MonoBehaviour
         public float cameraShakeTime;
     }
 
+    [System.Serializable]
+    private struct UltraInfo
+    {
+        public float cameraShakeRange;
+        public float cameraShakeTime;
+    }
+
     [SerializeField] float kThunderModeCost = 1f;
     [SerializeField] float kUltraCost = 50f;
     [SerializeField] float kChargeSpeed = 1f;
     [SerializeField] PunchInfo kPunchInfo = new PunchInfo();
+    [SerializeField] UltraInfo kUltraInfo = new UltraInfo();
     [SerializeField] KnockbackInfo kKnockbackInfo = new KnockbackInfo();
     [SerializeField] CinemachineTargetGroup kUltraTargetGroup;
     public float kTimeScale = 1f;
@@ -41,6 +49,8 @@ public class PlayerParameter : MonoBehaviour
     public float AttackThunder { get { return kPunchInfo.attackThunder; } }
     public float PunchCameraShakeRange { get { return kPunchInfo.cameraShakeRange; } }
     public float PunchCameraShakeTime { get { return kPunchInfo.cameraShakeTime; } }
+    public float UltraCameraShakeRange { get { return kUltraInfo.cameraShakeRange; } }
+    public float UltraCameraShakeTime { get { return kUltraInfo.cameraShakeTime; } }
     public float Timer { get; private set; }
     public float KnockbackSpeed { get { return kKnockbackInfo.speed; } }
     public float KnockbackReturnTime { get { return kKnockbackInfo.returnTime; } }

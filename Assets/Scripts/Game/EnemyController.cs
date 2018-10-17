@@ -114,7 +114,7 @@ public class EnemyController : MonoBehaviour
 
     private void HitByUltra()
     {
-        //player_.OnPunchHit();
+        player_.OnUltraHit();
 
         current_life_ = 0f;
         MyAnimator.SetBool("IsDead", true);

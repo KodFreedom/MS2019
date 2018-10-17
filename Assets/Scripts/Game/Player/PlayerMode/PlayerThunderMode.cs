@@ -74,7 +74,6 @@ public class PlayerThunderMode : PlayerMode
         }
 
         player.PunchCollider.SetActive(false);
-        player.IsPlayingEvent = true;
         player.UltraController.Play();
     }
 }

@@ -23,6 +23,9 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
+        base.Update(player);
+        if (player.IsPlayingEvent) return;
+
         if (knockback_acc_ != 0f)
         {
             Knockback(player);
@@ -91,8 +94,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
         {
             FindEnemy(player);
         }
-
-        if (player.NavAgent.isStopped == true)
+        else
         {
             if (player.TargetEnemy.IsDead)
             {

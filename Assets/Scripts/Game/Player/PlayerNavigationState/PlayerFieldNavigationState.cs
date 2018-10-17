@@ -33,6 +33,7 @@ public class PlayerFieldNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
+        base.Update(player);
     }
 
     public override void OnTriggerEnter(PlayerController player, Collider other)

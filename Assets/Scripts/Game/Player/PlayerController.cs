@@ -83,6 +83,13 @@ public class PlayerController : MonoBehaviour
         camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
     }
 
+    public void OnUltraHit()
+    {
+        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
+    }
+
     private void Start ()
     {
         MyAnimator = GetComponent<Animator>();
@@ -110,6 +117,7 @@ public class PlayerController : MonoBehaviour
 	
 	private void Update ()
     {
+        Time.timeScale = Parameter.kTimeScale;
         Parameter.Tick(Time.deltaTime);
         UpdateInput();
         UpdateAnimator();
