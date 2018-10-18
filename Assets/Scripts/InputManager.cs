@@ -68,20 +68,21 @@ public class InputManager : MonoBehaviour
     private Joycon.Button? m_pressedButtonR;
 
     private const int JoyconType = 2;        // ジョイコン数
-    private const int FrameWaitArray = 200;  // 加速度を保持するフレーム
-    private Vector3[,] m_AccelBuff = new Vector3[JoyconType, FrameWaitArray];    // 加速度を保持
+    private const int FrameWaitArray = 200;  // 加速度を保持するフレーム数
+    private Vector3[,] m_AccelBuff = new Vector3[JoyconType, FrameWaitArray];   // 加速度を保持
     private Vector3[,] m_GyroBuff = new Vector3[JoyconType, FrameWaitArray];    // 回転速度を保持
     private bool[] m_IsPunch = new bool[JoyconType];    // パンチしたか
-    private bool m_IsSpecialSkill = false;    // 必殺技をしたか
-    private int m_PushLRWait = 0;
-
+    private bool m_IsSpecialSkill = false;  // 必殺技をしたか
+    private int m_PushLRWait = 0;           // 必殺技時、LRを離しても少しの間だったら出るようにするためのフレーム
+    private int m_JoyconRDelay = 5;         // 2つ目ジョイコンのずれフレーム
+    private bool[] m_IsVibrationPunchiHit = new bool[JoyconType];   // パンチヒットの振動をならしているか
+    private bool m_IsVibrationDamage = false;   // ダメージ受けた時の振動をならしているか
 
     private bool IsDebug = true;
     public GameObject m_DbgTextUI;
     public int m_DbgNumPunchi;
 
-
-
+    
     private void Start()
     {
         m_joycons = JoyconManager.Instance.j;
@@ -103,6 +104,9 @@ public class InputManager : MonoBehaviour
 
         m_IsSpecialSkill = false;
 
+        m_IsVibrationPunchiHit[0] = false;
+        m_IsVibrationPunchiHit[1] = false;
+
         m_DbgNumPunchi = 0;
 
     }
@@ -114,14 +118,12 @@ public class InputManager : MonoBehaviour
         Punch();
 
         SpecialSkill();
+        
+        VibrationUpdate();
 
-        //if (GetPunchL()) VibrationDamage();
-        if (GetPunchL()) VibrationPunchiShotL();
-        if (GetPunchR()) VibrationPunchiShotR();
-        //if (GetPunchL()) VibrationPunchiHitL();
-        //if (GetPunchR()) VibrationPunchiHitR();
+        SyncJoycon();
 
-        if (IsDebug) Dbg();
+        //if (IsDebug) Dbg();
     }
 
 
@@ -228,25 +230,37 @@ public class InputManager : MonoBehaviour
     {
         m_joyconR.SetRumble(width, height, power, time);
     }
-
-
-
-    /*public Vector3 GetMotionL(JOYCON_MOTION motion)
+    public void SetVibration(bool isLeft, float width, float height, float power, int time)
     {
-        switch(motion)
-        {
-            case JOYCON_MOTION.ACCLEL:
-                return m_joyconL.GetAccel();
+        if(isLeft == true) m_joyconL.SetRumble(width, height, power, time);
+        else m_joyconR.SetRumble(width, height, power, time);
+    }
 
-            case JOYCON_MOTION.GYRO:
-                return m_joyconL.GetGyro();
+    // パンチの振動をする
+    public void VibrationPunchiShotL()
+    {
+        SetVibrationL(300.0f, 300.0f, 0.7f, 60);
+    }
+    public void VibrationPunchiShotR()
+    {
+        SetVibrationR(300.0f, 300.0f, 0.7f, 60);
+    }
 
-            case JOYCON_MOTION.SLOPE:
-                return m_joyconL.GetVector().eulerAngles;
-        }
+    // パンチが当たった時の振動をする
+    public void VibrationPunchiHitL()
+    {
+        m_IsVibrationPunchiHit[0] = true;
+    }
+    public void VibrationPunchiHitR()
+    {
+        m_IsVibrationPunchiHit[1] = true;
+    }
 
-        return new Vector3(0.0f, 0.0f, 0.0f);
-    }*/
+    // ダメージを受けた時の振動をする
+    public void VibrationDamage()
+    {
+        m_IsVibrationDamage = true;
+    }
 
     // 後でクラス化したい
     private void Punch()
@@ -259,44 +273,34 @@ public class InputManager : MonoBehaviour
 
         for (int joyconType = 0; joyconType < 2; joyconType++)
         {
-
-            //if (GetPressButtonL(JOYCON_BUTTON.L))
-            //Debug.Log(m_joyconL.GetVector().eulerAngles );
-
-
-            /*float spoolUp = m_joyconL.GetVector().eulerAngles.y;    // 上を向いているとき、spoorUpは180近くになる(+-は初期角度による)
-            Debug.Log(spoolUp);
-            if (spoolUp < 160.0f || spoolUp > 200.0f)
-            {
-                Debug.Log("傾きが大きい");
-                return;
-            }*/
-
             // ジャイロが大きければ処理しない
             int GyroCount = 0;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 7; i++)
             {
-                if(m_GyroBuff[joyconType, i].magnitude > 5.0f)
+                if(m_GyroBuff[joyconType, i].magnitude > 12.0f)
                 {
-                    GyroCount++;
+                    //if(m_GyroBuff[joyconType, i].z < 19.0f)
+                    //{
+                        //Debug.Log("ジャイロが大きい：" + i + "   回転速度：" + m_GyroBuff[joyconType, i].magnitude + "Z回転：" + m_GyroBuff[joyconType, i].z);
+                        GyroCount++;
+                    //}
+                    //else
+                    //{
+                      //  Debug.Log("例外：" + i + "   回転速度：" + m_GyroBuff[joyconType, i].magnitude + "Z回転：" + m_GyroBuff[joyconType, i].z);
+                    //}
                 }
             }
-            if(GyroCount >= 18)
+            if(GyroCount >= 3)
             {
-                Debug.Log("ジャイロが大きい");
+                Debug.Log("ジャイロオーバー！");
                 continue;
             }
 
-
-            // ここに加速保管処理を入れると少し出やすくなる2018/10/11
-
-
-
-
+            
 
             float maxSpeed = -100.0f;   // 最大速度
             int AccelPlusCount = 0;     // 前に加速したフレーム数
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (m_AccelBuff[joyconType, i].y > 0.3f)
                 {
@@ -307,7 +311,7 @@ public class InputManager : MonoBehaviour
             }
 
             bool IsAccelPlus = false;   // 突き出す操作の成功可否
-            if (AccelPlusCount >= 3)
+            if (AccelPlusCount >= 5)
             {
                 IsAccelPlus = true;
             }
@@ -319,53 +323,15 @@ public class InputManager : MonoBehaviour
             {
                 m_IsPunch[joyconType] = true;
                 m_DbgNumPunchi++;
-                //if(joyconType == 0) SetVibrationL(150.0f, 120.0f, 0.6f, 10);
-                //else SetVibrationR(150.0f, 120.0f, 0.6f, 10);
 
                 float defference = maxSpeed - m_AccelBuff[joyconType, 0].y;
                 Debug.Log("パンチした！" + " 速さ:" + m_AccelBuff[joyconType, 0].y + " 最大の速さ:" + maxSpeed + " その差" + defference);
+                //Debug.Log("→回転速度：" + m_GyroBuff[joyconType, 0].magnitude + "Z回転：" + m_GyroBuff[joyconType, 0].z);
             }
-
-
-
-            // 瞬間的に突き出せばパンチとする
-            /*int speedPunchCount = 0;
-            for(int i = 0; i < 5; i++)
-            {
-                if(m_AccelBuff[i].magnitude > 1.80f)
-                {
-                    speedPunchCount++;
-                }
-            }
-            if(speedPunchCount >= 3)
-            {
-                m_IsPunch = true;
-                m_DbgNumPunchi++;
-                SetVibrationL(50.0f, 20.0f, 10.0f, 1);
-            }*/
-
-
-            // 長く前に突き出せばパンチとする
-            /*for (int i = 0; i < 15; i++)
-            {
-                if (m_AccelBuff[i].y > 0.3f)
-                {
-                    AccelPlusCount++;
-                }
-            }
-            if(AccelPlusCount >= 15)
-            {
-                m_IsPunch = true;
-                m_DbgNumPunchi++;
-                SetVibrationL(50.0f, 20.0f, 10.0f, 1);
-            }*/
-
-
-            
         }
-
     }
 
+    // 必殺技の処理
     private void SpecialSkill()
     {
         m_IsSpecialSkill = false;
@@ -375,7 +341,7 @@ public class InputManager : MonoBehaviour
 
         if (GetPressButtonL(JOYCON_BUTTON_LEFT.L) == true && GetPressButtonR(JOYCON_BUTTON_RIGHT.R) == true)
         {
-            m_PushLRWait = 60;
+            m_PushLRWait = 15;
         }
 
         m_PushLRWait--;
@@ -383,22 +349,20 @@ public class InputManager : MonoBehaviour
 
         if (m_PushLRWait <= 0) return;
 
-
-
+        
         int AccelCount = 0;
         int GyroCount = 0;
-        
+
 
         for (int joyconType = 0; joyconType < 2; joyconType++)
         {
             float minSpeed = 100.0f;   // 最小速度
             int AccelPlusCount = 0;
-            for (int i = 0 + (1 - joyconType) * 5; i < 20 + (1 - joyconType) * 5; i++)
+            for (int i = 0 + (1 - joyconType) * m_JoyconRDelay; i < 20 + (1 - joyconType) * m_JoyconRDelay; i++)
             {
                 if (m_AccelBuff[joyconType, i].x < 0.2f)
                 {
                     AccelPlusCount++;
-                    //Debug.Log("成功:" + AccelPlusCount + " 速さ:" + m_AccelBuff[joyconType, i].x);
                 }
                 if (minSpeed > m_AccelBuff[joyconType, i].x) minSpeed = m_AccelBuff[joyconType, i].x;
             }
@@ -408,54 +372,42 @@ public class InputManager : MonoBehaviour
             {
                 IsAccelPlus = true;
             }
-            
 
             // 振り下ろしつつ、最後に止めたときに必殺技
-            if (minSpeed - m_AccelBuff[joyconType, (1 - joyconType) * 5].x < -1.0 && m_AccelBuff[joyconType, (1 - joyconType) * 5].x > 0.2f && IsAccelPlus == true)
+            if (minSpeed - m_AccelBuff[joyconType, (1 - joyconType) * m_JoyconRDelay].x < -1.0 && m_AccelBuff[joyconType, (1 - joyconType) * m_JoyconRDelay].x > 0.2f && IsAccelPlus == true)
             {
                 AccelCount++;
-                //m_DbgNumPunchi++;
-                //if (joyconType == 0) SetVibrationL(350.0f, 320.0f, 0.6f, 20);
-                //else SetVibrationR(350.0f, 320.0f, 0.6f, 20);
-
-                //float defference = maxSpeed - m_AccelBuff[joyconType, 0].x;
-                Debug.Log("必殺技成功カウントプラス");
-
+                //Debug.Log("必殺技加速成功カウントプラス");
             }
 
-
+            for (int i = 0 + (1 - joyconType) * m_JoyconRDelay; i < 3 + (1 - joyconType) * m_JoyconRDelay; i++)
+            {
+                if (m_GyroBuff[joyconType, (1 - joyconType) * m_JoyconRDelay].z > 4.0f)
+                {
+                    GyroCount++;
+                    //Debug.Log("必殺技回転成功カウントプラス");
+                    break;
+                }
+            }
         }
         if (AccelCount >= 2)
         {
-            //float AccelXLeft = m_AccelBuff[0, 15].x;
-            //float AccelXRight = m_AccelBuff[1, 0].x;
-            //float AccelXLRDiff = AccelXLeft - AccelXRight;
-
-            //if (AccelXLRDiff < 0.2f && AccelXLRDiff > -0.2f)
-            //{
-
-
-
-            if (m_GyroBuff[0, 5].z > 4.0f && m_GyroBuff[1, 0].z > 4.0f)
+            //Debug.Log("アクセル成功！" + m_AccelBuff[0, m_JoyconRDelay] + "  " + m_AccelBuff[1, 0]);
+            if (GyroCount >= 2)
             {
                 m_IsSpecialSkill = true;
-                SetVibrationL(350.0f, 320.0f, 0.8f, 80);
-                SetVibrationR(350.0f, 320.0f, 0.8f, 80);
                 Debug.Log("必殺技！");
-                Debug.Log(m_GyroBuff[0, 5] + "  " + m_GyroBuff[1, 0]);
+                Debug.Log(m_GyroBuff[0, m_JoyconRDelay] + "  " + m_GyroBuff[1, 0]);
             }
             else
             {
-                Debug.Log("ジャイロが小さい！");
-                Debug.Log(m_GyroBuff[0, 5] + "  " + m_GyroBuff[1, 0]);
+                //Debug.Log("ジャイロカウントが足りない！" + m_GyroBuff[0, m_JoyconRDelay] + "  " + m_GyroBuff[1, 0]);
             }
-
-
-            //}
+            
 
         }
 
-        
+
     }
 
     // フレーム保管の更新
@@ -485,42 +437,169 @@ public class InputManager : MonoBehaviour
             }
         }
 
-        Debug.Log("加速度Left：" + m_AccelBuff[0, 0] + "   回転速度Left：" + m_GyroBuff[0, 0]);
+        //Debug.Log("加速度Left：" + m_AccelBuff[0, 0] + "   回転速度Left：" + m_GyroBuff[0, 0]);
         //Debug.Log("傾き：" + GetSlopeL().eulerAngles / 360.0f);
     }
 
-
-    public void VibrationPunchiShotL()
+    private int delayFrame = 0;
+    // ジョイコンの同期を取る
+    private void SyncJoycon()
     {
-        //SetVibrationL(17.0f, 4.0f, 0.9f, 120);
-        SetVibrationL(300.0f, 300.0f, 0.9f, 60);
-    }
-    public void VibrationPunchiShotR()
-    {
-        SetVibrationR(300.0f, 300.0f, 0.9f, 60);
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_RIGHT))
+        {
+            delayFrame = 0;
+        }
+
+            if (GetPressButtonL(JOYCON_BUTTON_LEFT.ZL) && GetPressButtonR(JOYCON_BUTTON_RIGHT.ZR))
+        {
+            if (GetPressButtonL(JOYCON_BUTTON_LEFT.DPAD_RIGHT))
+            {
+                if (GetPressButtonR(JOYCON_BUTTON_RIGHT.DPAD_A))
+                {
+                    m_JoyconRDelay = delayFrame;
+                    Debug.Log("右ジョイコンの遅延：" + delayFrame);
+                }
+                else
+                {
+                    delayFrame++;
+                }
+            }
+            else
+            {
+                
+            }
+        }
     }
 
-    public void VibrationPunchiHitL()
+    // 振動処理の更新
+    private void VibrationUpdate()
     {
-        SetVibrationL(180.0f, 180.0f, 0.6f, 240);
+        VibrationPunchiHitUpdate();
+        VibrationDamageUpdate();
     }
-    public void VibrationPunchiHitR()
+    
+
+    private int[] VibCountPunch = new int[JoyconType];
+    // パンチヒット時の振動処理
+    private void VibrationPunchiHitUpdate()
     {
-        SetVibrationR(180.0f, 180.0f, 0.6f, 240);
+        for(int i = 0; i < JoyconType; i++)
+        {
+            if (m_IsVibrationPunchiHit[i] == false) continue;
+
+            bool isLeft = false;
+            if (i == 0) isLeft = true;
+            else isLeft = false;
+
+            if (VibCountPunch[i] < 3)
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.1f, 1);
+            }
+            else if (VibCountPunch[i] < 5)
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.4f, 1);
+            }
+            else if (VibCountPunch[i] < 12)
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.2f, 1);
+            }
+            else if (VibCountPunch[i] < 15)
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.1f, 1);
+            }
+            else
+            {
+                VibCountPunch[i] = 0;
+                m_IsVibrationPunchiHit[i] = false;
+            }
+
+            VibCountPunch[i]++;
+        }
+
+        
     }
 
-    public void VibrationDamage()
+    private int VibCountDamage = 0;
+    // ダメージを受けた時の振動処理
+    private void VibrationDamageUpdate()
     {
-        SetVibrationL(188.0f, 183.0f, 0.3f, 240);
-        SetVibrationR(188.0f, 183.0f, 0.3f, 240);
+        if (m_IsVibrationDamage == false) return;
+
+
+        if (VibCountDamage < 3)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.2f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.2f, 1);
+        }
+        else if (VibCountDamage < 5)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.6f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.6f, 1);
+        }
+        else if (VibCountDamage < 8)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.3f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.3f, 1);
+        }
+        else if (VibCountDamage < 10)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.5f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.5f, 1);
+        }
+        else if (VibCountDamage < 18)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.2f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.2f, 1);
+        }
+        else if (VibCountDamage < 24)
+        {
+            SetVibrationL(180.0f, 180.0f, 0.1f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.1f, 1);
+        }
+        else
+        {
+            VibCountDamage = 0;
+            m_IsVibrationDamage = false;
+        }
+
+        VibCountDamage++;
     }
 
 
+    private float dbgVib = 0.0f;
     private void Dbg()
     {
         Text DbgTextUI = m_DbgTextUI.GetComponent<Text>();
 
         DbgTextUI.text = m_DbgNumPunchi.ToString();
+
+
+        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_B))
+        {
+            VibrationDamage();
+        }
+        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_Y))
+        {
+            VibrationPunchiHitR();
+        }
+        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_X))
+        {
+            VibrationPunchiShotR();
+        }
+
+
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_RIGHT))
+        {
+            VibrationPunchiHitL();
+        }
+        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_A))
+        {
+            VibrationPunchiHitR();
+        }
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_UP))
+        {
+            VibrationDamage();
+        }
     }
 }
 

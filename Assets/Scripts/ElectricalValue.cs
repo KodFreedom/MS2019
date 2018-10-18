@@ -67,7 +67,7 @@ public class ElectricalValue : MonoBehaviour {
         }
 
 
-
+        /*
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_UP))
         {
             testVib.y -= 1.0f;
@@ -102,9 +102,9 @@ public class ElectricalValue : MonoBehaviour {
         {
             powerVib += 0.01f;
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
-        }
+        }*/
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.ZL))
+        /*if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.ZL))
         {
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
@@ -112,7 +112,7 @@ public class ElectricalValue : MonoBehaviour {
         if (inputManager.GetTriggerButtonL(InputManager.JOYCON_BUTTON_LEFT.L))
         {
             inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
-        }
+        }*/
 
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.MINUS))
