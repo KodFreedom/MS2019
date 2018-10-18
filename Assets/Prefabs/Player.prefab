@@ -282,6 +282,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1239067573812382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4033235508305420}
+  - component: {fileID: 135402673675411966}
+  m_Layer: 11
+  m_Name: UltraCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1239895869041600
 GameObject:
   m_ObjectHideFlags: 1
@@ -1175,6 +1191,19 @@ Transform:
   m_Father: {fileID: 4636169490710206}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4033235508305420
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239067573812382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4636169490710206}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4044507770766794
 Transform:
   m_ObjectHideFlags: 1
@@ -1240,7 +1269,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1116835402338506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4636169490710206}
@@ -1944,6 +1973,7 @@ Transform:
   - {fileID: 4022748576595502}
   - {fileID: 4313296946655842}
   - {fileID: 4069562726449904}
+  - {fileID: 4033235508305420}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2317,6 +2347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfff958ae015f494ca8be9167667d191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayingEvent: 0
+  EnableUltraCollider: 0
   kMode: 
   kState: 
   kUi: {fileID: 102278664990901752}
@@ -2332,7 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kThunderModeCost: 5
-  kUltraCost: 50
+  kUltraCost: 5
   kChargeSpeed: 1
   kPunchInfo:
     attackNormal: 1
@@ -2345,6 +2377,8 @@ MonoBehaviour:
     freezeTime: 0.25
     cameraShakeRange: 0.25
     cameraShakeTime: 0.5
+  kUltraTargetGroup: {fileID: 0}
+  kTimeScale: 1
 --- !u!114 &114995781028874566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2359,6 +2393,18 @@ MonoBehaviour:
   kLookPosition: {fileID: 4135877528019130}
   kLeftHandIkHandler: {fileID: 4022748576595502}
   kRightHandIkHandler: {fileID: 4313296946655842}
+--- !u!135 &135402673675411966
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239067573812382}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135999476715050162
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2369,7 +2415,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136656993675274758
 CapsuleCollider:
@@ -2623,5 +2669,16 @@ PlayableDirector:
     value: {fileID: 95243540715538242}
   - key: {fileID: 114099846600946378, guid: 72d5b730c5448ed49a9248b252a411fb, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 114631762741670570, guid: 72d5b730c5448ed49a9248b252a411fb, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 0}
+    value: {fileID: 0}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - 555d238052096de4797c6fb715499630: {fileID: 0}
+    - 403f87a0c939d8844a9567162b938788: {fileID: 1851697818417826}
+    - 8b40ef81fbcaf33479eb19e4f9e13a00: {fileID: 0}
+    - 35821ea9304cbdc45af9e00337229e03: {fileID: 0}
+    - 13781fa1ab0b09e479560b812cf91f75: {fileID: 0}

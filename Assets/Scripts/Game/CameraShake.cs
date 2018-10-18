@@ -16,6 +16,7 @@ public class CameraShake : CinemachineExtension
 
     public void Shake(float max_range, float max_time)
     {
+        if (max_time_ != 0f) return;
         SetParameter(max_range, max_time, 0f);
     }
 

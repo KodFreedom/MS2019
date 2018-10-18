@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float kTimeToAttack = 3f;
+    public Animator MyAnimator { get; private set; }
     private static int kPlayerLayer;
     private float current_life_ = 3f;
     private PlayerController player_ = null;
-    private Animator animator_ = null;
     private float attack_timer_ = 0f;
     private GameObject punch_collider_ = null;
 
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     {
         kPlayerLayer = LayerMask.NameToLayer("Player");
         transform.parent.GetComponent<BattleAreaController>().Register(this);
-        animator_ = GetComponent<Animator>();
+        MyAnimator = GetComponent<Animator>();
         punch_collider_ = transform.Find("PunchCollider").gameObject;
     }
 	
@@ -55,10 +55,16 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == kPlayerLayer
-            && other.gameObject.name.Equals("PunchCollider"))
+        if(other.gameObject.layer == kPlayerLayer)
         {
-            Hitted();
+            if(other.gameObject.name.Equals("PunchCollider"))
+            {
+                HitByPunch();
+            }
+            else if (other.gameObject.name.Equals("UltraCollider"))
+            {
+                HitByUltra();
+            }
         }
     }
 
@@ -73,23 +79,23 @@ public class EnemyController : MonoBehaviour
         {
             attack_timer_ -= Time.deltaTime;
             
-            if(animator_.GetBool("IsHitted") == true
-                || animator_.GetBool("IsAttack") == true)
+            if(MyAnimator.GetBool("IsHitted") == true
+                || MyAnimator.GetBool("IsAttack") == true)
             {
                 attack_timer_ = kTimeToAttack;
             }
 
             if(attack_timer_ <= 0f)
             {
-                animator_.SetBool("IsAttack", true);
+                MyAnimator.SetBool("IsAttack", true);
                 attack_timer_ = kTimeToAttack;
             }
         }
 
-        punch_collider_.SetActive(animator_.GetFloat("EnablePunchCollider") == 1f);
+        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") == 1f);
     }
 
-    private void Hitted()
+    private void HitByPunch()
     {
         player_.OnPunchHit();
 
@@ -98,11 +104,19 @@ public class EnemyController : MonoBehaviour
         if (current_life_ <= 0f)
         {
             current_life_ = 0f;
-            animator_.SetBool("IsDead", true);
+            MyAnimator.SetBool("IsDead", true);
         }
         else
         {
-            animator_.SetBool("IsHitted", true);
+            MyAnimator.SetBool("IsHitted", true);
         }
+    }
+
+    private void HitByUltra()
+    {
+        player_.OnUltraHit();
+
+        current_life_ = 0f;
+        MyAnimator.SetBool("IsDead", true);
     }
 }

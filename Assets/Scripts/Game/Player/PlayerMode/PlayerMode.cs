@@ -10,10 +10,7 @@ public abstract class PlayerMode
 
     public abstract void Uninit(PlayerController player);
 
-    public virtual void Update(PlayerController player)
-    {
-        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
-    }
+    public virtual void Update(PlayerController player) { }
 
     public virtual void OnTriggerEnter(PlayerController player, Collider other) { }
 
