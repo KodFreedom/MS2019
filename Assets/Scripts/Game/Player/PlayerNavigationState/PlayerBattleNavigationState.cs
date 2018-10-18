@@ -112,9 +112,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
         float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
         knockback_acc_ = -knockback_speed_ / knockback_time;
 
-        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
-        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
-        camera_shake.Shake(player.Parameter.KnockbackCameraShakeRange, player.Parameter.KnockbackCameraShakeTime);
+        player.OnDamaged();
     }
 
     private void Knockback(PlayerController player)

@@ -9,6 +9,8 @@ public class PlayerIkController : MonoBehaviour
     public Transform kLeftHandIkHandler = null;
     public Transform kRightHandIkHandler = null;
 
+    [SerializeField] Vector2 kRotateRangeL = Vector2.zero;
+    [SerializeField] Vector2 kRotateRangeR = Vector2.zero;
     private Animator animator_ = null;
     private float weight_ = 1f;
     private Vector3 left_hand_euler_ = Vector3.zero;
@@ -24,11 +26,13 @@ public class PlayerIkController : MonoBehaviour
     public void RotateLeft(float amount)
     {
         left_hand_euler_.z += amount;
+        left_hand_euler_.z = Mathf.Clamp(left_hand_euler_.z, kRotateRangeL.x, kRotateRangeL.y);
     }
 
     public void RotateRight(float amount)
     {
         right_hand_euler_.z += amount;
+        right_hand_euler_.z = Mathf.Clamp(right_hand_euler_.z, kRotateRangeR.x, kRotateRangeR.y);
     }
 
     // Use this for initialization

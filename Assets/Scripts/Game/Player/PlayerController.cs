@@ -19,6 +19,14 @@ public class PlayerController : MonoBehaviour
         public float right_charge;
     }
 
+    private struct VibrationFlag
+    {
+        public bool left_punch_hit;
+        public bool right_punch_hit;
+        public bool damaged;
+        public bool ultra_hit;
+    }
+
     public NavMeshAgent NavAgent { get; private set; }
     public Animator MyAnimator { get; private set; }
     public BattleAreaController BattleArea { get; set; }
@@ -41,7 +49,8 @@ public class PlayerController : MonoBehaviour
     private PlayerNavigationState current_navigation_state_ = null;
     private PlayerMode current_mode_ = null;
     private InputInfo input_info_;
-    
+    private VibrationFlag vibration_flag_;
+
     public string kMode; // Debug表示
     public string kState; // Debug表示
     [SerializeField] TextMesh kUi = null;
@@ -81,6 +90,15 @@ public class PlayerController : MonoBehaviour
         var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
+
+        if(MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch"))
+        {
+            vibration_flag_.left_punch_hit = true;
+        }
+        else
+        {
+            vibration_flag_.right_punch_hit = true;
+        }
     }
 
     public void OnUltraHit()
@@ -88,6 +106,15 @@ public class PlayerController : MonoBehaviour
         var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
+    }
+
+    public void OnDamaged()
+    {
+        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        camera_shake.Shake(Parameter.KnockbackCameraShakeRange, Parameter.KnockbackCameraShakeTime);
+
+        vibration_flag_.damaged = true;
     }
 
     private void Start ()
@@ -122,6 +149,7 @@ public class PlayerController : MonoBehaviour
         UpdateInput();
         UpdateAnimator();
         UpdateCharge();
+        UpdateVibration();
         current_navigation_state_.Update(this);
         current_mode_.Update(this);
         UpdateUi();
@@ -146,7 +174,7 @@ public class PlayerController : MonoBehaviour
         var input = GameManager.Instance.MyInput;
         input_info_.left_punch = Input.GetKeyDown(KeyCode.Q) | input.GetPunchL();
         input_info_.right_punch = Input.GetKeyDown(KeyCode.E) | input.GetPunchR();
-        input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
+        input_info_.ultra = Input.GetKeyDown(KeyCode.Space) | input.GetSpecialSkill();
         input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
         input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
         input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
@@ -155,7 +183,7 @@ public class PlayerController : MonoBehaviour
         input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
         input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
         input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
-        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? 10f : 0f;
+        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f;
         input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 10f : 0f;
 #endif
     }
@@ -165,6 +193,41 @@ public class PlayerController : MonoBehaviour
     {
         MyAnimator.SetBool("LeftPunch", input_info_.left_punch);
         MyAnimator.SetBool("RightPunch", input_info_.right_punch);
+    }
+
+    // 振動
+    private void UpdateVibration()
+    {
+#if HaveJoyCon
+        var input = GameManager.Instance.MyInput;
+        if (MyAnimator.GetBool("OnLeftPunchEnter"))
+        {
+            input.VibrationPunchiShotL();
+        }
+
+        if (MyAnimator.GetBool("OnRightPunchEnter"))
+        {
+            input.VibrationPunchiShotR();
+        }
+
+        if(vibration_flag_.left_punch_hit)
+        {
+            vibration_flag_.left_punch_hit = false;
+            input.VibrationPunchiHitL();
+        }
+
+        if (vibration_flag_.right_punch_hit)
+        {
+            vibration_flag_.right_punch_hit = false;
+            input.VibrationPunchiHitR();
+        }
+
+        if (vibration_flag_.damaged)
+        {
+            vibration_flag_.damaged = false;
+            input.VibrationDamage();
+        }
+#endif
     }
 
     // 充電
@@ -181,7 +244,6 @@ public class PlayerController : MonoBehaviour
             ik_controller_.RotateRight(-input_info_.right_charge);
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
                 * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
-            
         }
     }
 
