@@ -11,8 +11,10 @@ public class ElectricalValue : MonoBehaviour {
 
     private float Energy;
 
-    private Vector2 testVib = new Vector2(0.0f, 0.0f);
-    private float powerVib = 0.0f;
+    private Vector2 testVib = new Vector2(150.0f, 120.0f);
+    private float powerVib = 0.6f;
+
+    private int VibTime = 10;
 
     void Start () {
         Energy = 0.0f;
@@ -65,47 +67,68 @@ public class ElectricalValue : MonoBehaviour {
         }
 
 
-
+        /*
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_UP))
         {
             testVib.y -= 1.0f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_LEFT))
         {
             testVib.x -= 1.0f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_DOWN))
         {
             testVib.y += 1.0f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.DPAD_RIGHT))
         {
             testVib.x += 1.0f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.SL))
         {
             powerVib -= 0.01f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
         if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.SR))
         {
             powerVib += 0.01f;
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
+        }*/
+
+        /*if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.ZL))
+        {
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
 
-        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.ZL))
+        if (inputManager.GetTriggerButtonL(InputManager.JOYCON_BUTTON_LEFT.L))
         {
-            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, 10);
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
+        }*/
+
+
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.MINUS))
+        {
+            VibTime++;
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
         }
+
+        if (inputManager.GetPressButtonL(InputManager.JOYCON_BUTTON_LEFT.STICK))
+        {
+            VibTime--;
+            inputManager.SetVibrationL(testVib.x, testVib.y, powerVib, VibTime);
+        }
+
+
+        //Debug.Log("振れ幅：" + testVib + "強さ：" + powerVib + "長さ：" + VibTime);
 
         /*if (inputManager.GetPunchL())
         {
