@@ -67,10 +67,14 @@ public class InputManager : MonoBehaviour
     //private int m_PushLRWait = 0;           // 必殺技時、LRを離しても少しの間だったら出るようにするためのフレーム
     private int m_JoyconRDelay = 5;         // 2つ目ジョイコンのずれフレーム
     private bool[] m_IsVibrationPunchiHit = new bool[JoyconType];   // パンチヒットの振動をならしているか
+    private bool[] m_IsVibrationPunchiShot = new bool[JoyconType];   // パンチした時の振動をならしているか
     private bool m_IsVibrationDamage = false;   // ダメージ受けた時の振動をならしているか
 	private bool m_IsVibrationSkill = false;   // ダメージ受けた時の振動をならしているか
     private bool m_KeybordMode = false;        // キーボードでパンチや必殺技を打てるようにするか
     private bool m_IsThunderMode = false;
+    private int m_VibDamageLoopCount = 3;
+    private int m_VibSkillTime = 20;
+    private int m_VibPunchShotTime = 5;
 
     private bool IsDebug = true;
     public GameObject m_DbgTextUI;
@@ -288,17 +292,20 @@ public class InputManager : MonoBehaviour
     }
 
     // パンチの振動をする
-    public void VibrationPunchiShotL()
+    public void VibrationPunchiShotL(int time = 5)
     {
 	    if(m_joycons == null || m_joyconL == null)
 	    	return;
-        SetVibrationL(300.0f, 300.0f, 0.7f, 60);
+
+        m_VibPunchShotTime = time;
+        m_IsVibrationPunchiShot[0] = true;
     }
-    public void VibrationPunchiShotR()
+    public void VibrationPunchiShotR(int time = 5)
     {
 	    if(m_joycons == null || m_joyconR == null)
 	    	return;
-        SetVibrationR(300.0f, 300.0f, 0.7f, 60);
+        m_VibPunchShotTime = time;
+        m_IsVibrationPunchiShot[0] = true;
     }
 
     // パンチが当たった時の振動をする
@@ -312,15 +319,17 @@ public class InputManager : MonoBehaviour
     }
 
     // ダメージを受けた時の振動をする
-    public void VibrationDamage()
+    public void VibrationDamage(int loopCount = 3)
     {
         m_IsVibrationDamage = true;
+        m_VibDamageLoopCount = loopCount;
     }
 
     // 必殺技時の振動をする
-    public void VibrationSkill()
+    public void VibrationSkill(int time = 20)
     {
         m_IsVibrationSkill = true;
+        m_VibSkillTime = time;
     }
 
     // 後でクラス化したい
@@ -557,9 +566,34 @@ public class InputManager : MonoBehaviour
         VibrationPunchiHitUpdate();
         VibrationDamageUpdate();
         VibrationSkillUpdate();
-
+        VibrationPunchiShotUpdate();
     }
-    
+
+    private int[] VibCountPunchShot = new int[JoyconType];
+    // パンチヒット時の振動処理
+    private void VibrationPunchiShotUpdate()
+    {
+        for (int i = 0; i < JoyconType; i++)
+        {
+            if (m_IsVibrationPunchiShot[i] == false) continue;
+
+            bool isLeft = false;
+            if (i == 0) isLeft = true;
+            else isLeft = false;
+
+            if (VibCountPunchShot[i] < m_VibPunchShotTime) // フェードアウト
+            {
+                SetVibration(isLeft, 300.0f, 300.0f, 0.7f, 1);
+            }
+            else
+            {
+                VibCountPunchShot[i] = 0;
+                m_IsVibrationPunchiShot[i] = false;
+            }
+
+            VibCountPunchShot[i]++;
+        }
+    }
 
     private int[] VibCountPunch = new int[JoyconType];
     // パンチヒット時の振動処理
@@ -573,19 +607,19 @@ public class InputManager : MonoBehaviour
             if (i == 0) isLeft = true;
             else isLeft = false;
 
-            if (VibCountPunch[i] < 2)
-            {
-                SetVibration(isLeft, 180.0f, 180.0f, 0.1f, 1);
-            }
-            else if (VibCountPunch[i] < 4)
-            {
-                SetVibration(isLeft, 180.0f, 180.0f, 0.4f, 1);
-            }
-            else if (VibCountPunch[i] < 12)
+            if (VibCountPunch[i] < 2)   // フェードイン
             {
                 SetVibration(isLeft, 180.0f, 180.0f, 0.2f, 1);
             }
-            else if (VibCountPunch[i] < 15)
+            else if (VibCountPunch[i] < 6)  // 拳に来る振動
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.45f, 1);
+            }
+            else if (VibCountPunch[i] < 10) // 振動引き
+            {
+                SetVibration(isLeft, 180.0f, 180.0f, 0.2f, 1);
+            }
+            else if (VibCountPunch[i] < 12) // フェードアウト
             {
                 SetVibration(isLeft, 180.0f, 180.0f, 0.1f, 1);
             }
@@ -597,8 +631,6 @@ public class InputManager : MonoBehaviour
 
             VibCountPunch[i]++;
         }
-
-        
     }
 
     private int VibCountDamage = 0;
@@ -608,32 +640,22 @@ public class InputManager : MonoBehaviour
         if (m_IsVibrationDamage == false) return;
 
 
-        if (VibCountDamage < 3)
+        if (VibCountDamage < 2)     // フェードイン
         {
             SetVibrationL(180.0f, 180.0f, 0.2f, 1);
             SetVibrationR(180.0f, 180.0f, 0.2f, 1);
         }
-        else if (VibCountDamage < 5)
+        else if (VibCountDamage < 4 + (m_VibDamageLoopCount - 1) * 4 && (VibCountDamage - 2) % 4 < 2 )    // 強い揺れ
         {
-            SetVibrationL(180.0f, 180.0f, 0.6f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.6f, 1);
+            SetVibrationL(180.0f, 180.0f, 0.55f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.55f, 1);
         }
-        else if (VibCountDamage < 8)
+        else if (VibCountDamage < 6 + (m_VibDamageLoopCount - 1) * 4 && (VibCountDamage - 2) % 4 >= 2)    // 谷
         {
-            SetVibrationL(180.0f, 180.0f, 0.3f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.3f, 1);
+            SetVibrationL(180.0f, 180.0f, 0.15f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.15f, 1);
         }
-        else if (VibCountDamage < 10)
-        {
-            SetVibrationL(180.0f, 180.0f, 0.5f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.5f, 1);
-        }
-        else if (VibCountDamage < 18)
-        {
-            SetVibrationL(180.0f, 180.0f, 0.2f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.2f, 1);
-        }
-        else if (VibCountDamage < 24)
+        else if (VibCountDamage < 6 + (m_VibDamageLoopCount - 1) * 4 + 10)   // フェードアウト
         {
             SetVibrationL(180.0f, 180.0f, 0.1f, 1);
             SetVibrationR(180.0f, 180.0f, 0.1f, 1);
@@ -654,35 +676,25 @@ public class InputManager : MonoBehaviour
         if (m_IsVibrationSkill == false) return;
 
 
-        if (VibCountSkill < 3)
+        if (VibCountSkill < 1)  // フェードイン
         {
             SetVibrationL(180.0f, 180.0f, 0.2f, 1);
             SetVibrationR(180.0f, 180.0f, 0.2f, 1);
         }
-        else if (VibCountSkill < 5)
+        else if (VibCountSkill < 6) // 強い揺れ
         {
-            SetVibrationL(180.0f, 180.0f, 0.6f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.6f, 1);
+            SetVibrationL(180.0f, 180.0f, 0.7f, 1);
+            SetVibrationR(180.0f, 180.0f, 0.7f, 1);
         }
-        else if (VibCountSkill < 8)
+        else if (VibCountSkill < m_VibSkillTime + 7)    // 電撃持続
         {
-            SetVibrationL(180.0f, 180.0f, 0.3f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.3f, 1);
+            SetVibrationL(60.0f, 120.0f, 0.9f, 1);
+            SetVibrationR(60.0f, 120.0f, 0.9f, 1);
         }
-        else if (VibCountSkill < 10)
+        else if (VibCountSkill < m_VibSkillTime + 7 + 10)    // フェードアウト
         {
-            SetVibrationL(180.0f, 180.0f, 0.5f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.5f, 1);
-        }
-        else if (VibCountSkill < 18)
-        {
-            SetVibrationL(180.0f, 180.0f, 0.2f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.2f, 1);
-        }
-        else if (VibCountSkill < 24)
-        {
-            SetVibrationL(180.0f, 180.0f, 0.1f, 1);
-            SetVibrationR(180.0f, 180.0f, 0.1f, 1);
+            SetVibrationL(60.0f, 120.0f, 0.2f, 1);
+            SetVibrationR(60.0f, 120.0f, 0.2f, 1);
         }
         else
         {
@@ -719,31 +731,25 @@ public class InputManager : MonoBehaviour
         DbgTextUI.text = m_DbgNumPunchi.ToString();
 
 
-        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_B))
-        {
-            VibrationDamage();
-        }
-        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_Y))
-        {
-            VibrationPunchiHitR();
-        }
-        if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_X))
-        {
-            VibrationPunchiShotR();
-        }
-
-
-        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_RIGHT))
-        {
-            VibrationPunchiHitL();
-        }
         if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_A))
         {
             VibrationPunchiHitR();
         }
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_RIGHT))
+        {
+            VibrationPunchiHitL();
+        }
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_LEFT))
+        {
+            VibrationPunchiShotL();
+        }
         if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_UP))
         {
             VibrationDamage();
+        }
+        if (GetTriggerButtonL(JOYCON_BUTTON_LEFT.DPAD_DOWN))
+        {
+            VibrationSkill();
         }
 
         if (GetPunchL())
