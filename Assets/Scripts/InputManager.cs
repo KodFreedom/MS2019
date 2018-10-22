@@ -41,6 +41,14 @@ public class InputManager : MonoBehaviour
         ZR = 12,
     }
 
+    public enum JOYCON_KEYBOARD
+    {
+        PUNCH_L = KeyCode.A,        // 左パンチのキー
+        PUNCH_R = KeyCode.D,        // 右パンチのキー
+        SPECIAL_SKILL = KeyCode.S,  // 必殺技のキー
+        MODE_CHANGE = KeyCode.W     // 放電モード切替のキー
+    }
+
     private static readonly Joycon.Button[] m_buttons =
         Enum.GetValues(typeof(Joycon.Button)) as Joycon.Button[];
 
@@ -61,7 +69,8 @@ public class InputManager : MonoBehaviour
     private bool[] m_IsVibrationPunchiHit = new bool[JoyconType];   // パンチヒットの振動をならしているか
     private bool m_IsVibrationDamage = false;   // ダメージ受けた時の振動をならしているか
 	private bool m_IsVibrationSkill = false;   // ダメージ受けた時の振動をならしているか
-    private bool m_KeybordMode = false;
+    private bool m_KeybordMode = false;        // キーボードでパンチや必殺技を打てるようにするか
+    private bool m_IsThunderMode = false;
 
     private bool IsDebug = true;
     public GameObject m_DbgTextUI;
@@ -106,10 +115,14 @@ public class InputManager : MonoBehaviour
         Punch();
 
         SpecialSkill();
-        
+
+        ThunderModeUpdate();
+
         VibrationUpdate();
 
         SyncJoycon();
+
+        KeyboardDebug();
 
         if (IsDebug) Dbg();
     }
@@ -169,6 +182,18 @@ public class InputManager : MonoBehaviour
     public bool GetSpecialSkill()
     {
         return m_IsSpecialSkill;
+    }
+
+    // 放電モードかどうか取得
+    public bool GetThunderMode()
+    {
+        return m_IsThunderMode;
+    }
+
+    // 放電モードの状態を変更
+    public void SetThunderMode(bool mode)
+    {
+        m_IsThunderMode = mode;
     }
 
     // 加速度を取得
@@ -531,6 +556,8 @@ public class InputManager : MonoBehaviour
     {
         VibrationPunchiHitUpdate();
         VibrationDamageUpdate();
+        VibrationSkillUpdate();
+
     }
     
 
@@ -546,11 +573,11 @@ public class InputManager : MonoBehaviour
             if (i == 0) isLeft = true;
             else isLeft = false;
 
-            if (VibCountPunch[i] < 3)
+            if (VibCountPunch[i] < 2)
             {
                 SetVibration(isLeft, 180.0f, 180.0f, 0.1f, 1);
             }
-            else if (VibCountPunch[i] < 5)
+            else if (VibCountPunch[i] < 4)
             {
                 SetVibration(isLeft, 180.0f, 180.0f, 0.4f, 1);
             }
@@ -578,8 +605,6 @@ public class InputManager : MonoBehaviour
     // ダメージを受けた時の振動処理
     private void VibrationDamageUpdate()
     {
-
-
         if (m_IsVibrationDamage == false) return;
 
 
@@ -623,7 +648,7 @@ public class InputManager : MonoBehaviour
     }
 
 	private int VibCountSkill = 0;
-    // ダメージを受けた時の振動処理
+    // 必殺技時の振動処理
     private void VibrationSkillUpdate()
     {
         if (m_IsVibrationSkill == false) return;
@@ -668,7 +693,25 @@ public class InputManager : MonoBehaviour
         VibCountSkill ++;
     }
 
-    
+    private bool switchMode = false;
+    private void ThunderModeUpdate()
+    {
+        // LRを同時押しした瞬間のみモード切り替え
+        if (GetPressButtonL(JOYCON_BUTTON_LEFT.L) == true && GetPressButtonR(JOYCON_BUTTON_RIGHT.R) == true)
+        {
+            if (switchMode == false)
+                m_IsThunderMode = !m_IsThunderMode;
+
+            switchMode = true;
+        }
+        else
+        {
+            switchMode = false;
+        }
+    }
+
+
+
     private void Dbg()
     {
         Text DbgTextUI = m_DbgTextUI.GetComponent<Text>();
@@ -703,35 +746,62 @@ public class InputManager : MonoBehaviour
             VibrationDamage();
         }
 
-        if(GetPressButtonL(JOYCON_BUTTON_LEFT.L))
-            Debug.Log("加速度Left：" + m_AccelBuff[0, 0] + "   回転速度Left：" + m_GyroBuff[0, 0] + "   回転の大きさLeft：" + m_GyroBuff[0, 0].magnitude);
-    }
+        if (GetPunchL())
+        {
+            VibrationPunchiHitL();
+        }
 
-    // A・Dでパンチ Sで必殺技、Wでモード切替
+        if (GetPunchR())
+        {
+            VibrationPunchiHitR();
+        }
+
+        if (GetSpecialSkill())
+        {
+            VibrationSkill();
+        }
+
+        //if (GetPressButtonL(JOYCON_BUTTON_LEFT.L))
+        //    Debug.Log("加速度Left：" + m_AccelBuff[0, 0] + "   回転速度Left：" + m_GyroBuff[0, 0] + "   回転の大きさLeft：" + m_GyroBuff[0, 0].magnitude);
+
+        /*if (GetThunderMode())
+        {
+            Debug.Log("放電モード中！");
+        }
+        else
+        {
+            Debug.Log("放電モードしてない");
+        }*/
+    }
+    
     private void KeyboardDebug()
     {
         if (m_KeybordMode == false)
             return;
 
-        if (Input.GetKey(KeyCode.A) == true)
+        if (Input.GetKey((KeyCode)JOYCON_KEYBOARD.PUNCH_L) == true)
             m_IsPunch[0] = true;
         else
             m_IsPunch[0] = false;
 
-        if (Input.GetKey(KeyCode.D) == true)
+        if (Input.GetKey((KeyCode)JOYCON_KEYBOARD.PUNCH_R) == true)
             m_IsPunch[1] = true;
         else
             m_IsPunch[1] = false;
 
-        if (Input.GetKey(KeyCode.S) == true)
+        if (Input.GetKey((KeyCode)JOYCON_KEYBOARD.SPECIAL_SKILL) == true)
             m_IsSpecialSkill = true;
         else
             m_IsSpecialSkill = false;
 
-        //if (Input.GetKey(KeyCode.W) == true)
-            //m_IsSpecialSkill = true;
-        //else
-            //m_IsSpecialSkill = false;
+        /*if (Input.GetKey((KeyCode)JOYCON_KEYBOARD.MODE_CHANGE) == true)
+            m_IsSpecialSkill = true;
+        else
+            m_IsSpecialSkill = false;*/
+        
     }
+
+    
+
 }
 
