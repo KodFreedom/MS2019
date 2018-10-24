@@ -6,6 +6,8 @@ public abstract class PlayerNavigationState
 {
     private int previous_enable_navgation_ = -1;
 
+    public abstract string Name();
+
     public abstract void Init(PlayerController player);
 
     public abstract void Uninit(PlayerController player);

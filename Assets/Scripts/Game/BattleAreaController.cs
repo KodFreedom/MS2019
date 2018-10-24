@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BattleAreaController : MonoBehaviour
 {
     private List<EnemyController> enemies_ = new List<EnemyController>();
     public List<EnemyController> Enemies { get { return enemies_; } }
+    private PlayerController player_ = null;
+    private PlayableDirector enter_battle_event_ = null;
+    Dictionary<string, PlayableBinding> binding_dictionary_ = new Dictionary<string, PlayableBinding>();
 
-    public void Register(PlayerController player)
+    public void OnBattleAreaEnter(PlayerController player)
     {
+        player_ = player;
         foreach(var enemy in enemies_)
         {
             enemy.OnPlayerEntered(player);
         }
+
+        StartEvent();
+    }
+
+    public void OnBattleAreaClear()
+    {
+
     }
 
     public void Register(EnemyController enemy)
@@ -44,5 +56,47 @@ public class BattleAreaController : MonoBehaviour
         }
 
         return result;
+    }
+
+    private void Start()
+    {
+        enter_battle_event_ = GetComponent<PlayableDirector>();
+
+        if (enter_battle_event_)
+        {
+            foreach (var at in enter_battle_event_.playableAsset.outputs)
+            {
+                if (!binding_dictionary_.ContainsKey(at.streamName))
+                {
+                    binding_dictionary_.Add(at.streamName, at);
+                }
+            }
+        }
+    }
+
+    private void Update()
+    {
+        //if(enter_battle_event_)
+        //{
+        //    if(enter_battle_event_.state == PlayState.Playing
+        //        && player_.IsPlayingEvent == false)
+        //    {
+
+        //    }
+        //}
+    }
+
+    private void StartEvent()
+    {
+        if(enter_battle_event_)
+        {
+            player_.EventNavigationState.SetWaitTime(0.5f);
+            foreach (var enemy in enemies_)
+            {
+                enemy.SetWaitTime(0.5f);
+            }
+            enter_battle_event_.SetGenericBinding(binding_dictionary_["Player"].sourceObject, player_.MyAnimator);
+            enter_battle_event_.Play();
+        }
     }
 }

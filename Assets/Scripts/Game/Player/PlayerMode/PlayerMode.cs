@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class PlayerMode
 {
+    public abstract string Name();
+
     public abstract float Attack(PlayerController player);
 
     public abstract void Init(PlayerController player);

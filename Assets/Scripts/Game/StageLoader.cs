@@ -12,15 +12,21 @@ public class StageLoader : MonoBehaviour
 
     public void OnStageClear()
     {
-        if(previous_stage_)
+        current_stage_.GetComponent<StageController>().PrepareClearEvent();
+    }
+
+    public void OnStageChange()
+    {
+        if (previous_stage_)
         {
             Destroy(previous_stage_);
         }
-        
+
         previous_stage_ = current_stage_;
         current_stage_ = next_stage_;
         next_stage_ = LoadNextStage();
 
+        current_stage_.GetComponent<StageController>().PrepareStartEvent();
         InitBattleAreas(current_stage_);
     }
 
@@ -46,6 +52,8 @@ public class StageLoader : MonoBehaviour
 
     private void InitBattleAreas(GameObject stage)
     {
+        if (stage == null) return;
+
         var battle_areas = stage.transform.Find("BattleAreas").GetComponentsInChildren<BattleAreaController>();
         List<BattleAreaController> result = new List<BattleAreaController>();
         foreach(var battle_area in battle_areas)

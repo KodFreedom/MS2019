@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
         stage_loader_.OnStageClear();
     }
 
+    public void ChangeStage()
+    {
+        stage_loader_.OnStageChange();
+    }
+
     private void Awake()
     {
         if (instance_ == null)

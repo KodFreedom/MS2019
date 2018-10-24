@@ -11,8 +11,14 @@ public class EnemyController : MonoBehaviour
     private PlayerController player_ = null;
     private float attack_timer_ = 0f;
     private GameObject punch_collider_ = null;
+    [SerializeField] float wait_time_ = 0f;
 
     public bool IsDead { get { return current_life_ == 0f; } }
+
+    public void SetWaitTime(float time)
+    {
+        wait_time_ = time;
+    }
 
     public void OnPlayerEntered(PlayerController player)
     {
@@ -40,18 +46,19 @@ public class EnemyController : MonoBehaviour
 	private void Update ()
     {
         if (current_life_ <= 0f) return;
+        if (wait_time_ > 0f)
+        {
+            wait_time_ -= Time.deltaTime;
+            return;
+        }
 
         if (player_)
         {
+            if (player_.IsPlayingEvent) return;
             TurnToPlayer();
             Attack();
         }
 	}
-
-    private void LateUpdate()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -10,11 +10,15 @@ public class PlayerBattleNavigationState : PlayerNavigationState
     private float knockback_acc_ = 0f;
     private float knockback_freeze_time_ = 0f;
 
+    public override string Name()
+    {
+        return "PlayerBattleNavigationState";
+    }
+
     public override void Init(PlayerController player)
     {
         kEnemyLayer = LayerMask.NameToLayer("Enemy");
-        player.kState = "PlayerBattleNavigationState";
-        FindEnemy(player);
+        player.NavAgent.angularSpeed = 360f;
     }
 
     public override void Uninit(PlayerController player)
@@ -68,11 +72,14 @@ public class PlayerBattleNavigationState : PlayerNavigationState
         player.TargetEnemy = player.BattleArea.GetNearestEnemy(player.transform.position);
         if (player.TargetEnemy == null)
         {
+            player.BattleArea.OnBattleAreaClear();
+
             // battle area clear
             player.BattleArea = null;
 
-            // change to move state
-            player.Change(player.FieldNavigationState);
+            // change to event state
+            player.EventNavigationState.SetNextState(player.FieldNavigationState);
+            player.Change(player.EventNavigationState);
         }
         else
         {
