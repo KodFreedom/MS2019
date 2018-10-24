@@ -563,8 +563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f098364a967ec9478f0e4fe4842b0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DbgTextUI: {fileID: 1290502379}
-  m_DbgNumPunchi: 0
+  m_IsKeyboardMode: 1
+  m_IsDebug: 1
 --- !u!4 &1036441023
 Transform:
   m_ObjectHideFlags: 0
