@@ -36,6 +36,8 @@ public class StageController : MonoBehaviour
 
     public void PrepareStartEvent()
     {
+        if (start_event_state_ == EventState.kPreparing) return;
+
         Debug.Log(gameObject.name + "PrepareStartEvent");
         start_event_state_ = EventState.kPreparing;
         var player = GameManager.Instance.Data.Player;
@@ -52,6 +54,8 @@ public class StageController : MonoBehaviour
 
     public void PrepareClearEvent()
     {
+        if (clear_event_state_ == EventState.kPreparing) return;
+
         Debug.Log(gameObject.name + "PrepareClearEvent");
         clear_event_state_ = EventState.kPreparing;
         var player = GameManager.Instance.Data.Player;

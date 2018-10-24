@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerThunderMode : PlayerMode
 {
+    private bool playing_ultra_timeline_ = false;
+
     public override string Name()
     {
         return "PlayerThunderMode";
@@ -16,6 +18,7 @@ public class PlayerThunderMode : PlayerMode
 
     public override void Init(PlayerController player)
     {
+        playing_ultra_timeline_ = false;
         // Start Effect
     }
 
@@ -26,14 +29,32 @@ public class PlayerThunderMode : PlayerMode
 
     public override void Update(PlayerController player)
     {
-        if (player.IsPlayingEvent)
+        if (playing_ultra_timeline_)
         {
             player.UltraCollider.SetActive(player.EnableUltraCollider);
+            if(player.UltraController.state == UnityEngine.Playables.PlayState.Paused)
+            {
+                playing_ultra_timeline_ = false;
+                player.IsPlayingEvent = false;
+                Debug.Log("Skill Over!!!");
+            }
+            return;
+        }
+
+        if (player.IsPlayingEvent) return;
+
+        var parameter = player.Parameter;
+
+        // Change mode
+        if (player.IsTunderMode == false || parameter.CurrentEnergy <= 0f)
+        {
+            var input = GameManager.Instance.MyInput;
+            input.SetThunderMode(false);
+            player.Change(player.NormalMode);
             return;
         }
 
         // Reduce energy
-        var parameter = player.Parameter;
         parameter.ChangeEnergy(-parameter.ThunderModeCost * Time.deltaTime);
 
         // Punch
@@ -46,19 +67,24 @@ public class PlayerThunderMode : PlayerMode
         {
             StartUltra(player);
         }
-
-        // Change mode
-        if(player.ModeChange || parameter.CurrentEnergy <= 0f)
-        {
-            player.Change(player.NormalMode);
-        }
     }
 
     private void StartUltra(PlayerController player)
     {
+        playing_ultra_timeline_ = true;
+        player.IsPlayingEvent = true;
+
         var target_group = player.Parameter.UltraTargetGroup;
         var enemies = player.BattleArea.Enemies;
-        int target_number = enemies.Count + 1;
+        int count = 0;
+        foreach (var enemy in enemies)
+        {
+            if (enemy.IsDead) continue;
+            enemy.OnExitFight();
+            ++count;
+        }
+
+        int target_number = count + 1;
         float weight = 1f / target_number;
         target_group.m_Targets = new Cinemachine.CinemachineTargetGroup.Target[enemies.Count + 1];
 
@@ -67,10 +93,10 @@ public class PlayerThunderMode : PlayerMode
         target_group.m_Targets[0].weight = weight;
 
         // enemy
-        int count = 1;
+        count = 1;
         foreach(var enemy in enemies)
         {
-            enemy.OnExitFight();
+            if (enemy.IsDead) continue;
             target_group.m_Targets[count].target = enemy.transform;
             target_group.m_Targets[count].weight = weight;
             ++count;

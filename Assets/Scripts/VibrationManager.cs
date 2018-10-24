@@ -62,7 +62,7 @@ public class VibrationManager {
     public void VibrationPunchiShotR(int time = 5)
     {
         m_VibPunchShotTime = time;
-        m_IsVibPunchiShot[0] = true;
+        m_IsVibPunchiShot[1] = true;
     }
 
     // パンチが当たった時の振動をする

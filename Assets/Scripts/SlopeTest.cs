@@ -6,7 +6,7 @@ public class SlopeTest : MonoBehaviour {
 
     public GameObject InputManagerObject;
 
-    private float gyroTest = 0.0f;
+    //private float gyroTest = 0.0f;
 
     // Use this for initialization
     void Start () {

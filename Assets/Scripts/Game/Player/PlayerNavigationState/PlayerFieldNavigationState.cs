@@ -24,6 +24,7 @@ public class PlayerFieldNavigationState : PlayerNavigationState
     public override void Update(PlayerController player)
     {
         base.Update(player);
+        if (player.IsPlayingEvent) return;
         FindBattleArea(player);
     }
 

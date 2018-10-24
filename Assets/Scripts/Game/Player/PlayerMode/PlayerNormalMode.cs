@@ -27,7 +27,7 @@ public class PlayerNormalMode : PlayerMode
     {
         player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
 
-        if (player.ModeChange == true)
+        if (player.IsTunderMode == true)
         {
             player.Change(player.ThunderMode);
         }
