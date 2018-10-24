@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerThunderMode : PlayerMode
 {
+    public override string Name()
+    {
+        return "PlayerThunderMode";
+    }
+
     public override float Attack(PlayerController player)
     {
         return player.Parameter.AttackThunder;
@@ -11,8 +16,6 @@ public class PlayerThunderMode : PlayerMode
 
     public override void Init(PlayerController player)
     {
-        player.kMode = "PlayerThunderMode";
-
         // Start Effect
     }
 

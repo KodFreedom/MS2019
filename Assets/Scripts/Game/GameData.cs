@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     private List<BattleAreaController> kBattleAreas = new List<BattleAreaController>();
+    public PlayerController Player { get; private set; }
 
     public BattleAreaController GetNextBattleArea()
     {
@@ -18,5 +19,10 @@ public class GameData
     {
         kBattleAreas.Clear();
         kBattleAreas = battle_areas;
+    }
+
+    public void Register(PlayerController player)
+    {
+        Player = player;
     }
 }

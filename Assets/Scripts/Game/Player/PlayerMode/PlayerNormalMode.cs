@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerNormalMode : PlayerMode
 {
+    public override string Name()
+    {
+        return "PlayerNormalMode";
+    }
+
     public override float Attack(PlayerController player)
     {
         return player.Parameter.AttackNormal;
@@ -11,7 +16,6 @@ public class PlayerNormalMode : PlayerMode
 
     public override void Init(PlayerController player)
     {
-        player.kMode = "PlayerNormalMode";
     }
 
     public override void Uninit(PlayerController player)

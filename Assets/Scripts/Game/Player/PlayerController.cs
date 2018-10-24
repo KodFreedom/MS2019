@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public EnemyController TargetEnemy { get; set; }
     public PlayerFieldNavigationState FieldNavigationState { get; private set; }
     public PlayerBattleNavigationState BattleNavigationState { get; private set; }
+    public PlayerEventNavigationState EventNavigationState { get; private set; }
     public PlayerNormalMode NormalMode { get; private set; }
     public PlayerThunderMode ThunderMode { get; private set; }
     public PlayerParameter Parameter { get; private set; }
@@ -51,8 +52,8 @@ public class PlayerController : MonoBehaviour
     private InputInfo input_info_;
     private VibrationFlag vibration_flag_;
 
-    public string kMode; // Debug表示
-    public string kState; // Debug表示
+    [SerializeField] string kMode; // Debug表示
+    [SerializeField] string kState; // Debug表示
     [SerializeField] TextMesh kUi = null;
 
     /// <summary>
@@ -64,10 +65,13 @@ public class PlayerController : MonoBehaviour
         if(current_navigation_state_ != null)
         {
             current_navigation_state_.Uninit(this);
+            Debug.Log("Change : " + current_navigation_state_.Name());
         }
 
+        Debug.Log("To : " + next_state.Name());
         current_navigation_state_ = next_state;
         current_navigation_state_.Init(this);
+        kState = current_navigation_state_.Name();
     }
 
     /// <summary>
@@ -79,8 +83,10 @@ public class PlayerController : MonoBehaviour
         if (current_mode_ != null)
         {
             current_mode_.Uninit(this);
+            Debug.Log("Change : " + current_mode_.Name());
         }
 
+        Debug.Log("To : " + next_mode.Name());
         current_mode_ = next_mode;
         current_mode_.Init(this);
     }
@@ -119,6 +125,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start ()
     {
+        GameManager.Instance.Data.Register(this);
+
         MyAnimator = GetComponent<Animator>();
         ik_controller_ = GetComponent<PlayerIkController>();
         NavAgent = GetComponent<NavMeshAgent>();
@@ -134,6 +142,7 @@ public class PlayerController : MonoBehaviour
 
         FieldNavigationState = new PlayerFieldNavigationState();
         BattleNavigationState = new PlayerBattleNavigationState();
+        EventNavigationState = new PlayerEventNavigationState();
 
         NormalMode = new PlayerNormalMode();
         ThunderMode = new PlayerThunderMode();
