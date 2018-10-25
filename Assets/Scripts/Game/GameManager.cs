@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public GameData Data { get; private set; }
     public InputManager MyInput { get; private set; }
+    public EventFadeController EventFadeIn { get; private set; }
+    public EventFadeController EventFadeOut { get; private set; }
     private StageLoader stage_loader_ = null;
 
     public void StageClear()
@@ -19,6 +21,18 @@ public class GameManager : MonoBehaviour
     public void ChangeStage()
     {
         stage_loader_.OnStageChange();
+    }
+
+    public void Register(EventFadeController event_fade, EventFadeController.FadeState state)
+    {
+        if(state == EventFadeController.FadeState.kFadeIn)
+        {
+            EventFadeIn = event_fade;
+        }
+        else
+        {
+            EventFadeOut = event_fade;
+        }
     }
 
     private void Awake()

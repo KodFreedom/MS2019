@@ -1,4 +1,4 @@
-﻿//#define HaveJoyCon
+﻿#define HaveJoyCon
 
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     {
         public bool left_punch;
         public bool right_punch;
-        public bool mode_change;
+        public bool thunder_mode;
         public bool ultra;
         public float left_charge;
         public float right_charge;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     public GameObject UltraCollider { get; private set; }
     public PlayableDirector UltraController { get; private set; }
     public float Attack { get { return current_mode_.Attack(this); } }
-    public bool ModeChange { get { return input_info_.mode_change; } }
+    public bool IsTunderMode { get { return input_info_.thunder_mode; } }
     public bool Ultra { get { return input_info_.ultra; } }
     public bool IsPlayingEvent = false;
     public bool EnableUltraCollider = false;
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("To : " + next_state.Name());
+        kState = next_state.Name();
         current_navigation_state_ = next_state;
         current_navigation_state_.Init(this);
         kState = current_navigation_state_.Name();
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("To : " + next_mode.Name());
+        kMode = next_mode.Name();
         current_mode_ = next_mode;
         current_mode_.Init(this);
     }
@@ -112,6 +114,7 @@ public class PlayerController : MonoBehaviour
         var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
+        vibration_flag_.ultra_hit = true;
     }
 
     public void OnDamaged()
@@ -119,7 +122,6 @@ public class PlayerController : MonoBehaviour
         var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.KnockbackCameraShakeRange, Parameter.KnockbackCameraShakeTime);
-
         vibration_flag_.damaged = true;
     }
 
@@ -179,22 +181,13 @@ public class PlayerController : MonoBehaviour
     // 入力
     private void UpdateInput()
     {
-#if HaveJoyCon
         var input = GameManager.Instance.MyInput;
-        input_info_.left_punch = Input.GetKeyDown(KeyCode.Q) | input.GetPunchL();
-        input_info_.right_punch = Input.GetKeyDown(KeyCode.E) | input.GetPunchR();
-        input_info_.ultra = Input.GetKeyDown(KeyCode.Space) | input.GetSpecialSkill();
-        input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
-        input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
-        input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f);
-#else
-        input_info_.left_punch = Input.GetKeyDown(KeyCode.Q);
-        input_info_.right_punch = Input.GetKeyDown(KeyCode.E);
-        input_info_.ultra = Input.GetKeyDown(KeyCode.Space);
-        input_info_.mode_change = Input.GetKeyDown(KeyCode.RightShift);
-        input_info_.left_charge = Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f;
-        input_info_.right_charge = Input.GetKey(KeyCode.RightArrow) ? 10f : 0f;
-#endif
+        input_info_.left_punch = input.GetPunchL();
+        input_info_.right_punch = input.GetPunchR();
+        input_info_.ultra = input.GetSpecialSkill();
+        input_info_.thunder_mode = input.GetThunderMode();
+        input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f);
+        input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f);
     }
 
     // モーション
@@ -207,7 +200,6 @@ public class PlayerController : MonoBehaviour
     // 振動
     private void UpdateVibration()
     {
-#if HaveJoyCon
         var input = GameManager.Instance.MyInput;
         if (MyAnimator.GetBool("OnLeftPunchEnter"))
         {
@@ -236,7 +228,12 @@ public class PlayerController : MonoBehaviour
             vibration_flag_.damaged = false;
             input.VibrationDamage();
         }
-#endif
+
+        if(vibration_flag_.ultra_hit)
+        {
+            vibration_flag_.ultra_hit = false;
+            input.VibrationSkill();
+        }
     }
 
     // 充電

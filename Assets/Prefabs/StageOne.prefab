@@ -13992,7 +13992,7 @@ MonoBehaviour:
     Position: {x: -3.8, y: 0, z: 51.48}
     SetRotation: 1
     Rotation: {x: 0, y: 0, z: 0}
-  kPrepareTime: 1
+  kPrepareTime: 3
 --- !u!114 &114341366760501722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15524,6 +15524,8 @@ PlayableDirector:
   - key: {fileID: 114983297776092074, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
     value: {fileID: 0}
   - key: {fileID: 114612833793355342, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114373202991379282, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References:

@@ -57,8 +57,8 @@ public class InputManager : MonoBehaviour
     private bool m_IsDebug = true;                      // デバッグ中か
 
 
-    private static readonly Joycon.Button[] m_buttons =
-        Enum.GetValues(typeof(Joycon.Button)) as Joycon.Button[];
+    //private static readonly Joycon.Button[] m_buttons =
+    //    Enum.GetValues(typeof(Joycon.Button)) as Joycon.Button[];
 
     private List<Joycon> m_joycons;
     private Joycon m_joyconL;

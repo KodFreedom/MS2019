@@ -14,7 +14,7 @@ public class ElectricalValue : MonoBehaviour {
     private Vector2 testVib = new Vector2(150.0f, 120.0f);
     private float powerVib = 0.6f;
 
-    private int VibTime = 10;
+    //private int VibTime = 10;
 
     void Start () {
         Energy = 0.0f;

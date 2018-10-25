@@ -9,6 +9,7 @@ public class BattleAreaController : MonoBehaviour
     public List<EnemyController> Enemies { get { return enemies_; } }
     private PlayerController player_ = null;
     private PlayableDirector enter_battle_event_ = null;
+    private bool playing_enter_event_ = false;
     Dictionary<string, PlayableBinding> binding_dictionary_ = new Dictionary<string, PlayableBinding>();
 
     public void OnBattleAreaEnter(PlayerController player)
@@ -61,6 +62,7 @@ public class BattleAreaController : MonoBehaviour
     private void Start()
     {
         enter_battle_event_ = GetComponent<PlayableDirector>();
+        playing_enter_event_ = false;
 
         if (enter_battle_event_)
         {
@@ -76,21 +78,23 @@ public class BattleAreaController : MonoBehaviour
 
     private void Update()
     {
-        //if(enter_battle_event_)
-        //{
-        //    if(enter_battle_event_.state == PlayState.Playing
-        //        && player_.IsPlayingEvent == false)
-        //    {
-
-        //    }
-        //}
+        if (enter_battle_event_ && playing_enter_event_ == true)
+        {
+            if (enter_battle_event_.state == PlayState.Paused)
+            {
+                player_.IsPlayingEvent = false;
+                playing_enter_event_ = false;
+            }
+        }
     }
 
     private void StartEvent()
     {
         if(enter_battle_event_)
         {
+            playing_enter_event_ = true;
             player_.EventNavigationState.SetWaitTime(0.5f);
+            player_.IsPlayingEvent = true;
             foreach (var enemy in enemies_)
             {
                 enemy.SetWaitTime(0.5f);

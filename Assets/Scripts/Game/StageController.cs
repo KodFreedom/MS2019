@@ -33,9 +33,13 @@ public class StageController : MonoBehaviour
     [SerializeField] EventPlayerInfo kClearEventPlayerInfo;
     [SerializeField] float kPrepareTime = 0.2f;
     private float prepare_time_counter_ = 0f;
+    private Vector3 origin_position_ = Vector3.zero;
+    private Vector3 origin_rotation_ = Vector3.zero;
 
     public void PrepareStartEvent()
     {
+        if (start_event_state_ == EventState.kPreparing) return;
+
         Debug.Log(gameObject.name + "PrepareStartEvent");
         start_event_state_ = EventState.kPreparing;
         var player = GameManager.Instance.Data.Player;
@@ -43,15 +47,21 @@ public class StageController : MonoBehaviour
         player.IsPlayingEvent = true;
         player.MyAnimator.applyRootMotion = true;
         prepare_time_counter_ = 0f;
+        origin_position_ = player.transform.position;
+        origin_rotation_ = player.transform.rotation.eulerAngles;
 
         if(kStageStartEvent)
         {
-            kStageStartEvent.SetGenericBinding(binding_dictionary_clear_["Player"].sourceObject, player.MyAnimator);
+            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["Player"].sourceObject, player.MyAnimator);
+            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeIn"].sourceObject, GameManager.Instance.EventFadeIn.gameObject);
+            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
         }
     }
 
     public void PrepareClearEvent()
     {
+        if (clear_event_state_ == EventState.kPreparing) return;
+
         Debug.Log(gameObject.name + "PrepareClearEvent");
         clear_event_state_ = EventState.kPreparing;
         var player = GameManager.Instance.Data.Player;
@@ -59,10 +69,13 @@ public class StageController : MonoBehaviour
         player.IsPlayingEvent = true;
         player.MyAnimator.applyRootMotion = true;
         prepare_time_counter_ = 0f;
+        origin_position_ = player.transform.position;
+        origin_rotation_ = player.transform.rotation.eulerAngles;
 
-        if(kStageClearEvent)
+        if (kStageClearEvent)
         {
             kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Player"].sourceObject, player.MyAnimator);
+            kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
             kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
             var cinemachine_track = binding_dictionary_clear_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
             foreach (var clip in cinemachine_track.GetClips())
@@ -164,7 +177,6 @@ public class StageController : MonoBehaviour
                     clear_event_state_ = EventState.kPlaying;
                     if (kStageClearEvent)
                     {
-                        Debug.Log(kStageClearEvent.name + " Start");
                         kStageClearEvent.Play();
                     }
                     break;
@@ -194,12 +206,12 @@ public class StageController : MonoBehaviour
         var player = GameManager.Instance.Data.Player;
         if (kStartEventPlayerInfo.SetPosition)
         {
-            player.transform.position = Vector3.Slerp(player.transform.position
+            player.transform.position = Vector3.Slerp(origin_position_
                 , kStartEventPlayerInfo.Position, prepare_time_counter_ / kPrepareTime);
         }
         if (kStartEventPlayerInfo.SetRotation)
         {
-            var rotation = Vector3.Slerp(player.transform.rotation.eulerAngles
+            var rotation = Vector3.Slerp(origin_rotation_
                 , kStartEventPlayerInfo.Rotation, prepare_time_counter_ / kPrepareTime);
             player.transform.rotation = Quaternion.Euler(rotation);
         }
@@ -215,12 +227,12 @@ public class StageController : MonoBehaviour
         var player = GameManager.Instance.Data.Player;
         if (kClearEventPlayerInfo.SetPosition)
         {
-            player.transform.position = Vector3.Slerp(player.transform.position
+            player.transform.position = Vector3.Slerp(origin_position_
                 , kClearEventPlayerInfo.Position, prepare_time_counter_ / kPrepareTime);
         }
         if (kClearEventPlayerInfo.SetRotation)
         {
-            var rotation = Vector3.Slerp(player.transform.rotation.eulerAngles
+            var rotation = Vector3.Slerp(origin_rotation_
                 , kClearEventPlayerInfo.Rotation, prepare_time_counter_ / kPrepareTime);
             player.transform.rotation = Quaternion.Euler(rotation);
         }
