@@ -58,7 +58,7 @@ public class PlayerThunderMode : PlayerMode
         parameter.ChangeEnergy(-parameter.ThunderModeCost * Time.deltaTime);
 
         // Punch
-        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+        base.UpdatePunch(player);
 
         // Ultra
         if (player.Ultra

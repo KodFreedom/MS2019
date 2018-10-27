@@ -25,11 +25,14 @@ public class PlayerNormalMode : PlayerMode
 
     public override void Update(PlayerController player)
     {
-        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+        if (player.IsPlayingEvent) return;
 
         if (player.IsTunderMode == true)
         {
             player.Change(player.ThunderMode);
+            return;
         }
+
+        base.UpdatePunch(player);
     }
 }

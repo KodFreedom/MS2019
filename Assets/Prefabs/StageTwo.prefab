@@ -633,6 +633,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1106118023676508
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4206953366033312}
+  - component: {fileID: 320252841693975660}
+  m_Layer: 0
+  m_Name: ClearEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1114875595490250
 GameObject:
   m_ObjectHideFlags: 1
@@ -1339,7 +1355,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4133224964950006}
   - component: {fileID: 114467505976619386}
-  - component: {fileID: 320942482176162830}
   m_Layer: 0
   m_Name: StageTwo
   m_TagString: Untagged
@@ -1594,6 +1609,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!1 &1339123295616116
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4697516702701332}
+  - component: {fileID: 320077903592496060}
+  m_Layer: 0
+  m_Name: StartEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1344343005330254
 GameObject:
@@ -3210,6 +3241,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1731930408355058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4080770285997774}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1734965973807792
 GameObject:
   m_ObjectHideFlags: 1
@@ -4794,6 +4840,21 @@ Transform:
   m_Father: {fileID: 4286747351315328}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4080770285997774
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731930408355058}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4697516702701332}
+  - {fileID: 4206953366033312}
+  m_Father: {fileID: 4133224964950006}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4086646845148940
 Transform:
   m_ObjectHideFlags: 1
@@ -5040,6 +5101,7 @@ Transform:
   m_Children:
   - {fileID: 4392279654691988}
   - {fileID: 4028680452951450}
+  - {fileID: 4080770285997774}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5358,6 +5420,19 @@ Transform:
   - {fileID: 4694745798590920}
   m_Father: {fileID: 4086646845148940}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4206953366033312
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1106118023676508}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4080770285997774}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4212794468550590
 Transform:
@@ -7618,6 +7693,19 @@ Transform:
   m_Father: {fileID: 4151003878945550}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4697516702701332
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339123295616116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4080770285997774}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4699836335281594
 Transform:
   m_ObjectHideFlags: 1
@@ -9132,8 +9220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe4bf76737f803478a8e431e50ad930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kStageStartEvent: {fileID: 320942482176162830}
-  kStageClearEvent: {fileID: 0}
+  kStageStartEvent: {fileID: 320077903592496060}
+  kStageClearEvent: {fileID: 320252841693975660}
   kStartEventPlayerInfo:
     SetPosition: 1
     Position: {x: 17.54, y: 0, z: 48.15}
@@ -10082,12 +10170,12 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00000035762787, y: -0.13846809, z: -0.00415083}
     m_Extent: {x: 0.90256625, y: 0.9046026, z: 0.16034934}
   m_DirtyAABB: 0
---- !u!320 &320942482176162830
+--- !u!320 &320077903592496060
 PlayableDirector:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1277599868941490}
+  m_GameObject: {fileID: 1339123295616116}
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 23cca9bb83a436f419636c3196d81b5b, type: 2}
@@ -10096,15 +10184,27 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 114983297776092074, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 114612833793355342, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 114373202991379282, guid: b5dde89107c0e4443bb236a4cbb1e593, type: 2}
-    value: {fileID: 0}
   - key: {fileID: 114177416535237334, guid: 23cca9bb83a436f419636c3196d81b5b, type: 2}
     value: {fileID: 0}
   - key: {fileID: 114262779021551308, guid: 23cca9bb83a436f419636c3196d81b5b, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 114804947560104210, guid: 23cca9bb83a436f419636c3196d81b5b, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!320 &320252841693975660
+PlayableDirector:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1106118023676508}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 3cc9d2f8aedb5b1449e9cb5a1fa917d2, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
   m_ExposedReferences:
     m_References: []

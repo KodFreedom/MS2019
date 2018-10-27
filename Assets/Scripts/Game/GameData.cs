@@ -6,6 +6,7 @@ public class GameData
 {
     private List<BattleAreaController> kBattleAreas = new List<BattleAreaController>();
     public PlayerController Player { get; private set; }
+    public ResultController Result { get; private set; }
 
     public BattleAreaController GetNextBattleArea()
     {
@@ -24,5 +25,10 @@ public class GameData
     public void Register(PlayerController player)
     {
         Player = player;
+    }
+
+    public void Register(ResultController result)
+    {
+        Result = result;
     }
 }

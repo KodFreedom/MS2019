@@ -12,6 +12,14 @@ public class GameManager : MonoBehaviour
     public EventFadeController EventFadeIn { get; private set; }
     public EventFadeController EventFadeOut { get; private set; }
     private StageLoader stage_loader_ = null;
+    private bool game_clear_ = false;
+
+    public void GameClear()
+    {
+        if (game_clear_) return;
+        Data.Player.IsPlayingEvent = true;
+        Data.Result.Run();
+    }
 
     public void StageClear()
     {

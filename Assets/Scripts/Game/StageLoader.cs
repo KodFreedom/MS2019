@@ -17,6 +17,12 @@ public class StageLoader : MonoBehaviour
 
     public void OnStageChange()
     {
+        if(next_stage_ == null)
+        {
+            GameManager.Instance.GameClear();
+            return;
+        }
+
         if (previous_stage_)
         {
             Destroy(previous_stage_);

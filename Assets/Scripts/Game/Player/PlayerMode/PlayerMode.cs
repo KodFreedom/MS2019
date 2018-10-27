@@ -12,9 +12,16 @@ public abstract class PlayerMode
 
     public abstract void Uninit(PlayerController player);
 
-    public virtual void Update(PlayerController player) { }
+    public abstract void Update(PlayerController player);
 
     public virtual void OnTriggerEnter(PlayerController player, Collider other) { }
 
     public virtual void OnTriggerExit(PlayerController player, Collider other) { }
+
+    protected void UpdatePunch(PlayerController player)
+    {
+        player.MyAnimator.SetBool("LeftPunch", player.LeftPunch);
+        player.MyAnimator.SetBool("RightPunch", player.RightPunch);
+        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+    }
 }

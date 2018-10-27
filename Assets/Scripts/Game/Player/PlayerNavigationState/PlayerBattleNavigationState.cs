@@ -44,7 +44,8 @@ public class PlayerBattleNavigationState : PlayerNavigationState
     {
         if (other.gameObject.layer == kEnemyLayer)
         {
-            if (other.gameObject == player.TargetEnemy.gameObject)
+            if (player.TargetEnemy != null
+                && other.gameObject == player.TargetEnemy.gameObject)
             {
                 player.NavAgent.isStopped = true;
                 player.TargetEnemy.OnBeginFight();

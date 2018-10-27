@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     public float Attack { get { return current_mode_.Attack(this); } }
     public bool IsTunderMode { get { return input_info_.thunder_mode; } }
     public bool Ultra { get { return input_info_.ultra; } }
+    public bool LeftPunch { get { return input_info_.left_punch; } }
+    public bool RightPunch { get { return input_info_.right_punch; } }
     public bool IsPlayingEvent = false;
     public bool EnableUltraCollider = false;
 
@@ -158,7 +160,6 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = Parameter.kTimeScale;
         Parameter.Tick(Time.deltaTime);
         UpdateInput();
-        UpdateAnimator();
         UpdateCharge();
         UpdateVibration();
         current_navigation_state_.Update(this);
@@ -187,14 +188,7 @@ public class PlayerController : MonoBehaviour
         input_info_.ultra = input.GetSpecialSkill();
         input_info_.thunder_mode = input.GetThunderMode();
         input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f);
-        input_info_.right_charge = input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f);
-    }
-
-    // モーション
-    private void UpdateAnimator()
-    {
-        MyAnimator.SetBool("LeftPunch", input_info_.left_punch);
-        MyAnimator.SetBool("RightPunch", input_info_.right_punch);
+        input_info_.right_charge = -input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f);
     }
 
     // 振動
