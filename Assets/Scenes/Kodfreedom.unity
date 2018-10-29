@@ -883,7 +883,7 @@ Prefab:
     - target: {fileID: 114320967302283372, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_IsKeyboardMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}

@@ -25,7 +25,7 @@ public class StageLoader : MonoBehaviour
 
         if (previous_stage_)
         {
-            Destroy(previous_stage_);
+            //Destroy(previous_stage_);
         }
 
         previous_stage_ = current_stage_;
