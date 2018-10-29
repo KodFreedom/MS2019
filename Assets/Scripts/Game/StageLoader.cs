@@ -52,7 +52,6 @@ public class StageLoader : MonoBehaviour
 
         GameObject result = Instantiate<GameObject>(kStages[counter_]);
         counter_++;
-
         return result;
     }
 

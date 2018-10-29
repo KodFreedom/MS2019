@@ -10,9 +10,8 @@ public class StageController : MonoBehaviour
     private struct EventPlayerInfo
     {
         public bool SetPosition;
-        public Vector3 Position;
         public bool SetRotation;
-        public Vector3 Rotation;
+        public Transform target;
     }
 
     private enum EventState
@@ -206,20 +205,22 @@ public class StageController : MonoBehaviour
         var player = GameManager.Instance.Data.Player;
         if (kStartEventPlayerInfo.SetPosition)
         {
-            player.transform.position = Vector3.Slerp(origin_position_
-                , kStartEventPlayerInfo.Position, prepare_time_counter_ / kPrepareTime);
+            var position = Vector3.Slerp(origin_position_
+                , kStartEventPlayerInfo.target.position, prepare_time_counter_ / kPrepareTime);
+            player.transform.position = position;
         }
         if (kStartEventPlayerInfo.SetRotation)
         {
             var rotation = Vector3.Slerp(origin_rotation_
-                , kStartEventPlayerInfo.Rotation, prepare_time_counter_ / kPrepareTime);
+                , kStartEventPlayerInfo.target.rotation.eulerAngles, prepare_time_counter_ / kPrepareTime);
             player.transform.rotation = Quaternion.Euler(rotation);
         }
-        prepare_time_counter_ += Time.deltaTime;
+        
         if(prepare_time_counter_ > kPrepareTime)
         {
             start_event_state_ = EventState.kStarting;
         }
+        prepare_time_counter_ += Time.deltaTime;
     }
 
     private void OnClearEventPreparing()
@@ -228,12 +229,12 @@ public class StageController : MonoBehaviour
         if (kClearEventPlayerInfo.SetPosition)
         {
             player.transform.position = Vector3.Slerp(origin_position_
-                , kClearEventPlayerInfo.Position, prepare_time_counter_ / kPrepareTime);
+                , kClearEventPlayerInfo.target.position, prepare_time_counter_ / kPrepareTime);
         }
         if (kClearEventPlayerInfo.SetRotation)
         {
             var rotation = Vector3.Slerp(origin_rotation_
-                , kClearEventPlayerInfo.Rotation, prepare_time_counter_ / kPrepareTime);
+                , kClearEventPlayerInfo.target.rotation.eulerAngles, prepare_time_counter_ / kPrepareTime);
             player.transform.rotation = Quaternion.Euler(rotation);
         }
         prepare_time_counter_ += Time.deltaTime;
