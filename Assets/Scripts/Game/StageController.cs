@@ -24,13 +24,15 @@ public class StageController : MonoBehaviour
 
     [SerializeField] PlayableDirector kStageStartEvent;
     [SerializeField] PlayableDirector kStageClearEvent;
+    [SerializeField] EventPlayerInfo kStartEventPlayerInfo;
+    [SerializeField] EventPlayerInfo kClearEventPlayerInfo;
+    [SerializeField] float kPrepareTime = 0.2f;
+    [SerializeField] Material kSkyBox = null;
+    [SerializeField] Vector3 kLightDirection = Vector3.zero;
     private Dictionary<string, PlayableBinding> binding_dictionary_start_ = new Dictionary<string, PlayableBinding>();
     private Dictionary<string, PlayableBinding> binding_dictionary_clear_ = new Dictionary<string, PlayableBinding>();
     private EventState start_event_state_ = EventState.kStopped;
     private EventState clear_event_state_ = EventState.kStopped;
-    [SerializeField] EventPlayerInfo kStartEventPlayerInfo;
-    [SerializeField] EventPlayerInfo kClearEventPlayerInfo;
-    [SerializeField] float kPrepareTime = 0.2f;
     private float prepare_time_counter_ = 0f;
     private Vector3 origin_position_ = Vector3.zero;
     private Vector3 origin_rotation_ = Vector3.zero;
@@ -51,9 +53,27 @@ public class StageController : MonoBehaviour
 
         if(kStageStartEvent)
         {
-            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["Player"].sourceObject, player.MyAnimator);
-            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeIn"].sourceObject, GameManager.Instance.EventFadeIn.gameObject);
-            kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
+            if(binding_dictionary_start_.ContainsKey("Player"))
+            {
+                kStageStartEvent.SetGenericBinding(binding_dictionary_start_["Player"].sourceObject, player.MyAnimator);
+            }
+
+            if (binding_dictionary_start_.ContainsKey("EventFadeIn"))
+            {
+                kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeIn"].sourceObject, GameManager.Instance.EventFadeIn.gameObject);
+            }
+
+            if (binding_dictionary_start_.ContainsKey("EventFadeOut"))
+            {
+                kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
+            }
+        }
+
+        if (kSkyBox)
+        {
+            RenderSettings.skybox = kSkyBox;
+            GameManager.Instance.SunLight.transform.localRotation = Quaternion.Euler(kLightDirection);
+            DynamicGI.UpdateEnvironment();
         }
     }
 
@@ -73,21 +93,32 @@ public class StageController : MonoBehaviour
 
         if (kStageClearEvent)
         {
-            kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Player"].sourceObject, player.MyAnimator);
-            kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
-            kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
-            var cinemachine_track = binding_dictionary_clear_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
-            foreach (var clip in cinemachine_track.GetClips())
+            if (binding_dictionary_clear_.ContainsKey("Player"))
             {
-                Debug.Log(clip.displayName);
-                var cinemachine_shot = clip.asset as Cinemachine.Timeline.CinemachineShot;
-                var camera = GameObject.Find(clip.displayName);
-                if (camera)
+                kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Player"].sourceObject, player.MyAnimator);
+            }
+
+            if (binding_dictionary_clear_.ContainsKey("EventFadeOut"))
+            {
+                kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
+            }
+
+            if (binding_dictionary_clear_.ContainsKey("Cinemachine"))
+            {
+                kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                var cinemachine_track = binding_dictionary_clear_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
+                foreach (var clip in cinemachine_track.GetClips())
                 {
-                    var vcam = camera.GetComponent<CinemachineVirtualCameraBase>();
-                    var set_cam = new ExposedReference<CinemachineVirtualCameraBase>();
-                    set_cam.defaultValue = vcam;
-                    cinemachine_shot.VirtualCamera = set_cam;
+                    Debug.Log(clip.displayName);
+                    var cinemachine_shot = clip.asset as Cinemachine.Timeline.CinemachineShot;
+                    var camera = GameObject.Find(clip.displayName);
+                    if (camera)
+                    {
+                        var vcam = camera.GetComponent<CinemachineVirtualCameraBase>();
+                        var set_cam = new ExposedReference<CinemachineVirtualCameraBase>();
+                        set_cam.defaultValue = vcam;
+                        cinemachine_shot.VirtualCamera = set_cam;
+                    }
                 }
             }
         }

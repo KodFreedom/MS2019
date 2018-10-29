@@ -38,9 +38,7 @@ public class StageLoader : MonoBehaviour
 
     public void Init()
     {
-        current_stage_ = LoadNextStage();
         next_stage_ = LoadNextStage();
-        InitBattleAreas(current_stage_);
     }
 
     private GameObject LoadNextStage()

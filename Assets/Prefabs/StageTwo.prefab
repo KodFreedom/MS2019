@@ -10356,6 +10356,8 @@ MonoBehaviour:
     SetRotation: 1
     target: {fileID: 4920467359800006}
   kPrepareTime: 0.25
+  kSkyBox: {fileID: 2100000, guid: 9ba05f538ee36044da5cd2a4f14a8b18, type: 2}
+  kLightDirection: {x: 50, y: 33, z: 0}
 --- !u!114 &114986864258062620
 MonoBehaviour:
   m_ObjectHideFlags: 1

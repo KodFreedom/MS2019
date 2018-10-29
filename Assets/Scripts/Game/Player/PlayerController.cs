@@ -147,12 +147,14 @@ public class PlayerController : MonoBehaviour
         FieldNavigationState = new PlayerFieldNavigationState();
         BattleNavigationState = new PlayerBattleNavigationState();
         EventNavigationState = new PlayerEventNavigationState();
+        EventNavigationState.SetNextState(FieldNavigationState);
 
         NormalMode = new PlayerNormalMode();
         ThunderMode = new PlayerThunderMode();
 
         Change(NormalMode);
-        Change(FieldNavigationState);
+        Change(EventNavigationState);
+        GameManager.Instance.ChangeStage();
     }
 	
 	private void Update ()

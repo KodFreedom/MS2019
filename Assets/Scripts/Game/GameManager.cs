@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public InputManager MyInput { get; private set; }
     public EventFadeController EventFadeIn { get; private set; }
     public EventFadeController EventFadeOut { get; private set; }
+    public Light SunLight { get; private set; }
     private StageLoader stage_loader_ = null;
     private bool game_clear_ = false;
 
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
         Data = new GameData();
         MyInput = GetComponent<InputManager>();
+        SunLight = GetComponentInChildren<Light>();
         stage_loader_ = GetComponent<StageLoader>();
         stage_loader_.Init();
     }
