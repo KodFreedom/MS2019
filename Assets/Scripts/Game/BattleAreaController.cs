@@ -25,7 +25,7 @@ public class BattleAreaController : MonoBehaviour
 
     public void OnBattleAreaClear()
     {
-
+        Destroy(gameObject, 15f);
     }
 
     public void Register(EnemyController enemy)

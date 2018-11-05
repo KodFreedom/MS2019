@@ -5,7 +5,6 @@ using UnityEngine;
 public class StageLoader : MonoBehaviour
 {
     [SerializeField] GameObject[] kStages = new GameObject[1];
-    private GameObject previous_stage_ = null;
     private GameObject current_stage_ = null;
     private GameObject next_stage_ = null;
     private int counter_ = 0;
@@ -17,12 +16,18 @@ public class StageLoader : MonoBehaviour
 
     public void OnStageChange()
     {
-        if (previous_stage_)
+        if(next_stage_ == null)
         {
-            Destroy(previous_stage_);
+            GameManager.Instance.GameClear();
+            return;
         }
 
-        previous_stage_ = current_stage_;
+        if (current_stage_)
+        {
+            Destroy(current_stage_);
+            current_stage_ = null;
+        }
+
         current_stage_ = next_stage_;
         next_stage_ = LoadNextStage();
 
@@ -32,9 +37,7 @@ public class StageLoader : MonoBehaviour
 
     public void Init()
     {
-        current_stage_ = LoadNextStage();
         next_stage_ = LoadNextStage();
-        InitBattleAreas(current_stage_);
     }
 
     private GameObject LoadNextStage()
@@ -46,7 +49,6 @@ public class StageLoader : MonoBehaviour
 
         GameObject result = Instantiate<GameObject>(kStages[counter_]);
         counter_++;
-
         return result;
     }
 

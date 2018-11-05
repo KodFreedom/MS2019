@@ -9,9 +9,19 @@ public class GameManager : MonoBehaviour
 
     public GameData Data { get; private set; }
     public InputManager MyInput { get; private set; }
+    public CinemachineManager Cinemachines { get; private set; }
     public EventFadeController EventFadeIn { get; private set; }
     public EventFadeController EventFadeOut { get; private set; }
+    public Light SunLight { get; private set; }
     private StageLoader stage_loader_ = null;
+    private bool game_clear_ = false;
+
+    public void GameClear()
+    {
+        if (game_clear_) return;
+        Data.Player.IsPlayingEvent = true;
+        Data.Result.Run();
+    }
 
     public void StageClear()
     {
@@ -48,6 +58,8 @@ public class GameManager : MonoBehaviour
 
         Data = new GameData();
         MyInput = GetComponent<InputManager>();
+        SunLight = GetComponentInChildren<Light>();
+        Cinemachines = GetComponent<CinemachineManager>();
         stage_loader_ = GetComponent<StageLoader>();
         stage_loader_.Init();
     }

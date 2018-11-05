@@ -25,12 +25,14 @@ public class PlayerEventNavigationState : PlayerNavigationState
     public override void Init(PlayerController player)
     {
         player.NavAgent.isStopped = true;
+        player.NavAgent.enabled = false;
     }
 
     public override void Uninit(PlayerController player)
     {
         wait_time_ = 0f;
         next_ = null;
+        player.NavAgent.enabled = true;
     }
 
     public override void Update(PlayerController player)
