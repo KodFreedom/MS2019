@@ -229,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151291963464996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9738817, y: -1.2855663, z: 1.25}
+  m_LocalPosition: {x: -29.8, y: 1.4, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4339304842939942}
@@ -404,7 +404,7 @@ MonoBehaviour:
   StartSpeed: 1
   StartLifeTime: 1
   RateOverTime: 15
-  AddRadius: 0.01
+  AddRadius: 0.05
   MaxRadius: 10
   AddStartSpeed: 0
   MaxStartSpeed: 1
@@ -4077,7 +4077,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 16
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -30726,7 +30726,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -32000,8 +32000,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 121aaad82a08840f5a773dac66b1812e, type: 2}
-  - {fileID: 2100000, guid: 121aaad82a08840f5a773dac66b1812e, type: 2}
+  - {fileID: 2100000, guid: 9f806d089b9034e9c9d6dfa6e23999ef, type: 2}
+  - {fileID: 2100000, guid: 9f806d089b9034e9c9d6dfa6e23999ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

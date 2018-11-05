@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: blow 1
-  m_Shader: {fileID: 4800000, guid: 73ea9bcc33c4f634f9152b9661a4ff15, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7f4fcdff48d49451b966b8c73ea1a01a, type: 3}
   m_ShaderKeywords: _USEVERTEXALPHA_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 2800000, guid: 597854b766d306b4e8742ebf0af48649, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3dc5e57c4ceae42e4b803a2af37fec9e, type: 3}
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _gradient:
-        m_Texture: {fileID: 2800000, guid: 4006aac79715439469c7f730608f4c4a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae478905b272645039718685afdf8e6c, type: 3}
         m_Scale: {x: 0.9, y: 1}
         m_Offset: {x: 1.49, y: 0}
     m_Floats:
