@@ -598,9 +598,20 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: 114665475698661124, guid: 5bbfcd0be2ced2a4fbe3f2c5dccf5afc, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114865674169452558, guid: 5bbfcd0be2ced2a4fbe3f2c5dccf5afc, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114303040633554586, guid: 5bbfcd0be2ced2a4fbe3f2c5dccf5afc, type: 2}
+    value: {fileID: 95911621819444344}
+  - key: {fileID: 114630836805130700, guid: 5bbfcd0be2ced2a4fbe3f2c5dccf5afc, type: 2}
+    value: {fileID: 95266759249190978}
   m_ExposedReferences:
-    m_References: []
+    m_References:
+    - 6d4d2caf03993a44cb8daf69138e59bd: {fileID: 0}
+    - 27c093e44ce770449b57297fc86eac8a: {fileID: 0}
+    - 47bfc7ccbf0414a4d8cf56cfc0b7fd97: {fileID: 0}
 --- !u!320 &320843269735367342
 PlayableDirector:
   m_ObjectHideFlags: 1
