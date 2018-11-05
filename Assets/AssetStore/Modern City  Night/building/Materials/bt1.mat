@@ -30,8 +30,13 @@ Material:
         m_Texture: {fileID: 2800000, guid: de24aa683ccf75c44a116ad8cb99851d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Emission: 1
     - _EmissionLM: 0
+    - _Parallax: 0.02
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

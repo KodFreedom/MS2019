@@ -29,6 +29,7 @@ public class StageController : MonoBehaviour
     [SerializeField] float kPrepareTime = 0.2f;
     [SerializeField] Material kSkyBox = null;
     [SerializeField] Vector3 kLightDirection = Vector3.zero;
+    [SerializeField] Color kLightColor = Color.white;
     private Dictionary<string, PlayableBinding> binding_dictionary_start_ = new Dictionary<string, PlayableBinding>();
     private Dictionary<string, PlayableBinding> binding_dictionary_clear_ = new Dictionary<string, PlayableBinding>();
     private EventState start_event_state_ = EventState.kStopped;
@@ -73,7 +74,8 @@ public class StageController : MonoBehaviour
         {
             RenderSettings.skybox = kSkyBox;
             GameManager.Instance.SunLight.transform.localRotation = Quaternion.Euler(kLightDirection);
-            DynamicGI.UpdateEnvironment();
+            GameManager.Instance.SunLight.color = kLightColor;
+            //DynamicGI.UpdateEnvironment();
         }
     }
 
@@ -111,10 +113,10 @@ public class StageController : MonoBehaviour
                 {
                     Debug.Log(clip.displayName);
                     var cinemachine_shot = clip.asset as Cinemachine.Timeline.CinemachineShot;
-                    var camera = GameObject.Find(clip.displayName);
+                    var camera = GameManager.Instance.Cinemachines.GetBy(clip.displayName);
                     if (camera)
                     {
-                        var vcam = camera.GetComponent<CinemachineVirtualCameraBase>();
+                        var vcam = camera;
                         var set_cam = new ExposedReference<CinemachineVirtualCameraBase>();
                         set_cam.defaultValue = vcam;
                         cinemachine_shot.VirtualCamera = set_cam;

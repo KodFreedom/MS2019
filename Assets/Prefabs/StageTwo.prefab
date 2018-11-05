@@ -5448,7 +5448,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1277599868941490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87, y: 28.4, z: -51.2}
+  m_LocalPosition: {x: 40.9, y: 28.4, z: 23.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4392279654691988}
@@ -10358,6 +10358,7 @@ MonoBehaviour:
   kPrepareTime: 0.25
   kSkyBox: {fileID: 2100000, guid: 9ba05f538ee36044da5cd2a4f14a8b18, type: 2}
   kLightDirection: {x: 50, y: 33, z: 0}
+  kLightColor: {r: 0.9056604, g: 0.74449444, b: 0.56817377, a: 1}
 --- !u!114 &114986864258062620
 MonoBehaviour:
   m_ObjectHideFlags: 1
