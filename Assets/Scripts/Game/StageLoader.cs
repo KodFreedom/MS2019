@@ -5,8 +5,8 @@ using UnityEngine;
 public class StageLoader : MonoBehaviour
 {
     [SerializeField] GameObject[] kStages = new GameObject[1];
+    public GameObject NextStage { get; private set; }
     private GameObject current_stage_ = null;
-    private GameObject next_stage_ = null;
     private int counter_ = 0;
 
     public void OnStageClear()
@@ -16,20 +16,14 @@ public class StageLoader : MonoBehaviour
 
     public void OnStageChange()
     {
-        if(next_stage_ == null)
-        {
-            GameManager.Instance.GameClear();
-            return;
-        }
-
         if (current_stage_)
         {
             Destroy(current_stage_);
             current_stage_ = null;
         }
 
-        current_stage_ = next_stage_;
-        next_stage_ = LoadNextStage();
+        current_stage_ = NextStage;
+        NextStage = LoadNextStage();
 
         current_stage_.GetComponent<StageController>().PrepareStartEvent();
         InitBattleAreas(current_stage_);
@@ -37,7 +31,7 @@ public class StageLoader : MonoBehaviour
 
     public void Init()
     {
-        next_stage_ = LoadNextStage();
+        NextStage = LoadNextStage();
     }
 
     private GameObject LoadNextStage()

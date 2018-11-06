@@ -13,8 +13,14 @@ public class GameManager : MonoBehaviour
     public EventFadeController EventFadeIn { get; private set; }
     public EventFadeController EventFadeOut { get; private set; }
     public Light SunLight { get; private set; }
+    
     private StageLoader stage_loader_ = null;
     private bool game_clear_ = false;
+
+    public bool IsLastStage()
+    {
+        return stage_loader_.NextStage == null;
+    }
 
     public void GameClear()
     {
@@ -30,7 +36,14 @@ public class GameManager : MonoBehaviour
 
     public void ChangeStage()
     {
-        stage_loader_.OnStageChange();
+        if (IsLastStage())
+        {
+            GameClear();
+        }
+        else
+        {
+            stage_loader_.OnStageChange();
+        }
     }
 
     public void Register(EventFadeController event_fade, EventFadeController.FadeState state)
