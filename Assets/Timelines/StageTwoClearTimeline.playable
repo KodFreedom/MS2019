@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: cb4db2a78459d7a4ea72fa09462ce7c5
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &114069365301133214
 MonoBehaviour:
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 02b121fa600958540a0cc0ba88baf89e
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &114510220916580536
 MonoBehaviour:
@@ -1263,7 +1263,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 60529e89a2701f04ba48773930c78f02
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &114899930112744498
 MonoBehaviour:
