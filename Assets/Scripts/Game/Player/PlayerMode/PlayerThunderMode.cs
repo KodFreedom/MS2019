@@ -36,7 +36,6 @@ public class PlayerThunderMode : PlayerMode
             {
                 playing_ultra_timeline_ = false;
                 player.IsPlayingEvent = false;
-                Debug.Log("Skill Over!!!");
             }
             return;
         }
@@ -65,7 +64,14 @@ public class PlayerThunderMode : PlayerMode
             && player.MyAnimator.GetFloat("EnableCharge") == 1f
             && parameter.CurrentEnergy >= parameter.UltraCost)
         {
-            StartUltra(player);
+            if(GameManager.Instance.IsLastStage())
+            {
+                GameManager.Instance.StageClear();
+            }
+            else
+            {
+                StartUltra(player);
+            }
         }
     }
 

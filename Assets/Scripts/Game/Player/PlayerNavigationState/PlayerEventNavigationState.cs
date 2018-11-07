@@ -39,7 +39,8 @@ public class PlayerEventNavigationState : PlayerNavigationState
     {
         base.Update(player);
         wait_time_ -= Time.deltaTime;
-        if(wait_time_ <= 0f
+        if(GameManager.Instance.IsLastStage() == false
+            && wait_time_ <= 0f
             && player.IsPlayingEvent == false
             && next_ != null)
         {
