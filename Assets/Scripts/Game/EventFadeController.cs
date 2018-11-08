@@ -23,12 +23,30 @@ public class EventFadeController : MonoBehaviour
         fade_image_ = GetComponent<Image>();
         fade_image_.color = new Color(1f, 1f, 1f, 0f);
         GameManager.Instance.Register(this, kState);
-        gameObject.SetActive(false);
+
+
+        if(kState == FadeState.kFadeOut)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            time_counter_ = 0f;
+        }
     }
 
     private void OnEnable()
     {
         time_counter_ = 0f;
+
+        if (kState == FadeState.kFadeOut)
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, time_counter_ / kFadeTime);
+        }
+        else
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, 1f - time_counter_ / kFadeTime);
+        }
     }
 
     private void OnDisable()

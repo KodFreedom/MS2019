@@ -68,6 +68,25 @@ public class StageController : MonoBehaviour
             {
                 kStageStartEvent.SetGenericBinding(binding_dictionary_start_["EventFadeOut"].sourceObject, GameManager.Instance.EventFadeOut.gameObject);
             }
+
+            if (binding_dictionary_start_.ContainsKey("Cinemachine"))
+            {
+                kStageStartEvent.SetGenericBinding(binding_dictionary_start_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                var cinemachine_track = binding_dictionary_start_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
+                foreach (var clip in cinemachine_track.GetClips())
+                {
+                    Debug.Log(clip.displayName);
+                    var cinemachine_shot = clip.asset as Cinemachine.Timeline.CinemachineShot;
+                    var camera = GameManager.Instance.Cinemachines.GetBy(clip.displayName);
+                    if (camera)
+                    {
+                        var vcam = camera;
+                        var set_cam = new ExposedReference<CinemachineVirtualCameraBase>();
+                        set_cam.defaultValue = vcam;
+                        cinemachine_shot.VirtualCamera = set_cam;
+                    }
+                }
+            }
         }
 
         if (kSkyBox)
@@ -107,7 +126,10 @@ public class StageController : MonoBehaviour
 
             if (binding_dictionary_clear_.ContainsKey("Cinemachine"))
             {
+                // MainCamera
                 kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+
+                // CameraShot
                 var cinemachine_track = binding_dictionary_clear_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
                 foreach (var clip in cinemachine_track.GetClips())
                 {
@@ -121,6 +143,19 @@ public class StageController : MonoBehaviour
                         set_cam.defaultValue = vcam;
                         cinemachine_shot.VirtualCamera = set_cam;
                     }
+                }
+            }
+
+            if (binding_dictionary_clear_.ContainsKey("Effect"))
+            {
+                var control_track = binding_dictionary_clear_["Effect"].sourceObject as UnityEngine.Timeline.ControlTrack;
+                var set_obj = new ExposedReference<GameObject>();
+                set_obj.defaultValue = GameManager.Instance.Data.Player.transform.Find("mixamorig:Hips").gameObject;
+                foreach (var clip in control_track.GetClips())
+                {
+                    Debug.Log(clip.displayName);
+                    var control_playable_asset = clip.asset as UnityEngine.Timeline.ControlPlayableAsset;
+                    control_playable_asset.sourceGameObject = set_obj;
                 }
             }
         }
