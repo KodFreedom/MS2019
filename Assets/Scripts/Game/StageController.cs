@@ -126,7 +126,10 @@ public class StageController : MonoBehaviour
 
             if (binding_dictionary_clear_.ContainsKey("Cinemachine"))
             {
+                // MainCamera
                 kStageClearEvent.SetGenericBinding(binding_dictionary_clear_["Cinemachine"].sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+
+                // CameraShot
                 var cinemachine_track = binding_dictionary_clear_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
                 foreach (var clip in cinemachine_track.GetClips())
                 {

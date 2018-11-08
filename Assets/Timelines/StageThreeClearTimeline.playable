@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: ControlPlayableAsset
   m_EditorClassIdentifier: 
   sourceGameObject:
-    exposedName: 4fe8b654af919204ba7b1464d29d615a
+    exposedName: 
     defaultValue: {fileID: 0}
   prefabGameObject: {fileID: 1715184966130836, guid: 0c65c5623134f45028ae78af7f554933,
     type: 2}
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Name: ControlPlayableAsset
   m_EditorClassIdentifier: 
   sourceGameObject:
-    exposedName: 9ae160640910f1c4585a28eb4fe00df3
+    exposedName: 
     defaultValue: {fileID: 0}
   prefabGameObject: {fileID: 1151291963464996, guid: 9057a7fcf01054d8e85a0b503da51079,
     type: 2}
@@ -843,25 +843,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
