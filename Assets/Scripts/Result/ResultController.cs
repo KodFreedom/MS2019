@@ -5,16 +5,32 @@ using UnityEngine.UI;
 
 public class ResultController : MonoBehaviour
 {
-    private Text text_ = null;
-
-    public void Run()
-    {
-        text_.enabled = true;
-    }
+    private InputManager input_ = null;
+    private AsyncOperation title_scene_ = null;
+    private bool to_title_scene = false;
 
 	private void Start ()
     {
-        text_ = GetComponentInChildren<Text>();
-        text_.enabled = false;
-	}
+        input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
+        title_scene_ = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Title");
+        title_scene_.allowSceneActivation = false;
+    }
+
+    private void Update()
+    {
+        if (input_.GetPunchL()
+            || input_.GetPunchR())
+        {
+            to_title_scene = true;
+        }
+
+        ToTitleScene();
+    }
+
+    private void ToTitleScene()
+    {
+        if (!to_title_scene) return;
+        Debug.Log("Prepare to go to title scene");
+        title_scene_.allowSceneActivation = true;
+    }
 }
