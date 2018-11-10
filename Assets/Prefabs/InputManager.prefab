@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4127027598862786}
-  - component: {fileID: 114322911183208858}
+  - component: {fileID: 114229675835384788}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -34,13 +34,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143933971673492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4071965, y: 1.422816, z: 2.3246956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114322911183208858
+--- !u!114 &114229675835384788
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,8 +48,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143933971673492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f098364a967ec9478f0e4fe4842b0a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d3d3559503ff7f4caad9b032d754527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DbgTextUI: {fileID: 0}
-  m_DbgNumPunchi: 0
+  EnableIMU: 1
+  EnableLocalize: 1

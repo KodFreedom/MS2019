@@ -38,20 +38,20 @@ public class EventFadeController : MonoBehaviour
     private void OnEnable()
     {
         time_counter_ = 0f;
-
-        if (kState == FadeState.kFadeOut)
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, time_counter_ / kFadeTime);
-        }
-        else
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, 1f - time_counter_ / kFadeTime);
-        }
     }
 
     private void OnDisable()
     {
         time_counter_ = -1f;
+        if (fade_image_ == null) return;
+        if (kState == FadeState.kFadeOut)
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, 0f);
+        }
+        else
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 
     // Update is called once per frame

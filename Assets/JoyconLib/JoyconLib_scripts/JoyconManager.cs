@@ -27,8 +27,14 @@ public class JoyconManager: MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
+        GameObject.DontDestroyOnLoad(gameObject);
 		int i = 0;
 
 		j = new List<Joycon>();
@@ -83,6 +89,8 @@ public class JoyconManager: MonoBehaviour
 			jc.Attach (leds_: LEDs);
 			jc.Begin ();
 		}
+
+        gameObject.AddComponent<InputManager>();
     }
 
     void Update()
