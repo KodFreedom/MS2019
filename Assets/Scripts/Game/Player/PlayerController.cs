@@ -139,7 +139,16 @@ public class PlayerController : MonoBehaviour
         PunchCollider.SetActive(false);
         UltraCollider = transform.Find("UltraCollider").gameObject;
         UltraCollider.SetActive(false);
+
         UltraController = GetComponent<PlayableDirector>();
+        foreach (var at in UltraController.playableAsset.outputs)
+        {
+            if (at.streamName.Equals("Cinemachine"))
+            {
+                UltraController.SetGenericBinding(at.sourceObject, Camera.main.GetComponent<Cinemachine.CinemachineBrain>());
+            }
+        }
+
         UltraController.Stop();
         IsPlayingEvent = false;
         EnableUltraCollider = false;
