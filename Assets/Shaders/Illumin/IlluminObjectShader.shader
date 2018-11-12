@@ -32,6 +32,7 @@
 			float	  _IlluminAwakerRadius;
 			float	  _RingRadius;
 			fixed4	  _RingColor;
+			float     _IlluminStrength;
 
 			struct VertexOut
 			{
@@ -89,7 +90,7 @@
 				// check if in range
 				fixed isInRange = step(distanceToAwaker, _IlluminAwakerRadius);
 
-				result += fixed4(_RingColor * ringAlpha + illumin, 0.0) * isInRange;
+				result += fixed4(_RingColor * ringAlpha + illumin, 0.0) * isInRange * _IlluminStrength;
 				///////////////////////////////////////////////////////////////////////////////////
 
 				return result;

@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 4173832437623758}
   - component: {fileID: 33672520217914854}
   - component: {fileID: 23917618521611218}
+  - component: {fileID: 114617300136986084}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -12987,7 +12988,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f776a38b056c3094bba17753bdd58781, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13280,6 +13281,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kTimeToAttack: 3
   wait_time_: 0
+--- !u!114 &114617300136986084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027220939456906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b96c92f09450545a985027d384c2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114639042406126730
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class IlluminMaterialController : MonoBehaviour
 {
     public static IlluminMaterialController Instance { get; private set; }
-    [SerializeField] SphereCollider IlluminAwaker;
+    [SerializeField] IlluminAwakerController IlluminAwaker;
     private Dictionary<string, Material> shared_materials_ = new Dictionary<string, Material>(); 
 
     public void Register(Material shared_material)
@@ -27,7 +27,8 @@ public class IlluminMaterialController : MonoBehaviour
         {
             var shared_material = at.Value;
             shared_material.SetVector("_IlluminAwakerPosition", IlluminAwaker.transform.position);
-            shared_material.SetFloat("_IlluminAwakerRadius", IlluminAwaker.radius);
+            shared_material.SetFloat("_IlluminAwakerRadius", IlluminAwaker.Radius);
+            shared_material.SetFloat("_IlluminStrength", IlluminAwaker.Strength);
         }
     }
 }

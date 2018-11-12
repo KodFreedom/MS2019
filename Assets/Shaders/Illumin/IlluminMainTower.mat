@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: IlluminRoad
+  m_Name: IlluminMainTower
   m_Shader: {fileID: 4800000, guid: 60cdf979bee402e40b1ab1c93df8b6f9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -22,19 +22,13 @@ Material:
         m_Texture: {fileID: 2800000, guid: 49d74a2d96e2d53479066c619ae1ac0d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 6130894742ad3c8428fe2d67136b8e4d, type: 3}
+        m_Texture: {fileID: 2800000, guid: b05315d5f022f2c428b8d9c68b434ab4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Gloss: 20
-    - _IlluminAwakerRadius: 550.0521
     - _RingRadius: 4
     m_Colors:
-    - _Diffuse: {r: 1, g: 1, b: 1, a: 1}
     - _RingColor: {r: 0, g: 0.86832047, b: 1, a: 1}
     - _Specular: {r: 0, g: 0, b: 0, a: 1}
