@@ -181,8 +181,8 @@ public class InputManager : MonoBehaviour
     // 放電モードかどうか取得
     public bool GetThunderMode()
     {
-        if (m_IsKeyboardMode == true)
-            return m_IsKeyboardButton[3];
+        /*if (m_IsKeyboardMode == true)
+            return m_IsKeyboardButton[3];*/
         return m_ThunderModeChange.GetIsThunderMode();
     }
 
@@ -337,7 +337,8 @@ public class InputManager : MonoBehaviour
             m_IsKeyboardButton[2] = false;
 
         if (Input.GetKeyDown((KeyCode)JOYCON_KEYBOARD.MODE_CHANGE) == true)
-            m_IsKeyboardButton[3] = !m_IsKeyboardButton[3];
+            //m_IsKeyboardButton[3] = !m_IsKeyboardButton[3];
+            m_ThunderModeChange.SetIsThunderMode(!m_ThunderModeChange.GetIsThunderMode());
 
     }
 

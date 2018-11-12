@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance_ = null;
-    public static GameManager Instance { get { return instance_; } }
+    public static GameManager Instance { get; private set; }
 
     public GameData Data { get; private set; }
     public InputManager MyInput { get; private set; }
@@ -25,8 +24,10 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         if (game_clear_) return;
+        game_clear_ = true;
         Data.Player.IsPlayingEvent = true;
-        Data.Result.Run();
+        Data.Result.OnGameClear();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
     }
 
     public void StageClear()
@@ -58,22 +59,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if(Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
     private void Awake()
     {
-        if (instance_ == null)
+        if (Instance == null)
         {
-            instance_ = this;
+            Instance = this;
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
 
         Data = new GameData();
-        MyInput = GetComponent<InputManager>();
         SunLight = GetComponentInChildren<Light>();
         Cinemachines = GetComponent<CinemachineManager>();
         stage_loader_ = GetComponent<StageLoader>();
         stage_loader_.Init();
+    }
+
+    private void Start()
+    {
+        MyInput = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
     }
 }

@@ -24,34 +24,35 @@ public class EventFadeController : MonoBehaviour
         fade_image_.color = new Color(1f, 1f, 1f, 0f);
         GameManager.Instance.Register(this, kState);
 
-
-        if(kState == FadeState.kFadeOut)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            time_counter_ = 0f;
-        }
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         time_counter_ = 0f;
-
+        if (fade_image_ == null) return;
         if (kState == FadeState.kFadeOut)
         {
-            fade_image_.color = new Color(1f, 1f, 1f, time_counter_ / kFadeTime);
+            fade_image_.color = new Color(1f, 1f, 1f, 0f);
         }
         else
         {
-            fade_image_.color = new Color(1f, 1f, 1f, 1f - time_counter_ / kFadeTime);
+            fade_image_.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
     private void OnDisable()
     {
         time_counter_ = -1f;
+        if (fade_image_ == null) return;
+        if (kState == FadeState.kFadeOut)
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, 0f);
+        }
+        else
+        {
+            fade_image_.color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 
     // Update is called once per frame

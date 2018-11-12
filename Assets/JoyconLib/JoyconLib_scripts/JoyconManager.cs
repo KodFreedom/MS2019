@@ -27,8 +27,14 @@ public class JoyconManager: MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
+        GameObject.DontDestroyOnLoad(gameObject);
 		int i = 0;
 
 		j = new List<Joycon>();
@@ -70,6 +76,8 @@ public class JoyconManager: MonoBehaviour
 				ptr = enumerate.next;
 			}
 		HIDapi.hid_free_enumeration (top_ptr);
+
+        gameObject.AddComponent<InputManager>();
     }
 
     void Start()
