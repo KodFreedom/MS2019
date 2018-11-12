@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class IlluminObjectController : MonoBehaviour
 {
-    [SerializeField] SphereCollider IlluminAwaker = null;
-    private Material material_ = null;
-
 	private void Start ()
     {
         var renderer = GetComponent<Renderer>();
@@ -16,12 +13,10 @@ public class IlluminObjectController : MonoBehaviour
             return;
         }
 
-        material_ = renderer.material;
-	}
-	
-	private void Update ()
-    {
-        material_.SetVector("_IlluminAwakerPosition", IlluminAwaker.transform.position);
-        material_.SetFloat("_IlluminAwakerRadius", IlluminAwaker.radius);
-	}
+        var shared_materials = renderer.sharedMaterials;
+        foreach(var shared_material in shared_materials)
+        {
+            IlluminMaterialController.Instance.Register(shared_material);
+        }
+    }
 }
