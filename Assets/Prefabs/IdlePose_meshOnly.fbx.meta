@@ -1,0 +1,182 @@
+fileFormatVersion: 2
+guid: 34e56775dce624aaea2beecac8bd5464
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: chara_rigged:arm
+    100002: chara_rigged:chara_head
+    100004: chara_rigged:checkerShirt
+    100006: chara_rigged:clothes
+    100008: chara_rigged:hair
+    100010: chara_rigged:hair_front01
+    100012: chara_rigged:hair_front02
+    100014: chara_rigged:hakui1
+    100016: chara_rigged:pCylinder4
+    100018: chara_rigged:pCylinder5
+    100020: chara_rigged:shirt_eri
+    100022: chara_rigged:shoes_left
+    100024: chara_rigged:shoes_right
+    100026: chara_rigged:sode_left
+    100028: chara_rigged:sode_right
+    100030: chara_rigged:T_shirt
+    100032: chara_rigged:zubon
+    100034: //RootNode
+    400000: chara_rigged:arm
+    400002: chara_rigged:chara_head
+    400004: chara_rigged:checkerShirt
+    400006: chara_rigged:clothes
+    400008: chara_rigged:hair
+    400010: chara_rigged:hair_front01
+    400012: chara_rigged:hair_front02
+    400014: chara_rigged:hakui1
+    400016: chara_rigged:pCylinder4
+    400018: chara_rigged:pCylinder5
+    400020: chara_rigged:shirt_eri
+    400022: chara_rigged:shoes_left
+    400024: chara_rigged:shoes_right
+    400026: chara_rigged:sode_left
+    400028: chara_rigged:sode_right
+    400030: chara_rigged:T_shirt
+    400032: chara_rigged:zubon
+    400034: //RootNode
+    2100000: chara_rigged_skin
+    2100002: chara_rigged_lambert6
+    2100004: chara_rigged_shoes
+    2100006: lambert1
+    2100008: chara_rigged_hakui
+    2100010: chara_rigged_shirt_red
+    2100012: chara_rigged_lambert5
+    2100014: chara_rigged_Luis_head_014_lambert2
+    2300000: chara_rigged:arm
+    2300002: chara_rigged:chara_head
+    2300004: chara_rigged:checkerShirt
+    2300006: chara_rigged:hair
+    2300008: chara_rigged:hair_front01
+    2300010: chara_rigged:hair_front02
+    2300012: chara_rigged:hakui1
+    2300014: chara_rigged:pCylinder4
+    2300016: chara_rigged:pCylinder5
+    2300018: chara_rigged:shirt_eri
+    2300020: chara_rigged:shoes_left
+    2300022: chara_rigged:shoes_right
+    2300024: chara_rigged:sode_left
+    2300026: chara_rigged:sode_right
+    2300028: chara_rigged:T_shirt
+    2300030: chara_rigged:zubon
+    3300000: chara_rigged:arm
+    3300002: chara_rigged:chara_head
+    3300004: chara_rigged:checkerShirt
+    3300006: chara_rigged:hair
+    3300008: chara_rigged:hair_front01
+    3300010: chara_rigged:hair_front02
+    3300012: chara_rigged:hakui1
+    3300014: chara_rigged:pCylinder4
+    3300016: chara_rigged:pCylinder5
+    3300018: chara_rigged:shirt_eri
+    3300020: chara_rigged:shoes_left
+    3300022: chara_rigged:shoes_right
+    3300024: chara_rigged:sode_left
+    3300026: chara_rigged:sode_right
+    3300028: chara_rigged:T_shirt
+    3300030: chara_rigged:zubon
+    4300000: chara_rigged:arm
+    4300002: chara_rigged:chara_head
+    4300004: chara_rigged:hair
+    4300006: chara_rigged:hair_front01
+    4300008: chara_rigged:hair_front02
+    4300010: chara_rigged:shoes_left
+    4300012: chara_rigged:shoes_right
+    4300014: chara_rigged:pCylinder4
+    4300016: chara_rigged:pCylinder5
+    4300018: chara_rigged:sode_left
+    4300020: chara_rigged:hakui1
+    4300022: chara_rigged:sode_right
+    4300024: chara_rigged:checkerShirt
+    4300026: chara_rigged:T_shirt
+    4300028: chara_rigged:shirt_eri
+    4300030: chara_rigged:zubon
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
