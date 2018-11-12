@@ -29,7 +29,15 @@ public class PlayerNormalMode : PlayerMode
 
         if (player.IsTunderMode == true)
         {
-            player.Change(player.ThunderMode);
+            var paramater = player.Parameter;
+            if(paramater.CurrentEnergy >= paramater.ThunderModeCost * Time.deltaTime)
+            {
+                player.Change(player.ThunderMode);
+            }
+            else
+            {
+                GameManager.Instance.MyInput.SetThunderMode(false);
+            }
             return;
         }
 

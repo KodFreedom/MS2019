@@ -76,6 +76,8 @@ public class JoyconManager: MonoBehaviour
 				ptr = enumerate.next;
 			}
 		HIDapi.hid_free_enumeration (top_ptr);
+
+        gameObject.AddComponent<InputManager>();
     }
 
     void Start()
@@ -89,8 +91,6 @@ public class JoyconManager: MonoBehaviour
 			jc.Attach (leds_: LEDs);
 			jc.Begin ();
 		}
-
-        gameObject.AddComponent<InputManager>();
     }
 
     void Update()
