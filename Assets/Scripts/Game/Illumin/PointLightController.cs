@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PointLightController : MonoBehaviour
 {
-    [SerializeField] SphereCollider IlluminAwaker = null;
-
     // Use this for initialization
     void Start () {
 		

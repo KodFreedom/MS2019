@@ -94,7 +94,6 @@ public class StageController : MonoBehaviour
             RenderSettings.skybox = kSkyBox;
             GameManager.Instance.SunLight.transform.localRotation = Quaternion.Euler(kLightDirection);
             GameManager.Instance.SunLight.color = kLightColor;
-            //DynamicGI.UpdateEnvironment();
         }
     }
 
@@ -146,11 +145,26 @@ public class StageController : MonoBehaviour
                 }
             }
 
-            if (binding_dictionary_clear_.ContainsKey("Effect"))
+            var hip = GameManager.Instance.Data.Player.transform.Find("chara_rigged:skelton1").Find("chara_rigged:hip").gameObject;
+
+            if (binding_dictionary_clear_.ContainsKey("ChargeEffect"))
             {
-                var control_track = binding_dictionary_clear_["Effect"].sourceObject as UnityEngine.Timeline.ControlTrack;
+                var control_track = binding_dictionary_clear_["ChargeEffect"].sourceObject as UnityEngine.Timeline.ControlTrack;
                 var set_obj = new ExposedReference<GameObject>();
-                set_obj.defaultValue = GameManager.Instance.Data.Player.transform.Find("mixamorig:Hips").gameObject;
+                set_obj.defaultValue = hip;
+                foreach (var clip in control_track.GetClips())
+                {
+                    Debug.Log(clip.displayName);
+                    var control_playable_asset = clip.asset as UnityEngine.Timeline.ControlPlayableAsset;
+                    control_playable_asset.sourceGameObject = set_obj;
+                }
+            }
+
+            if (binding_dictionary_clear_.ContainsKey("ExploreEffect"))
+            {
+                var control_track = binding_dictionary_clear_["ExploreEffect"].sourceObject as UnityEngine.Timeline.ControlTrack;
+                var set_obj = new ExposedReference<GameObject>();
+                set_obj.defaultValue = hip;
                 foreach (var clip in control_track.GetClips())
                 {
                     Debug.Log(clip.displayName);
@@ -317,7 +331,7 @@ public class StageController : MonoBehaviour
         Debug.Log(gameObject.name + "OnStartEventStopping");
         start_event_state_ = EventState.kStopped;
         var player = GameManager.Instance.Data.Player;
-        player.MyAnimator.applyRootMotion = false;
+        //player.MyAnimator.applyRootMotion = false;
         player.IsPlayingEvent = false;
     }
 
@@ -326,7 +340,7 @@ public class StageController : MonoBehaviour
         Debug.Log(gameObject.name + "OnClearEventStopping");
         clear_event_state_ = EventState.kStopped;
         var player = GameManager.Instance.Data.Player;
-        player.MyAnimator.applyRootMotion = false;
+        //player.MyAnimator.applyRootMotion = false;
         GameManager.Instance.ChangeStage();
     }
 }
