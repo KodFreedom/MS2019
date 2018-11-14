@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour
     // Ui
     private void UpdateUi()
     {
-        kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
-        kUi.text += "\nTime : " + Parameter.Timer.ToString("000.00");
+        //kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
+        //kUi.text += "\nTime : " + Parameter.Timer.ToString("000.00");
     }
 }
