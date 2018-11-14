@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public Animator MyAnimator { get; private set; }
     public BattleAreaController BattleArea { get; set; }
     public EnemyController TargetEnemy { get; set; }
+    public PlayerNavigationState CurrentNavigationState { get; private set; }
     public PlayerFieldNavigationState FieldNavigationState { get; private set; }
     public PlayerBattleNavigationState BattleNavigationState { get; private set; }
     public PlayerEventNavigationState EventNavigationState { get; private set; }
@@ -48,8 +49,7 @@ public class PlayerController : MonoBehaviour
     public bool IsPlayingEvent = false;
     public bool EnableUltraCollider = false;
 
-    private PlayerIkController ik_controller_ = null;
-    private PlayerNavigationState current_navigation_state_ = null;
+    private CustomIkController ik_controller_ = null;
     private PlayerMode current_mode_ = null;
     private InputInfo input_info_;
     private VibrationFlag vibration_flag_;
@@ -64,17 +64,17 @@ public class PlayerController : MonoBehaviour
     /// <param name="next_state"></param>
     public void Change(PlayerNavigationState next_state)
     {
-        if(current_navigation_state_ != null)
+        if(CurrentNavigationState != null)
         {
-            current_navigation_state_.Uninit(this);
-            Debug.Log("Change : " + current_navigation_state_.Name());
+            CurrentNavigationState.Uninit(this);
+            Debug.Log("Change : " + CurrentNavigationState.Name());
         }
 
         Debug.Log("To : " + next_state.Name());
         kState = next_state.Name();
-        current_navigation_state_ = next_state;
-        current_navigation_state_.Init(this);
-        kState = current_navigation_state_.Name();
+        CurrentNavigationState = next_state;
+        CurrentNavigationState.Init(this);
+        kState = CurrentNavigationState.Name();
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.Data.Register(this);
 
         MyAnimator = GetComponent<Animator>();
-        ik_controller_ = GetComponent<PlayerIkController>();
+        ik_controller_ = GetComponent<CustomIkController>();
         NavAgent = GetComponent<NavMeshAgent>();
         Parameter = GetComponent<PlayerParameter>();
         PunchCollider = transform.Find("PunchCollider").gameObject;
@@ -173,20 +173,20 @@ public class PlayerController : MonoBehaviour
         UpdateInput();
         UpdateCharge();
         UpdateVibration();
-        current_navigation_state_.Update(this);
+        CurrentNavigationState.Update(this);
         current_mode_.Update(this);
         UpdateUi();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        current_navigation_state_.OnTriggerEnter(this, other);
+        CurrentNavigationState.OnTriggerEnter(this, other);
         current_mode_.OnTriggerEnter(this, other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        current_navigation_state_.OnTriggerExit(this, other);
+        CurrentNavigationState.OnTriggerExit(this, other);
         current_mode_.OnTriggerExit(this, other);
     }
 
@@ -251,8 +251,8 @@ public class PlayerController : MonoBehaviour
 
         if (enable_charge_)
         {
-            ik_controller_.RotateLeft(-input_info_.left_charge);
-            ik_controller_.RotateRight(-input_info_.right_charge);
+            ik_controller_.RotateLeft(input_info_.left_charge);
+            ik_controller_.RotateRight(input_info_.right_charge);
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
                 * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
         }

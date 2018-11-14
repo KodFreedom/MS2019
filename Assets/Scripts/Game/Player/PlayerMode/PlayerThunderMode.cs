@@ -81,31 +81,40 @@ public class PlayerThunderMode : PlayerMode
         player.IsPlayingEvent = true;
 
         var target_group = player.Parameter.UltraTargetGroup;
-        var enemies = player.BattleArea.Enemies;
-        int count = 0;
-        foreach (var enemy in enemies)
+
+        if(player.CurrentNavigationState.Name() == player.BattleNavigationState.Name())
         {
-            if (enemy.IsDead) continue;
-            enemy.OnExitFight();
-            ++count;
+            var enemies = player.BattleArea.Enemies;
+            int count = 0;
+            foreach (var enemy in enemies)
+            {
+                if (enemy.IsDead) continue;
+                enemy.OnExitFight();
+                ++count;
+            }
+
+            int target_number = count + 1;
+            float weight = 1f / target_number;
+            target_group.m_Targets = new Cinemachine.CinemachineTargetGroup.Target[enemies.Count + 1];
+
+            // player
+            target_group.m_Targets[0].target = player.transform;
+            target_group.m_Targets[0].weight = weight;
+
+            // enemy
+            count = 1;
+            foreach (var enemy in enemies)
+            {
+                if (enemy.IsDead) continue;
+                target_group.m_Targets[count].target = enemy.transform;
+                target_group.m_Targets[count].weight = weight;
+                ++count;
+            }
         }
-
-        int target_number = count + 1;
-        float weight = 1f / target_number;
-        target_group.m_Targets = new Cinemachine.CinemachineTargetGroup.Target[enemies.Count + 1];
-
-        // player
-        target_group.m_Targets[0].target = player.transform;
-        target_group.m_Targets[0].weight = weight;
-
-        // enemy
-        count = 1;
-        foreach(var enemy in enemies)
+        else
         {
-            if (enemy.IsDead) continue;
-            target_group.m_Targets[count].target = enemy.transform;
-            target_group.m_Targets[count].weight = weight;
-            ++count;
+            target_group.m_Targets[0].target = player.transform;
+            target_group.m_Targets[0].weight = 1f;
         }
 
         player.PunchCollider.SetActive(false);

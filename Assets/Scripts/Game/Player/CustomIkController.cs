@@ -14,26 +14,23 @@ public class CustomIkController : MonoBehaviour
     private float weight_ = 1f;
     private Vector3 left_hand_euler_ = Vector3.zero;
     private Vector3 right_hand_euler_ = Vector3.zero;
-    [SerializeField] bool kActive = true;
-    [SerializeField] float kRotateSpeed = 10f;
 
     public void SetActive(bool active)
     {
         float sign = active == true ? 1f : -1f;
         weight_ = Mathf.Clamp(weight_ + sign * Time.deltaTime * 10f, 0f, 1f);
         left_hand_euler_ *= weight_;
+        right_hand_euler_ *= weight_;
     }
 
     public void RotateLeft(float amount)
     {
-        left_hand_euler_.x += amount;
-        //left_hand_euler_.x = Mathf.Clamp(left_hand_euler_.x, kRotateRangeL.x, kRotateRangeL.y);
+        left_hand_euler_.x = Mathf.Clamp(left_hand_euler_.x + amount, kRotateRangeL.x, kRotateRangeL.y);
     }
 
     public void RotateRight(float amount)
     {
-        right_hand_euler_.x += amount;
-        //right_hand_euler_.x = Mathf.Clamp(right_hand_euler_.x, kRotateRangeR.x, kRotateRangeR.y);
+        right_hand_euler_.x = Mathf.Clamp(right_hand_euler_.x + amount, kRotateRangeR.x, kRotateRangeR.y);
     }
 
     // Use this for initialization
@@ -44,9 +41,6 @@ public class CustomIkController : MonoBehaviour
 
     private void Update()
     {
-        SetActive(kActive);
-        RotateLeft(Time.deltaTime * kRotateSpeed);
-        RotateRight(Time.deltaTime * kRotateSpeed);
     }
 
     private void LateUpdate()
