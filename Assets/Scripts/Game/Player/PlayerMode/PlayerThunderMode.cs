@@ -47,7 +47,7 @@ public class PlayerThunderMode : PlayerMode
         // Change mode
         if (player.IsTunderMode == false || parameter.CurrentEnergy <= 0f)
         {
-            var input = GameManager.Instance.MyInput;
+            var input = GameManager.Instance.Data.MyInput;
             input.SetThunderMode(false);
             player.Change(player.NormalMode);
             return;

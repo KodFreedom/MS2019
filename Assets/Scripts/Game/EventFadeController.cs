@@ -20,10 +20,9 @@ public class EventFadeController : MonoBehaviour
 	// Use this for initialization
 	private void Start ()
     {
+        GameManager.Instance.Data.Register(this, kState);
         fade_image_ = GetComponent<Image>();
         fade_image_.color = new Color(1f, 1f, 1f, 0f);
-        GameManager.Instance.Register(this, kState);
-
         gameObject.SetActive(false);
     }
 

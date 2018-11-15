@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4609400070492876}
   - component: {fileID: 114296143890968576}
+  - component: {fileID: 114844536040009888}
   - component: {fileID: 114352586867319280}
   m_Layer: 0
   m_Name: CM vcamStageThreeClearEvent2
@@ -1301,6 +1302,8 @@ MonoBehaviour:
   kSkyBox: {fileID: 2100000, guid: 5ba172cd3918d7c44aa6d04446119a00, type: 2}
   kLightDirection: {x: 50, y: 176.84, z: 0}
   kLightColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+  kModels: {fileID: 1385890802380892}
+  kBattleAreas: {fileID: 1284801430918766}
 --- !u!114 &114546368817403634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1417,6 +1420,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc345dad97fbec4fa589c728657f001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114844536040009888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027846634623548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313397d6cb50f3849b7b7fef0eb55abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114845187592937182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1529,7 +1543,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 8649517c431260847b9a7011acfc3886, type: 2}
   m_InitialState: 0
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:

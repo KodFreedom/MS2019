@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CinemachineRegister : MonoBehaviour
+public class ResultCinemachineRegister : MonoBehaviour
 {
 	void Start ()
     {
         var cinemachine = GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
-        if(cinemachine)
+        if (cinemachine)
         {
-            GameManager.Instance.Data.Cinemachines.Register(cinemachine);
+            GameManager.Instance.Data.Cinemachines.RegisterResultCamera(cinemachine);
         }
-	}
+    }
 }

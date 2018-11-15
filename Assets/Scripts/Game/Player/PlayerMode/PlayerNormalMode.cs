@@ -36,7 +36,7 @@ public class PlayerNormalMode : PlayerMode
             }
             else
             {
-                GameManager.Instance.MyInput.SetThunderMode(false);
+                GameManager.Instance.Data.MyInput.SetThunderMode(false);
             }
             return;
         }
