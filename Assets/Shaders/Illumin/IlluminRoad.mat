@@ -32,7 +32,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Gloss: 20
-    - _IlluminAwakerRadius: 1250
+    - _IlluminAwakerRadius: 0
     - _RingRadius: 4
     m_Colors:
     - _Diffuse: {r: 1, g: 1, b: 1, a: 1}

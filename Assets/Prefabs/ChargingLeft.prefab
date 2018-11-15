@@ -66,14 +66,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032450132356450}
-  m_LocalRotation: {x: 0.78551507, y: -0.2851161, z: -0.52574486, w: 0.1589572}
-  m_LocalPosition: {x: 0.018, y: 0.001, z: -0}
+  m_LocalRotation: {x: 0, y: 0.67751807, z: 0, w: 0.7355062}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.009000005, y: 0.009000009, z: 0.009000006}
   m_Children:
   - {fileID: 4813177298843318}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -362.87, y: 246.6, z: -141.987}
+  m_LocalEulerAnglesHint: {x: 0, y: 85.3, z: 0}
 --- !u!114 &114516519854063158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -759,7 +759,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 5
+      value: 4.96
       mode: 0
       spread: 0
       speed:
@@ -2573,7 +2573,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 1
+    enabled: 0
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -2734,7 +2734,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 12.16
+    frequency: 12
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
@@ -3827,7 +3827,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
@@ -9187,7 +9187,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 74c026656f1214517ac3f527b87405c8, type: 2}
   - {fileID: 2100000, guid: 121aaad82a08840f5a773dac66b1812e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9210,8 +9210,8 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
-  m_MinParticleSize: 0
-  m_MaxParticleSize: 2
+  m_MinParticleSize: 2.94
+  m_MaxParticleSize: 44.58
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -9244,7 +9244,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 74c026656f1214517ac3f527b87405c8, type: 2}
   - {fileID: 2100000, guid: 121aaad82a08840f5a773dac66b1812e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
