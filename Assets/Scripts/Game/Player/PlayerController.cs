@@ -127,6 +127,13 @@ public class PlayerController : MonoBehaviour
         vibration_flag_.damaged = true;
     }
 
+    public void ReadyToStart()
+    {
+        Change(NormalMode);
+        Change(EventNavigationState);
+        GameManager.Instance.ChangeStage();
+    }
+
     private void Start ()
     {
         GameManager.Instance.Data.Register(this);
@@ -160,14 +167,12 @@ public class PlayerController : MonoBehaviour
 
         NormalMode = new PlayerNormalMode();
         ThunderMode = new PlayerThunderMode();
-
-        Change(NormalMode);
-        Change(EventNavigationState);
-        GameManager.Instance.ChangeStage();
     }
 	
 	private void Update ()
     {
+        if (!GameManager.Instance.GetReady) return;
+
         Time.timeScale = Parameter.kTimeScale;
         Parameter.Tick(Time.deltaTime);
         UpdateInput();
@@ -193,7 +198,7 @@ public class PlayerController : MonoBehaviour
     // 入力
     private void UpdateInput()
     {
-        var input = GameManager.Instance.MyInput;
+        var input = GameManager.Instance.Data.MyInput;
         input_info_.left_punch = input.GetPunchL();
         input_info_.right_punch = input.GetPunchR();
         input_info_.ultra = input.GetSpecialSkill();
@@ -205,7 +210,7 @@ public class PlayerController : MonoBehaviour
     // 振動
     private void UpdateVibration()
     {
-        var input = GameManager.Instance.MyInput;
+        var input = GameManager.Instance.Data.MyInput;
         if (MyAnimator.GetBool("OnLeftPunchEnter"))
         {
             input.VibrationPunchiShotL();

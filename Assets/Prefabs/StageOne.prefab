@@ -13198,6 +13198,8 @@ MonoBehaviour:
   kSkyBox: {fileID: 2100000, guid: 7a6b2f497a5c13a409e4c53ba24aeb73, type: 2}
   kLightDirection: {x: 50, y: 189, z: 0}
   kLightColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+  kModels: {fileID: 1120536400218202}
+  kBattleAreas: {fileID: 1285725333273878}
 --- !u!114 &114341366760501722
 MonoBehaviour:
   m_ObjectHideFlags: 1
