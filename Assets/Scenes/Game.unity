@@ -441,7 +441,7 @@ Prefab:
     - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: kStages.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4218746163019158, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -479,7 +479,7 @@ Prefab:
         type: 2}
       propertyPath: kStages.Array.data[0]
       value: 
-      objectReference: {fileID: 1995697013315010, guid: 3e48b79c0d3b6ab47b33f3aa901bcf93,
+      objectReference: {fileID: 1219743090128402, guid: 4aedb84a0df31104e868f5f6fa0ebf73,
         type: 2}
     - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
