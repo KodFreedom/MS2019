@@ -19,7 +19,7 @@ public class ChargingDestoroy : MonoBehaviour
 
         if (TimeElapsed >= Life)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
             TimeElapsed = 0.0f;
         }
     }

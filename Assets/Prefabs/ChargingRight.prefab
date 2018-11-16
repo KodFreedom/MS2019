@@ -66,14 +66,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940905277742212}
-  m_LocalRotation: {x: 0, y: -0.58013445, z: 0, w: 0.8145208}
+  m_LocalRotation: {x: 0, y: 0.86602545, z: 0, w: 0.49999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.009000026, y: 0.009000018, z: 0.0090000415}
+  m_LocalScale: {x: 0.008999995, y: 0.009000001, z: 0.008999994}
   m_Children:
   - {fileID: 4490915529821660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -70.92, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.02, z: 0}
 --- !u!114 &114291492815386762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,12 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48eb5889061604b99ab21a48bcc90ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bMoveXUse: 1
+  bMoveXUse: 0
   bMoveUpUse: 1
   bMoveZUse: 1
   bRotationZUse: 0
   fMoveXValue: 0.0001
-  fMoveUpValue: 0.0003
+  fMoveUpValue: 0.0001
   fMoveZValue: 0.0001
   fRotationXValue: 0
 --- !u!198 &198051538448971606
@@ -9244,7 +9244,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 74c026656f1214517ac3f527b87405c8, type: 2}
+  - {fileID: 2100000, guid: 4cff765298a62450a936b29246e0d3f0, type: 2}
   - {fileID: 2100000, guid: 121aaad82a08840f5a773dac66b1812e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
