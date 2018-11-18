@@ -261,6 +261,10 @@ public class PlayerController : MonoBehaviour
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
                 * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
         }
+
+        // Effect
+        Parameter.LeftHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
+        Parameter.RightHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
     }
 
     // Ui

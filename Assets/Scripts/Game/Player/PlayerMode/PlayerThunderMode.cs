@@ -19,12 +19,17 @@ public class PlayerThunderMode : PlayerMode
     public override void Init(PlayerController player)
     {
         playing_ultra_timeline_ = false;
+
         // Start Effect
+        player.Parameter.LeftHandEffects.thunderModeEffect.Play();
+        player.Parameter.RightHandEffects.thunderModeEffect.Play();
     }
 
     public override void Uninit(PlayerController player)
     {
         // Stop Effect
+        player.Parameter.LeftHandEffects.thunderModeEffect.Stop();
+        player.Parameter.RightHandEffects.thunderModeEffect.Stop();
     }
 
     public override void Update(PlayerController player)
