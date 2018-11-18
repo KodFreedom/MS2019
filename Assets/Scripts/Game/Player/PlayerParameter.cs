@@ -37,6 +37,7 @@ public class PlayerParameter : MonoBehaviour
         public Transform hand;
         public ChargedParticle chargeEffect;
         public ParticleSystem thunderModeEffect;
+        public ChargingManager chargingEffect;
     }
 
     [SerializeField] float kThunderModeCost = 1f;

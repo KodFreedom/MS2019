@@ -45,17 +45,17 @@ public class EffectMove : MonoBehaviour
 
     void MoveX(float PosX)
     {
-        this.transform.position += new Vector3(PosX, 0.0f, 0.0f);
+        this.transform.localPosition += new Vector3(PosX, 0.0f, 0.0f);
     }
 
     void MoveUp(float PosY)
     {
-        this.transform.position -= new Vector3(0.0f, PosY, 0.0f);
+        this.transform.localPosition -= new Vector3(0.0f, PosY, 0.0f);
     }
 
     void MoveZ(float PosZ)
     {
-        this.transform.position -= new Vector3(0.0f, 0.0f, PosZ);
+        this.transform.localPosition -= (transform.localRotation * Vector3.forward) * PosZ * Time.deltaTime;
     }
 
     void RotationZ(float RotZ)
