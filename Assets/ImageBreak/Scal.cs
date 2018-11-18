@@ -10,6 +10,7 @@ public class Scal : MonoBehaviour
     public Transform Direction;
 
     Rigidbody rb;
+    public Vector3 Pos;
 
     // Use this for initialization
     void Start ()
@@ -28,9 +29,9 @@ public class Scal : MonoBehaviour
             m_ObjectCollider.enabled = false;
         }
 
-        this.transform.localScale -= new Vector3(0.004f, 0.004f, 0.004f);
-        this.transform.Rotate(new Vector3(0.1f, 0.1f, 0.1f));
-        rb.AddForce(1.0f, 1.0f, 1.0f);
+        //this.transform.localScale -= new Vector3(0.004f, 0.004f, 0.004f);
+        //this.transform.Rotate(new Vector3(0.1f, 0.1f, 0.1f));
+        rb.AddForce(Pos.x, Pos.y, Pos.z);
     }
     private void OnDrawGizmos()
     {
