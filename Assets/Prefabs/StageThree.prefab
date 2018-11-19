@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114296143890968576}
   - component: {fileID: 114844536040009888}
   - component: {fileID: 114352586867319280}
+  - component: {fileID: 114178562036446664}
   m_Layer: 0
   m_Name: CM vcamStageThreeClearEvent2
   m_TagString: Untagged
@@ -263,6 +264,7 @@ GameObject:
   - component: {fileID: 4744135969557674}
   - component: {fileID: 114840846492864296}
   - component: {fileID: 114741141026628102}
+  - component: {fileID: 114676701046955810}
   m_Layer: 0
   m_Name: CM vcamStageThreeClearEvent1
   m_TagString: Untagged
@@ -445,6 +447,8 @@ GameObject:
   - component: {fileID: 33922684166950014}
   - component: {fileID: 23768320984629728}
   - component: {fileID: 114254865921449288}
+  - component: {fileID: 135662020693493098}
+  - component: {fileID: 54142906146088418}
   m_Layer: 0
   m_Name: CommSattAttnMain
   m_TagString: Untagged
@@ -854,7 +858,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196331559667742}
   m_LocalRotation: {x: 0.06548838, y: -0.53017586, z: 0.04112061, w: 0.8443542}
-  m_LocalPosition: {x: 8.16, y: 53.35, z: 84.59}
+  m_LocalPosition: {x: 8, y: 52.81, z: 79.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4305167949252800}
@@ -1099,6 +1103,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963966227120436}
   m_Mesh: {fileID: 4300002, guid: f48aae87c7088c74cb5cd9f72c243996, type: 3}
+--- !u!54 &54142906146088418
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963966227120436}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95266759249190978
 Animator:
   serializedVersion: 3
@@ -1135,6 +1154,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114178562036446664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027846634623548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c47eeef59b87c2499a792124f5618b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114254865921449288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1326,6 +1356,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc345dad97fbec4fa589c728657f001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114676701046955810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501757356500824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c47eeef59b87c2499a792124f5618b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114733324492528534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1500,6 +1541,18 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4849590851714686}
+--- !u!135 &135662020693493098
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963966227120436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 32.01357
+  m_Center: {x: -0.0000018129679, y: 3.1668932, z: -0.000061035156}
 --- !u!320 &320529989922978252
 PlayableDirector:
   m_ObjectHideFlags: 1
@@ -1565,8 +1618,19 @@ PlayableDirector:
     value: {fileID: 0}
   m_ExposedReferences:
     m_References:
+    - 5fdf0ed4cb3742a418a117cc7561f1dd: {fileID: 0}
     - 86dbc5006ea657542952c3dc22b6de70: {fileID: 0}
+    - fc1e124da7df3ee4f856846f86ba4d41: {fileID: 114741141026628102}
+    - c91b3cb40f0e7fa429d6928d58e30c0d: {fileID: 114741141026628102}
+    - 3616d64590178d84aa2f9cab5fb6b871: {fileID: 0}
+    - a2e5d968d345ad642a1c045ac7fbbd09: {fileID: 0}
+    - 7ebe203f3960eca4cbe9deff6f32ea1b: {fileID: 114352586867319280}
+    - 1b7ec4d86ff785349bc54e3aea50ffcf: {fileID: 114741141026628102}
     - 4fe8b654af919204ba7b1464d29d615a: {fileID: 0}
+    - 8c3e2c4acb342af46acf080739b19804: {fileID: 0}
+    - eaa5bcd25d2aa8344a2ebb283100457d: {fileID: 114741141026628102}
     - 1a7cbbb3f4fc6a542b66f274d9e3a98c: {fileID: 0}
+    - a80d75a7936b7464884b437fdd4c88f2: {fileID: 0}
+    - 5f3c2b2870083de4e82d4b893d9b56eb: {fileID: 0}
     - 9ae160640910f1c4585a28eb4fe00df3: {fileID: 0}
     - 3cd7d6ea34e97ba49aa0fdfee5e4b9c9: {fileID: 0}

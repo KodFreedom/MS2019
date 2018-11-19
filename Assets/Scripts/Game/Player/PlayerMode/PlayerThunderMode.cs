@@ -34,9 +34,10 @@ public class PlayerThunderMode : PlayerMode
 
     public override void Update(PlayerController player)
     {
+        player.UltraCollider.SetActive(player.EnableUltraCollider);
+
         if (playing_ultra_timeline_)
         {
-            player.UltraCollider.SetActive(player.EnableUltraCollider);
             if(player.UltraController.state == UnityEngine.Playables.PlayState.Paused)
             {
                 playing_ultra_timeline_ = false;
