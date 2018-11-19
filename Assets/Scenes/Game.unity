@@ -301,6 +301,32 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
   m_IsPrefabAsset: 0
@@ -348,6 +374,52 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[3].value
       value: 
       objectReference: {fileID: 1362713392}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.06721881
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.93277663
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.25192457
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.24888436
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.1680282
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.0731356
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583517391516388, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.6815486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831407877158344, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.14163813
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831407877158344, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.19115993
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476884720739256, guid: ef17805184f19d24aa64b82be07b4c61,
+        type: 2}
+      propertyPath: kUltraInfo.cameraShakeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476884720739256, guid: ef17805184f19d24aa64b82be07b4c61,
+        type: 2}
+      propertyPath: kUltraInfo.cameraShakeRange
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef17805184f19d24aa64b82be07b4c61, type: 2}
   m_IsPrefabAsset: 0
