@@ -14,8 +14,20 @@ public class ResultPanel : MonoBehaviour
         kOver
     }
 
+    [System.Serializable]
+    private enum Rank
+    {
+        A,
+        S,
+        SS,
+        SSS,
+        Max
+    }
+
     [SerializeField] float kPanelTimeCost = 0.5f;
     [SerializeField] float kWaitTime = 0.5f;
+    [SerializeField] int[] kTimeBorderline = new int[(int)Rank.Max];
+    [SerializeField] int[] kThunderBorderline = new int[(int)Rank.Max];
     private State current_state_ = State.kWait;
     private Vector3 panel_origin_ = Vector3.zero;
     private Vector3 shake_offset_ = Vector3.zero;
@@ -42,9 +54,10 @@ public class ResultPanel : MonoBehaviour
     public void Act()
     {
         // Get Data
-        result_time_.Set(233f);
-        result_thunder_.Set(233f);
-        result_rank_.Set("A");
+        var parameter = GameManager.Instance.Data.Player.Parameter;
+        result_time_.Set(parameter.Timer);
+        result_thunder_.Set(parameter.ChargedEnergy);
+        result_rank_.Set(ComputeRank(parameter.Timer, parameter.ChargedEnergy));
         current_state_ = State.kOpenPanel;
     }
 
@@ -135,5 +148,60 @@ public class ResultPanel : MonoBehaviour
             Random.Range(-max_shake_range_, max_shake_range_),
             Random.Range(-max_shake_range_, max_shake_range_),
             0f);
+    }
+
+    private string ComputeRank(float timer, float thunder)
+    {
+        string[] rank_text =
+        {
+            "A",
+            "S",
+            "SS",
+            "SSS"
+        };
+    
+        var time_rank = TimeRank(timer);
+        var thunder_rank = ThunderRank(thunder);
+
+        var total_rank = (int)time_rank + (int)thunder_rank;
+        total_rank = total_rank > (int)Rank.SSS ? (int)Rank.SSS : total_rank;
+
+        return rank_text[total_rank];
+    }
+
+    private Rank TimeRank(float timer)
+    {
+        Rank rank = Rank.A;
+        if(timer <= kTimeBorderline[(int)Rank.SSS])
+        {
+            rank = Rank.SSS;
+        }
+        else if (timer <= kTimeBorderline[(int)Rank.SS])
+        {
+            rank = Rank.SS;
+        }
+        else if (timer <= kTimeBorderline[(int)Rank.S])
+        {
+            rank = Rank.S;
+        }
+        return rank;
+    }
+
+    private Rank ThunderRank(float thunder)
+    {
+        Rank rank = Rank.A;
+        if(thunder >= kThunderBorderline[(int)Rank.SSS])
+        {
+            rank = Rank.SSS;
+        }
+        else if (thunder >= kThunderBorderline[(int)Rank.SS])
+        {
+            rank = Rank.SS;
+        }
+        else if (thunder >= kThunderBorderline[(int)Rank.S])
+        {
+            rank = Rank.S;
+        }
+        return rank;
     }
 }

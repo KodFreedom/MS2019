@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
         GetReady = false;
     }
 
+    private void Start()
+    {
+        Data.Register(JoyconManager.Instance.gameObject.GetComponent<InputManager>());
+    }
+
     private void Update()
     {
         if (GetReady) return;

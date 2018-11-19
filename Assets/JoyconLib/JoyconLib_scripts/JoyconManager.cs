@@ -77,7 +77,7 @@ public class JoyconManager: MonoBehaviour
 			}
 		HIDapi.hid_free_enumeration (top_ptr);
 
-        //gameObject.AddComponent<InputManager>();
+        gameObject.AddComponent<InputManager>();
     }
 
     void Start()
