@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private InputInfo input_info_;
     private VibrationFlag vibration_flag_;
 
+    [SerializeField] float kMinChargeAmount = 0.1f;
     [SerializeField] string kMode; // Debug表示
     [SerializeField] string kState; // Debug表示
     [SerializeField] TextMesh kUi = null;
@@ -251,16 +252,32 @@ public class PlayerController : MonoBehaviour
     {
         bool enable_charge_ = MyAnimator.GetFloat("EnableCharge") == 1f ? true : false;
         enable_charge_ = UltraController.state == PlayState.Playing ? false : enable_charge_;
+        enable_charge_ = IsPlayingEvent == true ? false : enable_charge_;
 
         ik_controller_.SetActive(enable_charge_);
+
+        float left_amount = 0f;
+        float right_amount = 0f;
 
         if (enable_charge_)
         {
             ik_controller_.RotateLeft(input_info_.left_charge);
             ik_controller_.RotateRight(input_info_.right_charge);
-            Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime
-                * (Mathf.Abs(input_info_.left_charge) + Mathf.Abs(input_info_.right_charge)));
+
+            left_amount = Mathf.Abs(input_info_.left_charge);
+            left_amount = left_amount > kMinChargeAmount ? left_amount : 0f;
+            right_amount = Mathf.Abs(input_info_.right_charge);
+            right_amount = right_amount > kMinChargeAmount ? right_amount : 0f;
+            Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime * (left_amount + right_amount));
         }
+
+        // Charging Effect
+        Parameter.LeftHandEffects.chargingEffect.SetPlay(left_amount);
+        Parameter.RightHandEffects.chargingEffect.SetPlay(right_amount);
+
+        // Energy Effect
+        Parameter.LeftHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
+        Parameter.RightHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
     }
 
     // Ui

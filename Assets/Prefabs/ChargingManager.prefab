@@ -9,47 +9,48 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1437673760657798}
+  m_RootGameObject: {fileID: 1394909404142438}
   m_IsPrefabAsset: 1
---- !u!1 &1437673760657798
+--- !u!1 &1394909404142438
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4693752575381042}
-  - component: {fileID: 114456591819002438}
+  - component: {fileID: 4305876450462110}
+  - component: {fileID: 114761051462478424}
   m_Layer: 0
-  m_Name: ChargingRightManager
+  m_Name: ChargingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4693752575381042
+--- !u!4 &4305876450462110
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437673760657798}
-  m_LocalRotation: {x: -0.334399, y: -0.5980195, z: -0.30162305, w: 0.6630035}
-  m_LocalPosition: {x: -0.69, y: 0.005574107, z: -6.68}
+  m_GameObject: {fileID: 1394909404142438}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -53.53, y: -84.1, z: 0}
---- !u!114 &114456591819002438
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114761051462478424
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437673760657798}
+  m_GameObject: {fileID: 1394909404142438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ccc77c3dfb4f4aaaa624fe75060d6e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 16a69b35930844ad4add0388675abd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreateTime: 1
-  Effect: {fileID: 1429597742013416, guid: 893541552d6eb460fad8536ac76b331e, type: 2}
+  CreateTime: 0.5
+  Effect: {fileID: 1908240695093736, guid: ba38bbb0100b3443681463c448998c8a, type: 2}
+  IsPlaying: 0

@@ -278,12 +278,15 @@ public class StageController : MonoBehaviour
                     if (kStageClearEvent)
                     {
                         if ((kStageClearEvent.extrapolationMode != DirectorWrapMode.Hold && kStageClearEvent.state != PlayState.Playing)
-                            || (kStageClearEvent.extrapolationMode == DirectorWrapMode.Hold && kStageClearEvent.duration == kStageClearEvent.time))
+                            || (kStageClearEvent.extrapolationMode == DirectorWrapMode.Hold
+                            && kStageClearEvent.state == PlayState.Playing
+                            && kStageClearEvent.duration == kStageClearEvent.time))
                         {
                             OnClearEventStopping();
                         }
 
                         if (GameManager.Instance.IsLastStage()
+                            && kStageClearEvent.extrapolationMode == DirectorWrapMode.Hold
                             && GameManager.Instance.Data.Cinemachines.ResultCamera)
                         {
                             GameManager.Instance.Data.Cinemachines.ResultCamera.Priority = 11;

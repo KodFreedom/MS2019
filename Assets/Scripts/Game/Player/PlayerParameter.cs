@@ -31,6 +31,15 @@ public class PlayerParameter : MonoBehaviour
         public float cameraShakeTime;
     }
 
+    [System.Serializable]
+    public struct HandEffect
+    {
+        public Transform hand;
+        public ChargedParticle chargeEffect;
+        public ParticleSystem thunderModeEffect;
+        public ChargingManager chargingEffect;
+    }
+
     [SerializeField] float kThunderModeCost = 1f;
     [SerializeField] float kUltraCost = 50f;
     [SerializeField] float kChargeSpeed = 1f;
@@ -38,6 +47,9 @@ public class PlayerParameter : MonoBehaviour
     [SerializeField] UltraInfo kUltraInfo = new UltraInfo();
     [SerializeField] KnockbackInfo kKnockbackInfo = new KnockbackInfo();
     [SerializeField] CinemachineTargetGroup kUltraTargetGroup;
+    [SerializeField] HandEffect kLeftHandEffects;
+    [SerializeField] HandEffect kRightHandEffects;
+
     public float kTimeScale = 1f;
 
     public float MaxEnergy { get; private set; }
@@ -58,6 +70,8 @@ public class PlayerParameter : MonoBehaviour
     public float KnockbackCameraShakeRange { get { return kKnockbackInfo.cameraShakeRange; } }
     public float KnockbackCameraShakeTime { get { return kKnockbackInfo.cameraShakeTime; } }
     public CinemachineTargetGroup UltraTargetGroup { get { return kUltraTargetGroup; } }
+    public HandEffect LeftHandEffects { get { return kLeftHandEffects; } }
+    public HandEffect RightHandEffects { get { return kRightHandEffects; } }
 
     public void ChangeEnergy(float amount)
     {
