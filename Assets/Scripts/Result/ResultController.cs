@@ -7,15 +7,15 @@ public class ResultController : MonoBehaviour
 {
     [SerializeField] float kTimeToChange = 30f;
     [SerializeField] float kFadeTime = 0.5f;
-    [SerializeField] Image fade_out_ = null;
+    [SerializeField] Image kFadeOut = null;
+    [SerializeField] ResultPanel kPanel = null;
     private AsyncOperation title_scene_ = null;
     private float time_counter_ = 0f;
-    private ResultPanel panel_ = null;
 
     public void OnGameClear()
     {
         if (time_counter_ > 0f) return;
-        panel_.Act();
+        kPanel.Act();
         title_scene_ = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Title");
         title_scene_.allowSceneActivation = false;
         time_counter_ = kTimeToChange + kFadeTime;
@@ -23,7 +23,6 @@ public class ResultController : MonoBehaviour
 
     private void Start ()
     {
-        panel_ = GetComponent<ResultPanel>();
         GameManager.Instance.Data.Register(this);
     }
 
@@ -34,7 +33,7 @@ public class ResultController : MonoBehaviour
 
     private void ToTitleScene()
     {
-        var color = fade_out_.color;
+        var color = kFadeOut.color;
         if (color.a >= 1f)
         {
             title_scene_.allowSceneActivation = true;
@@ -46,7 +45,7 @@ public class ResultController : MonoBehaviour
             if (time_counter_ <= kFadeTime)
             {
                 color.a += Time.deltaTime / kFadeTime;
-                fade_out_.color = color;
+                kFadeOut.color = color;
             }
         }
     }

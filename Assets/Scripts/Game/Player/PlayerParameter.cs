@@ -54,6 +54,7 @@ public class PlayerParameter : MonoBehaviour
 
     public float MaxEnergy { get; private set; }
     public float CurrentEnergy { get; private set; }
+    public float ChargedEnergy { get; private set; }
     public float ThunderModeCost { get { return kThunderModeCost; } }
     public float UltraCost { get { return kUltraCost; } }
     public float ChargeSpeed { get { return kChargeSpeed; } }
@@ -76,6 +77,7 @@ public class PlayerParameter : MonoBehaviour
     public void ChangeEnergy(float amount)
     {
         CurrentEnergy = Mathf.Clamp(CurrentEnergy + amount, 0f, MaxEnergy);
+        ChargedEnergy += amount;
     }
 
     public void Tick(float delta_time)

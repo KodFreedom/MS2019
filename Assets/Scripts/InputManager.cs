@@ -99,8 +99,6 @@ public class InputManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
             m_IsKeyboardButton[i] = false;
-
-        GameManager.Instance.Data.Register(this);
     }
 
     private void Update()
