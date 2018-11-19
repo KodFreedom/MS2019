@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4429552807599078}
   - component: {fileID: 33285719651985648}
   - component: {fileID: 23505286892969552}
-  - component: {fileID: 65570484684479142}
   m_Layer: 0
   m_Name: SpecialEffect
   m_TagString: Untagged
@@ -39,7 +38,6 @@ GameObject:
   - component: {fileID: 4574512300700156}
   - component: {fileID: 33291513430440092}
   - component: {fileID: 23210391879938438}
-  - component: {fileID: 135818290124184650}
   - component: {fileID: 114612660232518754}
   m_Layer: 0
   m_Name: Sphere
@@ -223,18 +221,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1298905159100650}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65570484684479142
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151291963464996}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114382109806545048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,18 +279,6 @@ MonoBehaviour:
   life_time: 3
   AddScal: {x: 0.1, y: 0.1, z: 0.1}
   MaxScal: {x: 5, y: 5, z: 5}
---- !u!135 &135818290124184650
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1298905159100650}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198004785306373844
 ParticleSystem:
   m_ObjectHideFlags: 1

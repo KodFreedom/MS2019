@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private InputInfo input_info_;
     private VibrationFlag vibration_flag_;
 
+    [SerializeField] float kMinChargeAmount = 0.1f;
     [SerializeField] string kMode; // Debug表示
     [SerializeField] string kState; // Debug表示
     [SerializeField] TextMesh kUi = null;
@@ -264,7 +265,9 @@ public class PlayerController : MonoBehaviour
             ik_controller_.RotateRight(input_info_.right_charge);
 
             left_amount = Mathf.Abs(input_info_.left_charge);
+            left_amount = left_amount > kMinChargeAmount ? left_amount : 0f;
             right_amount = Mathf.Abs(input_info_.right_charge);
+            right_amount = right_amount > kMinChargeAmount ? right_amount : 0f;
             Parameter.ChangeEnergy(Parameter.ChargeSpeed * Time.deltaTime * (left_amount + right_amount));
         }
 
