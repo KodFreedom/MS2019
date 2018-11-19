@@ -71,7 +71,6 @@ public class ImagePanel : MonoBehaviour
 
     }
 
-
 	public void crash()
 	{
 		debris.SetActive(true); //破片を表示

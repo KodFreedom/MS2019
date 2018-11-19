@@ -10,7 +10,8 @@ public class Scal : MonoBehaviour
     public Transform Direction;
 
     Rigidbody rb;
-    public Vector3 Pos;
+    public Vector3 AddPower;
+    Vector3 SkipForward;
 
     // Use this for initialization
     void Start ()
@@ -30,8 +31,10 @@ public class Scal : MonoBehaviour
         }
 
         //this.transform.localScale -= new Vector3(0.004f, 0.004f, 0.004f);
-        //this.transform.Rotate(new Vector3(0.1f, 0.1f, 0.1f));
-        rb.AddForce(Pos.x, Pos.y, Pos.z);
+        //this.transform.Rotate(new Vector3( 0.5f, 0.5f, 0.5f));
+        SkipForward = Vector3.Scale(Direction.position - transform.position, new Vector3(1, 1, 1)).normalized;
+        rb.AddForce(SkipForward.x * AddPower.x, SkipForward.y * AddPower.y, SkipForward.z * AddPower.z, ForceMode.VelocityChange);
+
     }
     private void OnDrawGizmos()
     {
