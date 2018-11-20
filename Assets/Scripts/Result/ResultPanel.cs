@@ -83,10 +83,10 @@ public class ResultPanel : MonoBehaviour
         switch (current_state_)
         {
             case State.kWait:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Act();
-                }
+                //if (Input.GetKeyDown(KeyCode.Space))
+                //{
+                //    Act();
+                //}
                 break;
             case State.kOpenPanel:
                 OpenPanel();

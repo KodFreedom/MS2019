@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 114730522904352720}
   - component: {fileID: 114171137849449286}
   - component: {fileID: 114796017235662256}
+  - component: {fileID: 114270354245996910}
   m_Layer: 11
   m_Name: Chara_model_UVunfold
   m_TagString: Untagged
@@ -1120,7 +1121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4911636198561782}
   - component: {fileID: 198586549343360322}
-  - component: {fileID: 114977463969631108}
   - component: {fileID: 199523896100997620}
   m_Layer: 0
   m_Name: Ring
@@ -1636,7 +1636,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4307582565626620}
   - component: {fileID: 198920953246395666}
-  - component: {fileID: 114199046090558556}
   - component: {fileID: 199688005888221238}
   m_Layer: 0
   m_Name: Ring
@@ -3889,18 +3888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114199046090558556
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1799838661894340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b44f540eb3a0444e9ba621d53aa57f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kAbleUltraEffectFrequency: 0.2
 --- !u!114 &114199375251155106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3936,6 +3923,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114270354245996910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173106382723180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b44f540eb3a0444e9ba621d53aa57f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kLeftRing: {fileID: 198586549343360322}
+  kRightRing: {fileID: 198920953246395666}
+  kAbleUltraEffectFrequency: 0.2
 --- !u!114 &114290927414081516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4409,18 +4410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114977463969631108
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1552928346019152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b44f540eb3a0444e9ba621d53aa57f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kAbleUltraEffectFrequency: 0.2
 --- !u!135 &135027811311563286
 SphereCollider:
   m_ObjectHideFlags: 1
