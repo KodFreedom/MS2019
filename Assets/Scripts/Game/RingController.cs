@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class RingController : MonoBehaviour
 {
+    [SerializeField] ParticleSystem kLeftRing = null;
+    [SerializeField] ParticleSystem kRightRing = null;
     [SerializeField] float kAbleUltraEffectFrequency = 0.2f;
-    private ParticleSystem ring_ = null;
     private Gradient color_over_lifetime_gradient_ = null;
     private GradientAlphaKey[] color_over_lifetime_alpha_keys_ = null;
     private GradientColorKey[] color_over_lifetime_color_keys_ = null;
@@ -13,7 +14,6 @@ public class RingController : MonoBehaviour
 
     private void Start()
     {
-        ring_ = GetComponent<ParticleSystem>();
         color_over_lifetime_gradient_ = new Gradient();
         color_over_lifetime_gradient_.mode = GradientMode.Fixed;
         color_over_lifetime_alpha_keys_ = new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) };
@@ -31,8 +31,8 @@ public class RingController : MonoBehaviour
     {
         color_over_lifetime_color_keys_[0].time = rate;
         color_over_lifetime_gradient_.SetKeys(color_over_lifetime_color_keys_, color_over_lifetime_alpha_keys_);
-        var color_over_life = ring_.colorOverLifetime;
-        color_over_life.color = color_over_lifetime_gradient_;
+        SetRing(kLeftRing);
+        SetRing(kRightRing);
     }
 
     private void UpdateAbleUltraEffect(bool able)
@@ -54,5 +54,11 @@ public class RingController : MonoBehaviour
         color_over_lifetime_color_keys_[0].color = Color.yellow * Mathf.Lerp(0.5f, 1f, rate);
 
         able_untra_effect_counter_ += Time.deltaTime;
+    }
+
+    private void SetRing(ParticleSystem ring)
+    {
+        var color_over_life = ring.colorOverLifetime;
+        color_over_life.color = color_over_lifetime_gradient_;
     }
 }
