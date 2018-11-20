@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public bool RightPunch { get { return input_info_.right_punch; } }
     public bool IsPlayingEvent = false;
     public bool EnableUltraCollider = false;
+    public bool IsGameClear = false;
 
     private CustomIkController ik_controller_ = null;
     private PlayerMode current_mode_ = null;
@@ -174,6 +175,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameManager.Instance.GetReady) return;
 
+        if(IsGameClear)
+        {
+            GameManager.Instance.GameClear();
+            return;
+        }
+
         Time.timeScale = Parameter.kTimeScale;
         Parameter.Tick(Time.deltaTime);
         UpdateInput();
@@ -181,7 +188,6 @@ public class PlayerController : MonoBehaviour
         UpdateVibration();
         CurrentNavigationState.Update(this);
         current_mode_.Update(this);
-        UpdateUi();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -278,12 +284,5 @@ public class PlayerController : MonoBehaviour
         // Energy Effect
         Parameter.LeftHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
         Parameter.RightHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;
-    }
-
-    // Ui
-    private void UpdateUi()
-    {
-        //kUi.text = "Energy : " + Parameter.CurrentEnergy.ToString("000") + " / " + Parameter.MaxEnergy.ToString("000");
-        //kUi.text += "\nTime : " + Parameter.Timer.ToString("000.00");
     }
 }
