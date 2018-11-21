@@ -19,7 +19,6 @@ public class PlayerParameter : MonoBehaviour
     private struct PunchInfo
     {
         public float attackNormal;
-        public float attackThunder;
         public float cameraShakeRange;
         public float cameraShakeTime;
     }
@@ -36,11 +35,9 @@ public class PlayerParameter : MonoBehaviour
     {
         public Transform hand;
         public ChargedParticle chargeEffect;
-        public ParticleSystem thunderModeEffect;
         public ChargingManager chargingEffect;
     }
 
-    [SerializeField] float kThunderModeCost = 1f;
     [SerializeField] float kUltraCost = 50f;
     [SerializeField] float kChargeSpeed = 1f;
     [SerializeField] PunchInfo kPunchInfo = new PunchInfo();
@@ -55,11 +52,9 @@ public class PlayerParameter : MonoBehaviour
     public float MaxEnergy { get; private set; }
     public float CurrentEnergy { get; private set; }
     public float ChargedEnergy { get; private set; }
-    public float ThunderModeCost { get { return kThunderModeCost; } }
     public float UltraCost { get { return kUltraCost; } }
     public float ChargeSpeed { get { return kChargeSpeed; } }
     public float AttackNormal { get { return kPunchInfo.attackNormal; } }
-    public float AttackThunder { get { return kPunchInfo.attackThunder; } }
     public float PunchCameraShakeRange { get { return kPunchInfo.cameraShakeRange; } }
     public float PunchCameraShakeTime { get { return kPunchInfo.cameraShakeTime; } }
     public float UltraCameraShakeRange { get { return kUltraInfo.cameraShakeRange; } }

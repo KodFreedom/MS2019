@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     {
         public bool left_punch;
         public bool right_punch;
-        public bool thunder_mode;
         public bool ultra;
         public float left_charge;
         public float right_charge;
@@ -36,13 +35,11 @@ public class PlayerController : MonoBehaviour
     public PlayerBattleNavigationState BattleNavigationState { get; private set; }
     public PlayerEventNavigationState EventNavigationState { get; private set; }
     public PlayerNormalMode NormalMode { get; private set; }
-    public PlayerThunderMode ThunderMode { get; private set; }
     public PlayerParameter Parameter { get; private set; }
     public GameObject PunchCollider { get; private set; }
     public GameObject UltraCollider { get; private set; }
     public PlayableDirector UltraController { get; private set; }
     public float Attack { get { return current_mode_.Attack(this); } }
-    public bool IsTunderMode { get { return input_info_.thunder_mode; } }
     public bool Ultra { get { return input_info_.ultra; } }
     public bool LeftPunch { get { return input_info_.left_punch; } }
     public bool RightPunch { get { return input_info_.right_punch; } }
@@ -56,9 +53,7 @@ public class PlayerController : MonoBehaviour
     private VibrationFlag vibration_flag_;
 
     [SerializeField] float kMinChargeAmount = 0.1f;
-    [SerializeField] string kMode; // Debug表示
     [SerializeField] string kState; // Debug表示
-    [SerializeField] TextMesh kUi = null;
 
     /// <summary>
     /// 移動ステートの切り替え
@@ -92,7 +87,6 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("To : " + next_mode.Name());
-        kMode = next_mode.Name();
         current_mode_ = next_mode;
         current_mode_.Init(this);
     }
@@ -168,7 +162,6 @@ public class PlayerController : MonoBehaviour
         EventNavigationState.SetNextState(FieldNavigationState);
 
         NormalMode = new PlayerNormalMode();
-        ThunderMode = new PlayerThunderMode();
     }
 	
 	private void Update ()
@@ -209,7 +202,6 @@ public class PlayerController : MonoBehaviour
         input_info_.left_punch = input.GetPunchL();
         input_info_.right_punch = input.GetPunchR();
         input_info_.ultra = input.GetSpecialSkill();
-        input_info_.thunder_mode = input.GetThunderMode();
         input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f);
         input_info_.right_charge = -input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f);
     }
