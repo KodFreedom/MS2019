@@ -46,6 +46,10 @@ public class PlayerParameter : MonoBehaviour
     [SerializeField] CinemachineTargetGroup kUltraTargetGroup;
     [SerializeField] HandEffect kLeftHandEffects;
     [SerializeField] HandEffect kRightHandEffects;
+    [SerializeField] float kCounterEnergy = 50f;
+    [SerializeField] float kCounterCheckDelay = 0.2f;
+    [SerializeField] float kCounterEffectTime = 0.5f;
+    [SerializeField] AnimationCurve kCounterTimeScale;
 
     public float kTimeScale = 1f;
 
@@ -53,6 +57,10 @@ public class PlayerParameter : MonoBehaviour
     public float CurrentEnergy { get; private set; }
     public float ChargedEnergy { get; private set; }
     public float UltraCost { get { return kUltraCost; } }
+    public float CounterEnergy { get { return kCounterEnergy; } }
+    public float CounterCheckDelay { get { return kCounterCheckDelay; } }
+    public float CounterEffectTime { get { return kCounterEffectTime; } }
+    public float CounterCheckDelayCounter = 0f;
     public float ChargeSpeed { get { return kChargeSpeed; } }
     public float AttackNormal { get { return kPunchInfo.attackNormal; } }
     public float PunchCameraShakeRange { get { return kPunchInfo.cameraShakeRange; } }
@@ -68,6 +76,9 @@ public class PlayerParameter : MonoBehaviour
     public CinemachineTargetGroup UltraTargetGroup { get { return kUltraTargetGroup; } }
     public HandEffect LeftHandEffects { get { return kLeftHandEffects; } }
     public HandEffect RightHandEffects { get { return kRightHandEffects; } }
+    public bool EnableCounter { get; private set; }
+    public List<EnemyController> CounterTargets { get; private set; }
+    public AnimationCurve CounterTimeScale { get { return kCounterTimeScale; } }
 
     public void ChangeEnergy(float amount)
     {
@@ -80,10 +91,33 @@ public class PlayerParameter : MonoBehaviour
         Timer += delta_time;
     }
 
+    public void SetEnableCounter(bool value)
+    {
+        EnableCounter = value;
+    }
+
+    public void Register(EnemyController counter_target)
+    {
+        if (counter_target == null) return;
+        if (CounterTargets.Contains(counter_target)) return;
+        counter_target.OnCheckCounter(float.MaxValue);
+        CounterTargets.Add(counter_target);
+    }
+
+    public void ClearCounterTargets()
+    {
+        foreach(var counter_target in CounterTargets)
+        {
+            counter_target.OnCheckCounter(0.1f);
+        }
+        CounterTargets.Clear();
+    }
+
     private void Start()
     {
         MaxEnergy = 100f;
         CurrentEnergy = 0f;
         Timer = 0f;
+        CounterTargets = new List<EnemyController>();
     }
 }

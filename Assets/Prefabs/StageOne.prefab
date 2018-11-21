@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 135494916650579522}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1568,7 +1568,7 @@ GameObject:
   - component: {fileID: 135204990692833446}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2083,7 +2083,7 @@ GameObject:
   - component: {fileID: 135128163831851066}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4062,7 +4062,7 @@ GameObject:
   - component: {fileID: 135053008470959402}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5060,7 +5060,7 @@ GameObject:
   - component: {fileID: 135745297789801998}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7650,7 +7650,7 @@ GameObject:
   - component: {fileID: 135436769556313654}
   m_Layer: 10
   m_Name: PunchCollider
-  m_TagString: Untagged
+  m_TagString: EnemyAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

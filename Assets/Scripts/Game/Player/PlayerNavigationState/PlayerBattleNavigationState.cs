@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBattleNavigationState : PlayerNavigationState
 {
-    private static int kEnemyLayer;
+    private int enemy_layer_ = 0;
     private float wait_time_ = 0f;
     private float knockback_speed_ = 0f;
     private float knockback_acc_ = 0f;
@@ -17,8 +17,9 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Init(PlayerController player)
     {
-        kEnemyLayer = LayerMask.NameToLayer("Enemy");
+        enemy_layer_ = LayerMask.NameToLayer("Enemy");
         player.NavAgent.angularSpeed = 360f;
+        player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Uninit(PlayerController player)
@@ -27,8 +28,9 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
-        base.Update(player);
         if (player.IsPlayingEvent) return;
+
+        CheckHitted(player);
 
         if (knockback_acc_ != 0f)
         {
@@ -42,29 +44,32 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void OnTriggerEnter(PlayerController player, Collider other)
     {
-        if (other.gameObject.layer == kEnemyLayer)
+        if (other.gameObject.layer != enemy_layer_) return;
+
+        if (player.TargetEnemy != null
+            && other.gameObject == player.TargetEnemy.gameObject)
         {
-            if (player.TargetEnemy != null
-                && other.gameObject == player.TargetEnemy.gameObject)
+            player.NavAgent.isStopped = true;
+            player.TargetEnemy.OnBeginFight();
+        }
+        else if (other.gameObject.CompareTag("EnemyAttackCollider"))
+        {
+            Debug.Log("OnEnemyPunchEnter");
+            var parameter = player.Parameter;
+            parameter.Register(other.GetComponentInParent<EnemyController>());
+            if(parameter.CounterCheckDelayCounter < 0f)
             {
-                player.NavAgent.isStopped = true;
-                player.TargetEnemy.OnBeginFight();
-            }
-            else if (other.gameObject.name.Equals("PunchCollider"))
-            {
-                Hitted(player);
+                parameter.CounterCheckDelayCounter = parameter.CounterCheckDelay;
             }
         }
     }
 
     public override void OnTriggerExit(PlayerController player, Collider other)
     {
-        if (other.gameObject.layer == kEnemyLayer)
+        if (other.gameObject.layer != enemy_layer_) return;
+        if (other.GetComponent<EnemyController>() == player.TargetEnemy)
         {
-            if (other.GetComponent<EnemyController>() == player.TargetEnemy)
-            {
-                player.TargetEnemy.OnExitFight();
-            }
+            player.TargetEnemy.OnExitFight();
         }
     }
 
@@ -112,15 +117,24 @@ public class PlayerBattleNavigationState : PlayerNavigationState
         }
     }
 
-    private void Hitted(PlayerController player)
+    private void CheckHitted(PlayerController player)
     {
-        // v0t = 2vpt0
-        float player_speed = player.NavAgent.speed;
-        knockback_speed_ = player.Parameter.KnockbackSpeed;
-        float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
-        knockback_acc_ = -knockback_speed_ / knockback_time;
+        if(player.Parameter.CounterCheckDelayCounter > 0f)
+        {
+            player.Parameter.CounterCheckDelayCounter -= Time.deltaTime;
+            
+            if(player.Parameter.CounterCheckDelayCounter <= 0f)
+            {
+                // v0t = 2vpt0
+                float player_speed = player.NavAgent.speed;
+                knockback_speed_ = player.Parameter.KnockbackSpeed;
+                float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
+                knockback_acc_ = -knockback_speed_ / knockback_time;
 
-        player.OnDamaged();
+                player.OnDamaged();
+                player.Parameter.ClearCounterTargets();
+            }
+        }
     }
 
     private void Knockback(PlayerController player)

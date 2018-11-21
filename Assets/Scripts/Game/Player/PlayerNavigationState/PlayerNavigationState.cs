@@ -10,7 +10,7 @@ public abstract class PlayerNavigationState
 
     public abstract void Uninit(PlayerController player);
 
-    public virtual void Update(PlayerController player) { }
+    public abstract void Update(PlayerController player);
 
     public virtual void OnTriggerEnter(PlayerController player, Collider other) { }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerNormalMode : PlayerMode
 {
     private bool playing_ultra_timeline_ = false;
+    private float counter_effect_counter_ = 0f;
 
     public override string Name()
     {
@@ -18,7 +19,6 @@ public class PlayerNormalMode : PlayerMode
 
     public override void Init(PlayerController player)
     {
-        GameManager.Instance.Data.MyInput.SetThunderMode(false);
         playing_ultra_timeline_ = false;
     }
 
@@ -44,10 +44,23 @@ public class PlayerNormalMode : PlayerMode
         if (player.IsPlayingEvent) return;
 
         // Punch
-        base.UpdatePunch(player);
+        UpdatePunch(player);
+
+        // Counter
+        UpdateCounter(player);
 
         // Ultra
         UpdateUltra(player);
+    }
+
+    private void UpdatePunch(PlayerController player)
+    {
+        player.MyAnimator.SetBool("LeftPunch", player.LeftPunch);
+        player.MyAnimator.SetBool("RightPunch", player.RightPunch);
+
+        bool enable_punch_collider = player.MyAnimator.GetFloat("EnablePunchCollider") == 1f;
+        player.PunchCollider.SetActive(enable_punch_collider);
+        player.Parameter.SetEnableCounter(enable_punch_collider);
     }
 
     private void UpdateUltra(PlayerController player)
@@ -113,5 +126,38 @@ public class PlayerNormalMode : PlayerMode
 
         player.PunchCollider.SetActive(false);
         player.UltraController.Play();
+    }
+
+    private void UpdateCounter(PlayerController player)
+    {
+        var parameter = player.Parameter;
+
+        if (counter_effect_counter_ > 0f)
+        {
+            counter_effect_counter_ -= Time.unscaledDeltaTime;
+            if(counter_effect_counter_ <= 0f)
+            {
+                parameter.CounterCheckDelayCounter = -1f;
+            }
+
+            parameter.kTimeScale = parameter.CounterTimeScale.Evaluate(1f - counter_effect_counter_ / parameter.CounterEffectTime);
+            return;
+        }
+
+
+        if(parameter.EnableCounter
+            && parameter.CounterCheckDelayCounter > 0f)
+        {
+            parameter.CounterCheckDelayCounter = float.MaxValue;
+            foreach(var enemy in parameter.CounterTargets)
+            {
+                enemy.OnCountered();
+                parameter.ChangeEnergy(player.Parameter.CounterEnergy);
+                Debug.Log("Counter Successed : " + enemy.gameObject.name);
+            }
+
+            parameter.ClearCounterTargets();
+            counter_effect_counter_ = parameter.CounterEffectTime;
+        }
     }
 }
