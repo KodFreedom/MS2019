@@ -126,9 +126,10 @@ public class EnemyController : MonoBehaviour
     {
         if (agent_.enabled == true) return;
 
-        GameManager.Instance.Data.Player.OnPunchHit();
+        var player = GameManager.Instance.Data.Player;
+        player.OnPunchHit();
 
-        Life -= target_.Attack;
+        Life -= player.Attack;
 
         if (Life <= 0f)
         {
