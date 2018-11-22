@@ -17,4 +17,6 @@ public abstract class PlayerMode
     public virtual void OnTriggerEnter(PlayerController player, Collider other) { }
 
     public virtual void OnTriggerExit(PlayerController player, Collider other) { }
+
+    public virtual void OnHitted(PlayerController player) { }
 }

@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.KnockbackCameraShakeRange, Parameter.KnockbackCameraShakeTime);
         vibration_flag_.damaged = true;
+        current_mode_.OnHitted(this);
     }
 
     public void ReadyToStart()

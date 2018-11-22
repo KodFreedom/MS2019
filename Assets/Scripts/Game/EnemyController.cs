@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
 	
 	private void Update ()
     {
-        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") > 0.5f);
 
         if (Life <= 0f) return;
         if (wait_time_ > 0f)

@@ -76,7 +76,6 @@ public class PlayerParameter : MonoBehaviour
     public CinemachineTargetGroup UltraTargetGroup { get { return kUltraTargetGroup; } }
     public HandEffect LeftHandEffects { get { return kLeftHandEffects; } }
     public HandEffect RightHandEffects { get { return kRightHandEffects; } }
-    public bool EnableCounter { get; private set; }
     public List<EnemyController> CounterTargets { get; private set; }
     public AnimationCurve CounterTimeScale { get { return kCounterTimeScale; } }
 
@@ -89,11 +88,6 @@ public class PlayerParameter : MonoBehaviour
     public void Tick(float delta_time)
     {
         Timer += delta_time;
-    }
-
-    public void SetEnableCounter(bool value)
-    {
-        EnableCounter = value;
     }
 
     public void Register(EnemyController counter_target)

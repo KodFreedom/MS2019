@@ -6,9 +6,6 @@ public class PlayerNormalMode : PlayerMode
 {
     private bool playing_ultra_timeline_ = false;
     private float counter_effect_counter_ = 0f;
-    private int left_layer_index_ = 0;
-    private int right_layer_index_ = 0;
-    private int current_layer_index_ = 0;
 
     public override string Name()
     {
@@ -23,18 +20,21 @@ public class PlayerNormalMode : PlayerMode
     public override void Init(PlayerController player)
     {
         playing_ultra_timeline_ = false;
-        left_layer_index_ = player.MyAnimator.GetLayerIndex("Left Layer");
-        right_layer_index_ = player.MyAnimator.GetLayerIndex("Right Layer");
     }
 
     public override void Uninit(PlayerController player)
     {
+    }
 
+    public override void OnHitted(PlayerController player)
+    {
+        player.MyAnimator.SetBool("Hitted", true);
     }
 
     public override void Update(PlayerController player)
     {
         player.UltraCollider.SetActive(player.EnableUltraCollider);
+        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
 
         if (playing_ultra_timeline_)
         {
@@ -46,26 +46,17 @@ public class PlayerNormalMode : PlayerMode
             return;
         }
 
-        if (player.IsPlayingEvent) return;
+        if (player.IsPlayingEvent)
+        {
+            player.Parameter.kScriptableTimeScale = 1f;
+            return;
+        }
 
-        // Punch
-        UpdatePunch(player);
-
-        // Counter
-        UpdateCounter(player);
+        // Punch&Counter
+        UpdatePunchAndCounter(player);
 
         // Ultra
         UpdateUltra(player);
-    }
-
-    private void UpdatePunch(PlayerController player)
-    {
-        player.MyAnimator.SetBool("LeftPunch", player.LeftPunch);
-        player.MyAnimator.SetBool("RightPunch", player.RightPunch);
-
-        bool enable_punch_collider = player.MyAnimator.GetFloat("EnablePunchCollider") == 1f;
-        player.PunchCollider.SetActive(enable_punch_collider);
-        player.Parameter.SetEnableCounter(enable_punch_collider);
     }
 
     private void UpdateUltra(PlayerController player)
@@ -134,9 +125,13 @@ public class PlayerNormalMode : PlayerMode
         player.UltraController.Play();
     }
 
-    private void UpdateCounter(PlayerController player)
+    private void UpdatePunchAndCounter(PlayerController player)
     {
         var parameter = player.Parameter;
+        bool left_punch = false;
+        bool right_punch = false;
+        bool left_counter_punch = false;
+        bool right_counter_punch = false;
 
         if (counter_effect_counter_ > 0f)
         {
@@ -144,35 +139,41 @@ public class PlayerNormalMode : PlayerMode
             if(counter_effect_counter_ <= 0f)
             {
                 counter_effect_counter_ = 0f;
-                player.MyAnimator.SetLayerWeight(current_layer_index_, 0f);
                 parameter.CounterCheckDelayCounter = -1f;
             }
             var rate = 1f - counter_effect_counter_ / parameter.CounterEffectTime;
             parameter.kScriptableTimeScale = parameter.CounterTimeScale.Evaluate(rate);
-
-            // TODO: 0-0.2: 0-1 // 0.8-1: 1-0
-            //var weight = rate <= 0.1f ? rate / 0.1f : rate >= 0.9f ? (1f - rate) / 0.1f : 1f;
-            //Debug.Log(current_layer_index_ + " : " + weight);
-            Debug.Log("CounterEffect");
-            return;
         }
-
-        if(parameter.EnableCounter
-            && parameter.CounterCheckDelayCounter > 0f)
+        else if(player.LeftPunch || player.RightPunch)
         {
-            parameter.CounterCheckDelayCounter = float.MaxValue;
-            foreach(var enemy in parameter.CounterTargets)
-            {
-                if (enemy == null) continue;
-                parameter.ChangeEnergy(player.Parameter.CounterEnergy);
-                Debug.Log("Counter Successed : " + enemy.gameObject.name);
-            }
+            if (parameter.CounterCheckDelayCounter > 0f
+                && player.MyAnimator.GetBool("EnableCounter"))
+            {// Counter Punch
+                parameter.CounterCheckDelayCounter = float.MaxValue;
+                foreach (var enemy in parameter.CounterTargets)
+                {
+                    if (enemy == null) continue;
+                    parameter.ChangeEnergy(player.Parameter.CounterEnergy);
+                    Debug.Log("Counter Successed : " + enemy.gameObject.name);
+                }
 
-            parameter.ClearCounterTargets();
-            counter_effect_counter_ = parameter.CounterEffectTime;
-            current_layer_index_ = player.MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch") ? right_layer_index_ : left_layer_index_;
-            player.MyAnimator.SetLayerWeight(current_layer_index_, 1f);
-            //player.MyAnimator.Play("Counter", current_layer_index_);
+                parameter.ClearCounterTargets();
+                counter_effect_counter_ = parameter.CounterEffectTime;
+                left_counter_punch = player.LeftPunch;
+                right_counter_punch = player.RightPunch;
+            }
+            else
+            {// Normal Punch
+                left_punch = player.LeftPunch;
+                right_punch = player.RightPunch;
+            }
         }
+
+        Debug.Log(left_counter_punch.ToString() + right_counter_punch.ToString()
+            + left_punch.ToString() + right_punch.ToString());
+        player.MyAnimator.SetBool("LeftCounterPunch", left_counter_punch);
+        player.MyAnimator.SetBool("RightCounterPunch", right_counter_punch);
+        player.MyAnimator.SetBool("LeftPunch", left_punch);
+        player.MyAnimator.SetBool("RightPunch", right_punch);
     }
 }
