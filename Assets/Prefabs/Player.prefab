@@ -3040,7 +3040,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373228230387886}
-  m_LocalRotation: {x: 0.07024082, y: 0.929719, z: -0.25109896, w: 0.26007348}
+  m_LocalRotation: {x: 0.07024104, y: 0.92971873, z: -0.2510989, w: 0.26007438}
   m_LocalPosition: {x: -1.2199999, y: 2.8043203, z: -22.980022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4437,6 +4437,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   kTimeScale: 1
+  kScriptableTimeScale: 1
   CounterCheckDelayCounter: 0
 --- !u!114 &114847594854291292
 MonoBehaviour:
@@ -5520,7 +5521,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 0
   m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

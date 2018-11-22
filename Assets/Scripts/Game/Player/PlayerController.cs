@@ -93,10 +93,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnPunchHit()
     {
-        var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
-        var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
-        camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
-
         if(MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch"))
         {
             vibration_flag_.left_punch_hit = true;
@@ -105,6 +101,10 @@ public class PlayerController : MonoBehaviour
         {
             vibration_flag_.right_punch_hit = true;
         }
+
+        //var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        //var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        //camera_shake.Shake(Parameter.PunchCameraShakeRange, Parameter.PunchCameraShakeTime);
     }
 
     public void OnUltraHit()

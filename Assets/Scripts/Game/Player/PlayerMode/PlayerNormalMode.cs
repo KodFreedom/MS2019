@@ -97,12 +97,12 @@ public class PlayerNormalMode : PlayerMode
 
         if (player.CurrentNavigationState.Name() == player.BattleNavigationState.Name())
         {
+            player.BattleArea.OnBattlePause();
             var enemies = player.BattleArea.Enemies;
             int count = 0;
             foreach (var enemy in enemies)
             {
                 if (enemy.IsDead) continue;
-                enemy.OnExitFight();
                 ++count;
             }
 
@@ -144,15 +144,16 @@ public class PlayerNormalMode : PlayerMode
             if(counter_effect_counter_ <= 0f)
             {
                 counter_effect_counter_ = 0f;
+                player.MyAnimator.SetLayerWeight(current_layer_index_, 0f);
                 parameter.CounterCheckDelayCounter = -1f;
             }
             var rate = 1f - counter_effect_counter_ / parameter.CounterEffectTime;
             parameter.kScriptableTimeScale = parameter.CounterTimeScale.Evaluate(rate);
 
             // TODO: 0-0.2: 0-1 // 0.8-1: 1-0
-            var weight = rate <= 0.1f ? rate / 0.1f : rate >= 0.9f ? (1f - rate) / 0.1f : 1f;
-            Debug.Log(current_layer_index_ + " : " + weight);
-            player.MyAnimator.SetLayerWeight(current_layer_index_, weight);
+            //var weight = rate <= 0.1f ? rate / 0.1f : rate >= 0.9f ? (1f - rate) / 0.1f : 1f;
+            //Debug.Log(current_layer_index_ + " : " + weight);
+            Debug.Log("CounterEffect");
             return;
         }
 
@@ -163,7 +164,6 @@ public class PlayerNormalMode : PlayerMode
             foreach(var enemy in parameter.CounterTargets)
             {
                 if (enemy == null) continue;
-                enemy.OnCountered();
                 parameter.ChangeEnergy(player.Parameter.CounterEnergy);
                 Debug.Log("Counter Successed : " + enemy.gameObject.name);
             }
@@ -171,6 +171,7 @@ public class PlayerNormalMode : PlayerMode
             parameter.ClearCounterTargets();
             counter_effect_counter_ = parameter.CounterEffectTime;
             current_layer_index_ = player.MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch") ? right_layer_index_ : left_layer_index_;
+            player.MyAnimator.SetLayerWeight(current_layer_index_, 1f);
             //player.MyAnimator.Play("Counter", current_layer_index_);
         }
     }
