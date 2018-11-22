@@ -6,6 +6,9 @@ public class PlayerNormalMode : PlayerMode
 {
     private bool playing_ultra_timeline_ = false;
     private float counter_effect_counter_ = 0f;
+    private int left_layer_index_ = 0;
+    private int right_layer_index_ = 0;
+    private int current_layer_index_ = 0;
 
     public override string Name()
     {
@@ -20,6 +23,8 @@ public class PlayerNormalMode : PlayerMode
     public override void Init(PlayerController player)
     {
         playing_ultra_timeline_ = false;
+        left_layer_index_ = player.MyAnimator.GetLayerIndex("Left Layer");
+        right_layer_index_ = player.MyAnimator.GetLayerIndex("Right Layer");
     }
 
     public override void Uninit(PlayerController player)
@@ -85,6 +90,7 @@ public class PlayerNormalMode : PlayerMode
     {
         playing_ultra_timeline_ = true;
         player.IsPlayingEvent = true;
+        player.Parameter.ChangeEnergy(-player.Parameter.UltraCost);
 
         // Set target
         var target_group = player.Parameter.UltraTargetGroup;
@@ -137,13 +143,18 @@ public class PlayerNormalMode : PlayerMode
             counter_effect_counter_ -= Time.unscaledDeltaTime;
             if(counter_effect_counter_ <= 0f)
             {
+                counter_effect_counter_ = 0f;
                 parameter.CounterCheckDelayCounter = -1f;
             }
+            var rate = 1f - counter_effect_counter_ / parameter.CounterEffectTime;
+            parameter.kScriptableTimeScale = parameter.CounterTimeScale.Evaluate(rate);
 
-            parameter.kTimeScale = parameter.CounterTimeScale.Evaluate(1f - counter_effect_counter_ / parameter.CounterEffectTime);
+            // TODO: 0-0.2: 0-1 // 0.8-1: 1-0
+            var weight = rate <= 0.1f ? rate / 0.1f : rate >= 0.9f ? (1f - rate) / 0.1f : 1f;
+            Debug.Log(current_layer_index_ + " : " + weight);
+            player.MyAnimator.SetLayerWeight(current_layer_index_, weight);
             return;
         }
-
 
         if(parameter.EnableCounter
             && parameter.CounterCheckDelayCounter > 0f)
@@ -151,6 +162,7 @@ public class PlayerNormalMode : PlayerMode
             parameter.CounterCheckDelayCounter = float.MaxValue;
             foreach(var enemy in parameter.CounterTargets)
             {
+                if (enemy == null) continue;
                 enemy.OnCountered();
                 parameter.ChangeEnergy(player.Parameter.CounterEnergy);
                 Debug.Log("Counter Successed : " + enemy.gameObject.name);
@@ -158,6 +170,8 @@ public class PlayerNormalMode : PlayerMode
 
             parameter.ClearCounterTargets();
             counter_effect_counter_ = parameter.CounterEffectTime;
+            current_layer_index_ = player.MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch") ? right_layer_index_ : left_layer_index_;
+            //player.MyAnimator.Play("Counter", current_layer_index_);
         }
     }
 }

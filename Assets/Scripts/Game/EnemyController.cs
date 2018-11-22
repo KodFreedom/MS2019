@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
     private PlayerController player_ = null;
     private float attack_timer_ = 0f;
     private GameObject punch_collider_ = null;
-    private float on_check_counter_ = 0f;
     [SerializeField] float wait_time_ = 0f;
 
     public bool IsDead { get { return current_life_ == 0f; } }
@@ -37,14 +36,9 @@ public class EnemyController : MonoBehaviour
         attack_timer_ = 0f;
     }
 
-    public void OnCheckCounter(float value)
-    {
-        on_check_counter_ = value;
-    }
-
     public void OnCountered()
     {
-        MyAnimator.SetBool("IsCountered", true);
+        //MyAnimator.SetBool("IsCountered", true);
     }
 
 	private void Start ()
@@ -57,7 +51,8 @@ public class EnemyController : MonoBehaviour
 	
 	private void Update ()
     {
-        on_check_counter_ -= Time.deltaTime;
+        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+
         if (current_life_ <= 0f) return;
         if (wait_time_ > 0f)
         {
@@ -90,7 +85,9 @@ public class EnemyController : MonoBehaviour
 
     private void TurnToPlayer()
     {
-        transform.LookAt(player_.transform, Vector3.up);
+        var direction = Vector3.Scale(player_.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
+        transform.forward = Vector3.Slerp(transform.forward, direction, 0.5f);
+        //transform.LookAt(player_.transform, Vector3.up);
     }
 
     private void Attack()
@@ -110,17 +107,10 @@ public class EnemyController : MonoBehaviour
                 attack_timer_ = kTimeToAttack;
             }
         }
-
-        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") == 1f);
     }
 
     private void HitByPunch()
     {
-        if (on_check_counter_ > 0f)
-        {
-            return;
-        }
-
         player_.OnPunchHit();
 
         current_life_ -= player_.Attack;

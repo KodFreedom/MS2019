@@ -52,7 +52,7 @@ public class PlayerParameter : MonoBehaviour
     [SerializeField] AnimationCurve kCounterTimeScale;
 
     public float kTimeScale = 1f;
-
+    public float kScriptableTimeScale = 1f;
     public float MaxEnergy { get; private set; }
     public float CurrentEnergy { get; private set; }
     public float ChargedEnergy { get; private set; }
@@ -83,7 +83,7 @@ public class PlayerParameter : MonoBehaviour
     public void ChangeEnergy(float amount)
     {
         CurrentEnergy = Mathf.Clamp(CurrentEnergy + amount, 0f, MaxEnergy);
-        ChargedEnergy += amount;
+        ChargedEnergy += Mathf.Max(0f, amount);
     }
 
     public void Tick(float delta_time)
@@ -100,16 +100,11 @@ public class PlayerParameter : MonoBehaviour
     {
         if (counter_target == null) return;
         if (CounterTargets.Contains(counter_target)) return;
-        counter_target.OnCheckCounter(float.MaxValue);
         CounterTargets.Add(counter_target);
     }
 
     public void ClearCounterTargets()
     {
-        foreach(var counter_target in CounterTargets)
-        {
-            counter_target.OnCheckCounter(0.1f);
-        }
         CounterTargets.Clear();
     }
 

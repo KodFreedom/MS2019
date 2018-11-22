@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Time.timeScale = Parameter.kTimeScale;
+        Time.timeScale = Parameter.kTimeScale * Parameter.kScriptableTimeScale;
         Parameter.Tick(Time.deltaTime);
         UpdateInput();
         UpdateCharge();
