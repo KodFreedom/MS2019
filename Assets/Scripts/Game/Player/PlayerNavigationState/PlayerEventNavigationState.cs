@@ -37,7 +37,6 @@ public class PlayerEventNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
-        base.Update(player);
         wait_time_ -= Time.deltaTime;
         if(GameManager.Instance.IsLastStage() == false
             && wait_time_ <= 0f

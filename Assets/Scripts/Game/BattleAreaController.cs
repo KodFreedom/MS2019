@@ -5,22 +5,43 @@ using UnityEngine.Playables;
 
 public class BattleAreaController : MonoBehaviour
 {
-    private List<EnemyController> enemies_ = new List<EnemyController>();
-    public List<EnemyController> Enemies { get { return enemies_; } }
+    public List<EnemyController> Enemies { get; private set; }
+    public bool Paused { get; private set; }
     private PlayerController player_ = null;
     private PlayableDirector enter_battle_event_ = null;
     private bool playing_enter_event_ = false;
     Dictionary<string, PlayableBinding> binding_dictionary_ = new Dictionary<string, PlayableBinding>();
 
-    public void OnBattleAreaEnter(PlayerController player)
+    public void OnBattleStart(PlayerController player)
     {
         player_ = player;
-        foreach(var enemy in enemies_)
+        foreach(var enemy in Enemies)
         {
             enemy.OnPlayerEntered(player);
         }
 
         StartEvent();
+        Paused = false;
+    }
+
+    public void OnBattleResume()
+    {
+        Debug.Log("OnBattleResume");
+        Paused = false;
+        foreach (var enemy in Enemies)
+        {
+            enemy.OnPlayerEntered(player_);
+        }
+    }
+
+    public void OnBattlePause()
+    {
+        Debug.Log("OnBattlePause");
+        Paused = true;
+        foreach (var enemy in Enemies)
+        {
+            enemy.OnPlayerExited();
+        }
     }
 
     public void OnBattleAreaClear()
@@ -30,7 +51,7 @@ public class BattleAreaController : MonoBehaviour
 
     public void Register(EnemyController enemy)
     {
-        enemies_.Add(enemy);
+        Enemies.Add(enemy);
     }
 
     /// <summary>
@@ -43,7 +64,7 @@ public class BattleAreaController : MonoBehaviour
         EnemyController result = null;
         float max_square_distance = float.MaxValue;
 
-        foreach(var enemy in enemies_)
+        foreach(var enemy in Enemies)
         {
             if(enemy.IsDead == false)
             {
@@ -61,6 +82,7 @@ public class BattleAreaController : MonoBehaviour
 
     private void Start()
     {
+        Enemies = new List<EnemyController>();
         enter_battle_event_ = GetComponent<PlayableDirector>();
         playing_enter_event_ = false;
 
@@ -95,7 +117,7 @@ public class BattleAreaController : MonoBehaviour
             playing_enter_event_ = true;
             player_.EventNavigationState.SetWaitTime(0.5f);
             player_.IsPlayingEvent = true;
-            foreach (var enemy in enemies_)
+            foreach (var enemy in Enemies)
             {
                 enemy.SetWaitTime(0.5f);
             }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f42fece64228a1046ac0c5899c2ed540
+guid: e620d05539c537348ac50acd153d038b
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -68,17 +68,17 @@ ModelImporter:
     100124: chara_rigged:upperarm_right
     100126: chara_rigged:upperleg_left
     100128: chara_rigged:upperleg_right
-    100130: hakui_suso_front_left01
-    100132: hakui_suso_front_left03
-    100134: hakui_suso_front_right01
-    100136: hakui_suso_front_right03
-    100138: hakui_suso_side_left01
-    100140: hakui_suso_side_left03
-    100142: hakui_suso_side_right01
-    100144: hakui_suso_side_right03
-    100146: joint7
-    100148: joint8
-    100150: //RootNode
+    100130: //RootNode
+    100132: hakui_suso_front_left01
+    100134: hakui_suso_front_left03
+    100136: hakui_suso_front_right01
+    100138: hakui_suso_front_right03
+    100140: hakui_suso_side_left01
+    100142: hakui_suso_side_left03
+    100144: hakui_suso_side_right01
+    100146: hakui_suso_side_right03
+    100148: joint7
+    100150: joint8
     400000: chara_rigged:foot_left
     400002: chara_rigged:foot_right
     400004: chara_rigged:forearm_left
@@ -144,18 +144,18 @@ ModelImporter:
     400124: chara_rigged:upperarm_right
     400126: chara_rigged:upperleg_left
     400128: chara_rigged:upperleg_right
-    400130: hakui_suso_front_left01
-    400132: hakui_suso_front_left03
-    400134: hakui_suso_front_right01
-    400136: hakui_suso_front_right03
-    400138: hakui_suso_side_left01
-    400140: hakui_suso_side_left03
-    400142: hakui_suso_side_right01
-    400144: hakui_suso_side_right03
-    400146: joint7
-    400148: joint8
-    400150: //RootNode
-    7400000: Punch
+    400130: //RootNode
+    400132: hakui_suso_front_left01
+    400134: hakui_suso_front_left03
+    400136: hakui_suso_front_right01
+    400138: hakui_suso_front_right03
+    400140: hakui_suso_side_left01
+    400142: hakui_suso_side_left03
+    400144: hakui_suso_side_right01
+    400146: hakui_suso_side_right03
+    400148: joint7
+    400150: joint8
+    7400000: CounterPunchRight
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -186,10 +186,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Punch
+      name: CounterPunchRight
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 11
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -222,66 +222,23 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.465
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.47
+            time: 0.544
             value: 1
-            inSlope: 0
+            inSlope: Infinity
             outSlope: 0
-            tangentMode: 0
+            tangentMode: 7
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.721
-            value: 1
-            inSlope: -0
-            outSlope: -2.4267194
-            tangentMode: 5
+            time: 0.65
+            value: 0
+            inSlope: Infinity
+            outSlope: Infinity
+            tangentMode: 103
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.722
-            value: 0
-            inSlope: -4.273396
-            outSlope: 0
-            tangentMode: 65
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
-          rotationOrder: 4
-      - name: EnableCharge
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
           - serializedVersion: 3
             time: 1
             value: 0

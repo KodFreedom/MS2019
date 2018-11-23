@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerBattleNavigationState : PlayerNavigationState
 {
-    private static int kEnemyLayer;
-    private float wait_time_ = 0f;
     private float knockback_speed_ = 0f;
     private float knockback_acc_ = 0f;
     private float knockback_freeze_time_ = 0f;
@@ -17,18 +15,20 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Init(PlayerController player)
     {
-        kEnemyLayer = LayerMask.NameToLayer("Enemy");
-        player.NavAgent.angularSpeed = 360f;
+        player.NavAgent.isStopped = true;
+        player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Uninit(PlayerController player)
     {
+        player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Update(PlayerController player)
     {
-        base.Update(player);
         if (player.IsPlayingEvent) return;
+
+        CheckHitted(player);
 
         if (knockback_acc_ != 0f)
         {
@@ -42,85 +42,83 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void OnTriggerEnter(PlayerController player, Collider other)
     {
-        if (other.gameObject.layer == kEnemyLayer)
+        if (other.gameObject.CompareTag("EnemyAttackCollider"))
         {
-            if (player.TargetEnemy != null
-                && other.gameObject == player.TargetEnemy.gameObject)
+            Debug.Log("OnEnemyPunchEnter");
+            var parameter = player.Parameter;
+            parameter.Register(other.GetComponentInParent<EnemyController>());
+            if(parameter.CounterCheckDelayCounter < 0f)
             {
-                player.NavAgent.isStopped = true;
-                player.TargetEnemy.OnBeginFight();
-            }
-            else if (other.gameObject.name.Equals("PunchCollider"))
-            {
-                Hitted(player);
+                parameter.CounterCheckDelayCounter = parameter.CounterCheckDelay;
             }
         }
     }
 
-    public override void OnTriggerExit(PlayerController player, Collider other)
+    private void Navgation(PlayerController player)
     {
-        if (other.gameObject.layer == kEnemyLayer)
+        if (player.BattleArea.Paused == false)
         {
-            if (other.GetComponent<EnemyController>() == player.TargetEnemy)
+            FindEnemy(player);
+        }
+        else
+        {
+            if (CheckArrive(player) == true)
             {
-                player.TargetEnemy.OnExitFight();
+                player.NavAgent.isStopped = true;
+                player.BattleArea.OnBattleResume();
             }
         }
     }
 
     private void FindEnemy(PlayerController player)
     {
-        player.TargetEnemy = player.BattleArea.GetNearestEnemy(player.transform.position);
-        if (player.TargetEnemy == null)
+        if(player.TargetEnemy)
         {
-            player.BattleArea.OnBattleAreaClear();
-
-            // battle area clear
-            player.BattleArea = null;
-
-            // change to event state
-            player.EventNavigationState.SetNextState(player.FieldNavigationState);
-            player.Change(player.EventNavigationState);
-        }
-        else
-        {
-            // enemyに向かって移動する
-            player.NavAgent.SetDestination(player.TargetEnemy.transform.position);
-            player.NavAgent.isStopped = false;
-        }
-    }
-
-    private void Navgation(PlayerController player)
-    {
-        if (wait_time_ > 0f)
-        {
-            wait_time_ -= Time.deltaTime;
-            return;
-        }
-
-        if (player.TargetEnemy == null)
-        {
-            FindEnemy(player);
-        }
-        else
-        {
-            if (player.TargetEnemy.IsDead)
+            if(player.TargetEnemy.IsDead)
             {
                 player.TargetEnemy = null;
-                wait_time_ = 1f;
+            }
+        }
+        else
+        {
+            player.TargetEnemy = player.BattleArea.GetNearestEnemy(player.transform.position);
+            if (player.TargetEnemy)
+            {
+                player.TargetEnemy.OnBeginFight();
+            }
+            else
+            {
+                // battle area clear
+                player.BattleArea.OnBattleAreaClear();
+                player.BattleArea = null;
+
+                // change to event state
+                player.EventNavigationState.SetNextState(player.FieldNavigationState);
+                player.Change(player.EventNavigationState);
             }
         }
     }
 
-    private void Hitted(PlayerController player)
+    private void CheckHitted(PlayerController player)
     {
-        // v0t = 2vpt0
-        float player_speed = player.NavAgent.speed;
-        knockback_speed_ = player.Parameter.KnockbackSpeed;
-        float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
-        knockback_acc_ = -knockback_speed_ / knockback_time;
+        if(player.Parameter.CounterCheckDelayCounter > 0f)
+        {
+            player.Parameter.CounterCheckDelayCounter -= Time.deltaTime;
+            
+            if(player.Parameter.CounterCheckDelayCounter <= 0f)
+            {// Hitted
+                // v0t = 2vpt0
+                float player_speed = player.NavAgent.speed;
+                knockback_speed_ = player.Parameter.KnockbackSpeed;
+                float knockback_time = 2 * player_speed * player.Parameter.KnockbackReturnTime / knockback_speed_;
+                knockback_acc_ = -knockback_speed_ / knockback_time;
 
-        player.OnDamaged();
+                player.OnDamaged();
+                player.Parameter.ClearCounterTargets();
+                player.Parameter.CounterCheckDelayCounter = -1f;
+                player.BattleArea.OnBattlePause();
+            }
+        }
     }
 
     private void Knockback(PlayerController player)
@@ -132,7 +130,9 @@ public class PlayerBattleNavigationState : PlayerNavigationState
             {
                 knockback_speed_ = 0f;
                 knockback_acc_ = 0f;
+
                 player.NavAgent.isStopped = false;
+                player.NavAgent.SetDestination(player.BattleArea.transform.position);
             }
             return;
         }

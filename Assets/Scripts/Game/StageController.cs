@@ -81,7 +81,6 @@ public class StageController : MonoBehaviour
                 var cinemachine_track = binding_dictionary_start_["Cinemachine"].sourceObject as Cinemachine.Timeline.CinemachineTrack;
                 foreach (var clip in cinemachine_track.GetClips())
                 {
-                    Debug.Log(clip.displayName);
                     var cinemachine_shot = clip.asset as Cinemachine.Timeline.CinemachineShot;
                     var camera = game_data.Cinemachines.GetBy(clip.displayName);
                     if (camera)

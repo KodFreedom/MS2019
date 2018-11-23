@@ -18,10 +18,5 @@ public abstract class PlayerMode
 
     public virtual void OnTriggerExit(PlayerController player, Collider other) { }
 
-    protected void UpdatePunch(PlayerController player)
-    {
-        player.MyAnimator.SetBool("LeftPunch", player.LeftPunch);
-        player.MyAnimator.SetBool("RightPunch", player.RightPunch);
-        player.PunchCollider.SetActive(player.MyAnimator.GetFloat("EnablePunchCollider") == 1f);
-    }
+    public virtual void OnHitted(PlayerController player) { }
 }

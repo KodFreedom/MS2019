@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerLeftAvatarMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: chara_rigged:chara_mesh
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:arm
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:chara_head
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:checkerShirt
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:hakui1
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:shirt_eri
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:sode_right
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:T_shirt
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:clothes/chara_rigged:zubon
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:hair
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:hair_front01
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:hair_front02
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:pCylinder4
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:pCylinder5
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:shoes_left
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:shoes_right
+    m_Weight: 0
+  - m_Path: chara_rigged:chara_mesh/chara_rigged:sode_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:neck
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:neck/chara_rigged:joint2
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:neck/chara_rigged:joint2/chara_rigged:joint3
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:index1_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:index1_left/chara_rigged:index2_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:index1_left/chara_rigged:index2_left/chara_rigged:index3_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:index1_left/chara_rigged:index2_left/chara_rigged:index3_left/chara_rigged:index4_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:joint4
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:joint4/chara_rigged:thumb1_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:joint4/chara_rigged:thumb1_left/chara_rigged:thumb2_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:joint4/chara_rigged:thumb1_left/chara_rigged:thumb2_left/chara_rigged:thumb3_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:middle1_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:middle1_left/chara_rigged:middle2_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:middle1_left/chara_rigged:middle2_left/chara_rigged:middle3_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:middle1_left/chara_rigged:middle2_left/chara_rigged:middle3_left/chara_rigged:middle4_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:pinky1_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:pinky1_left/chara_rigged:pinky2_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:pinky1_left/chara_rigged:pinky2_left/chara_rigged:pinky3_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:pinky1_left/chara_rigged:pinky2_left/chara_rigged:pinky3_left/chara_rigged:pinky4_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:ring1_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:ring1_left/chara_rigged:ring2_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:ring1_left/chara_rigged:ring2_left/chara_rigged:ring3_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_left/chara_rigged:upperarm_left/chara_rigged:forearm_left/chara_rigged:hand_left/chara_rigged:ring1_left/chara_rigged:ring2_left/chara_rigged:ring3_left/chara_rigged:ring4_left
+    m_Weight: 1
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:index1_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:index1_right/chara_rigged:index2_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:index1_right/chara_rigged:index2_right/chara_rigged:index3_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:index1_right/chara_rigged:index2_right/chara_rigged:index3_right/chara_rigged:index4_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:joint4
+      1
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:joint4
+      1/chara_rigged:thumb1_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:joint4
+      1/chara_rigged:thumb1_right/chara_rigged:thumb2_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:joint4
+      1/chara_rigged:thumb1_right/chara_rigged:thumb2_right/chara_rigged:thumb3_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:middle1_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:middle1_right/chara_rigged:middle2_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:middle1_right/chara_rigged:middle2_right/chara_rigged:middle3_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:middle1_right/chara_rigged:middle2_right/chara_rigged:middle3_right/chara_rigged:middle4_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:pinky1_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:pinky1_right/chara_rigged:pinky2_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:pinky1_right/chara_rigged:pinky2_right/chara_rigged:pinky3_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:pinky1_right/chara_rigged:pinky2_right/chara_rigged:pinky3_right/chara_rigged:pinky4_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:ring1_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:ring1_right/chara_rigged:ring2_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:ring1_right/chara_rigged:ring2_right/chara_rigged:ring3_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:spine1/chara_rigged:spine2/chara_rigged:shoulder_right/chara_rigged:upperarm_right/chara_rigged:forearm_right/chara_rigged:hand_right/chara_rigged:ring1_right/chara_rigged:ring2_right/chara_rigged:ring3_right/chara_rigged:ring4_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_left/chara_rigged:foreleg_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_left/chara_rigged:foreleg_left/chara_rigged:foot_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_left/chara_rigged:foreleg_left/chara_rigged:foot_left/chara_rigged:toe_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_left/chara_rigged:foreleg_left/chara_rigged:foot_left/chara_rigged:toe_left/chara_rigged:toetop_left
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_right/chara_rigged:foreleg_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_right/chara_rigged:foreleg_right/chara_rigged:foot_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_right/chara_rigged:foreleg_right/chara_rigged:foot_right/chara_rigged:toe_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/chara_rigged:upperleg_right/chara_rigged:foreleg_right/chara_rigged:foot_right/chara_rigged:toe_right/chara_rigged:toetop_right
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_front_left01
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_front_left01/hakui_suso_front_left03
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_front_right01
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_front_right01/hakui_suso_front_right03
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_side_left01
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_side_left01/hakui_suso_side_left03
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_side_right01
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/hakui_suso_side_right01/hakui_suso_side_right03
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/joint8
+    m_Weight: 0
+  - m_Path: chara_rigged:skelton1/chara_rigged:hip/joint8/joint7
+    m_Weight: 0
