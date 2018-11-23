@@ -124,12 +124,11 @@ public class EnemyController : MonoBehaviour
 
     private void HitByPunch()
     {
-        if (agent_.enabled == true) return;
+        if (agent_.enabled == true || target_ == null) return;
 
-        var player = GameManager.Instance.Data.Player;
-        player.OnPunchHit();
+        target_.OnPunchHit();
 
-        Life -= player.Attack;
+        Life -= target_.Attack;
 
         if (Life <= 0f)
         {
