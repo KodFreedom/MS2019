@@ -14,6 +14,10 @@ public class Fade : MonoBehaviour
 
     Image fadeImage;                //透明度を変更するパネルのイメージ
 
+    public float timeOut;
+    private float timeElapsed;
+    ImagePanel obj;
+
     void Start()
     {
         fadeImage = GetComponent<Image>();
@@ -26,7 +30,9 @@ public class Fade : MonoBehaviour
 
     void Update()
     {
-        if (isFadeIn)
+        timeElapsed += Time.deltaTime;
+
+        if (isFadeIn && timeElapsed >= timeOut)
         {
             StartFadeIn();
         }

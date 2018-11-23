@@ -10,7 +10,6 @@ using System.IO;
 /// </summary>
 public class ImagePanel : MonoBehaviour
 {
-
 	[Tooltip("表示させる画像")]
 	public Texture texure = null;
 
@@ -26,18 +25,35 @@ public class ImagePanel : MonoBehaviour
     [Tooltip("破壊後の破片を纏めているオブジェクト")]
 	public GameObject debris;
 
-	private bool isFinish = false; //debug
+	public static bool isBreak = false; //debug
 
     public float timeOut;
     private float timeElapsed;
 
+    private InputManager input_ = null;
+
+    private int PunchCnt;
+
+    private float fInterval;
+    private bool bInterval;
+    public GameObject ActiveTarget;
+
+
     void Start()
 	{
+        //transform.parent = GameObject.Find("Main Camera").transform;
+        //transform.parent = GameObject.Find("Canvas").transform;
+        ActiveTarget.SetActive(false);
+        bInterval = false;
+        fInterval = 0.0f;
+        input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
+        PunchCnt = 0;
+
         //エラー処理
         if (texure == null)
 		{
 			Debug.LogError("Texture is null");
-			isFinish = true;
+            isBreak = true;
 			return;
 		}
 
@@ -45,8 +61,6 @@ public class ImagePanel : MonoBehaviour
 
 		//Texture設定
 		panel.GetComponent<Renderer>().material.mainTexture = texure;
-
-
 
 		foreach (Transform child in debris.transform)
 		{
@@ -56,19 +70,37 @@ public class ImagePanel : MonoBehaviour
 
 	void Update ()
     {
-        timeElapsed += Time.deltaTime;
 
-        if (timeElapsed >= 2)
+        GameObject.DontDestroyOnLoad(this);
+
+        if (bInterval)
         {
+            fInterval += Time.deltaTime;
+
+            if(fInterval >= 0.1f)
+            {
+                bInterval = false;
+                fInterval = 0;
+            }
+        }
+
+        if (!bInterval && PunchCnt == 0 && input_.GetPunchL() || !bInterval && PunchCnt == 0 && input_.GetPunchR())
+        {
+            bInterval = true;
+            PunchCnt = 1;
             panel.GetComponent<Renderer>().material.mainTexture = texure2;
+
+            Debug.Log(PunchCnt);
         }
 
-        if (timeElapsed >= timeOut)
+        if (!bInterval && PunchCnt == 1 && input_.GetPunchL() || !bInterval && PunchCnt == 1 && input_.GetPunchR())
         {
+            bInterval = true;
+            isBreak = true;
             crash();
-            isFinish = true;
+            
+            Debug.Log(PunchCnt);
         }
-
     }
 
 	public void crash()
@@ -80,4 +112,9 @@ public class ImagePanel : MonoBehaviour
 
         Destroy(this.gameObject);
 	}
+
+    public static bool GetIsBreak()
+    {
+        return isBreak;
+    }
  }

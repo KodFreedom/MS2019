@@ -18,11 +18,12 @@ public class FadeController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        timeElapsed += Time.deltaTime;
+        //ImagePanelManager obj = new ImagePanelManager();
 
-        if (timeElapsed >= timeOut)
-        {
-            ActiveTarget.SetActive(true);
-        }
+        //if (obj.isBreak)
+        //{
+        //    ActiveTarget.SetActive(true);
+        //    Debug.Log("Active");
+        //}
     }
 }

@@ -19,9 +19,9 @@ public class TitleController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(input_.GetPunchL()
-            || input_.GetPunchR())
+		if(ImagePanel.isBreak)
         {
+            GameObject.DontDestroyOnLoad(this);
             to_game_scene_ = true;
         }
 
