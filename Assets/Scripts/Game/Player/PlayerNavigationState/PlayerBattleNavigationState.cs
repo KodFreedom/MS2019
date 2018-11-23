@@ -21,6 +21,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Uninit(PlayerController player)
     {
+        player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Update(PlayerController player)
@@ -105,7 +106,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
             player.Parameter.CounterCheckDelayCounter -= Time.deltaTime;
             
             if(player.Parameter.CounterCheckDelayCounter <= 0f)
-            {
+            {// Hitted
                 // v0t = 2vpt0
                 float player_speed = player.NavAgent.speed;
                 knockback_speed_ = player.Parameter.KnockbackSpeed;
@@ -114,6 +115,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
                 player.OnDamaged();
                 player.Parameter.ClearCounterTargets();
+                player.Parameter.CounterCheckDelayCounter = -1f;
                 player.BattleArea.OnBattlePause();
             }
         }

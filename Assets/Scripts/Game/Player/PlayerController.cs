@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private struct VibrationFlag
     {
+        public bool left_punch_enter;
+        public bool right_punch_enter;
         public bool left_punch_hit;
         public bool right_punch_hit;
         public bool damaged;
@@ -91,9 +93,19 @@ public class PlayerController : MonoBehaviour
         current_mode_.Init(this);
     }
 
+    public void OnLeftPunchEnter()
+    {
+        vibration_flag_.left_punch_enter = true;
+    }
+
+    public void OnRightPunchEnter()
+    {
+        vibration_flag_.right_punch_enter = true;
+    }
+
     public void OnPunchHit()
     {
-        if(MyAnimator.GetCurrentAnimatorStateInfo(0).IsName("LeftPunch"))
+        if(MyAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Left"))
         {
             vibration_flag_.left_punch_hit = true;
         }
@@ -152,7 +164,6 @@ public class PlayerController : MonoBehaviour
                 UltraController.SetGenericBinding(at.sourceObject, Camera.main.GetComponent<Cinemachine.CinemachineBrain>());
             }
         }
-
         UltraController.Stop();
         IsPlayingEvent = false;
         EnableUltraCollider = false;
@@ -211,13 +222,15 @@ public class PlayerController : MonoBehaviour
     private void UpdateVibration()
     {
         var input = GameManager.Instance.Data.MyInput;
-        if (MyAnimator.GetBool("OnLeftPunchEnter"))
+        if (vibration_flag_.left_punch_enter)
         {
+            vibration_flag_.left_punch_enter = false;
             input.VibrationPunchiShotL();
         }
 
-        if (MyAnimator.GetBool("OnRightPunchEnter"))
+        if (vibration_flag_.right_punch_enter)
         {
+            vibration_flag_.right_punch_enter = false;
             input.VibrationPunchiShotR();
         }
 
@@ -249,7 +262,7 @@ public class PlayerController : MonoBehaviour
     // 充電
     private void UpdateCharge()
     {
-        bool enable_charge_ = MyAnimator.GetFloat("EnableCharge") == 1f ? true : false;
+        bool enable_charge_ = MyAnimator.GetBool("EnableCharge");
         enable_charge_ = UltraController.state == PlayState.Playing ? false : enable_charge_;
         enable_charge_ = IsPlayingEvent == true ? false : enable_charge_;
 

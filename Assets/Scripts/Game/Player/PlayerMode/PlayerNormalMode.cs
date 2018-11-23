@@ -28,7 +28,7 @@ public class PlayerNormalMode : PlayerMode
 
     public override void OnHitted(PlayerController player)
     {
-        player.MyAnimator.SetBool("Hitted", true);
+        player.MyAnimator.CrossFade("Idle", 0.2f);
     }
 
     public override void Update(PlayerController player)
@@ -43,7 +43,6 @@ public class PlayerNormalMode : PlayerMode
                 playing_ultra_timeline_ = false;
                 player.IsPlayingEvent = false;
             }
-            return;
         }
 
         if (player.IsPlayingEvent)
@@ -63,7 +62,7 @@ public class PlayerNormalMode : PlayerMode
     {
         var parameter = player.Parameter;
         if (player.Ultra
-            && player.MyAnimator.GetFloat("EnableCharge") == 1f
+            && player.MyAnimator.GetBool("EnableCharge")
             && parameter.CurrentEnergy >= parameter.UltraCost)
         {
             if (GameManager.Instance.IsLastStage())
@@ -128,10 +127,6 @@ public class PlayerNormalMode : PlayerMode
     private void UpdatePunchAndCounter(PlayerController player)
     {
         var parameter = player.Parameter;
-        bool left_punch = false;
-        bool right_punch = false;
-        bool left_counter_punch = false;
-        bool right_counter_punch = false;
 
         if (counter_effect_counter_ > 0f)
         {
@@ -146,8 +141,9 @@ public class PlayerNormalMode : PlayerMode
         }
         else if(player.LeftPunch || player.RightPunch)
         {
-            if (parameter.CounterCheckDelayCounter > 0f
-                && player.MyAnimator.GetBool("EnableCounter"))
+            if (player.MyAnimator.GetBool("EnableCharge") == false) return;
+
+            if (parameter.CounterCheckDelayCounter > 0f)
             {// Counter Punch
                 parameter.CounterCheckDelayCounter = float.MaxValue;
                 foreach (var enemy in parameter.CounterTargets)
@@ -159,21 +155,31 @@ public class PlayerNormalMode : PlayerMode
 
                 parameter.ClearCounterTargets();
                 counter_effect_counter_ = parameter.CounterEffectTime;
-                left_counter_punch = player.LeftPunch;
-                right_counter_punch = player.RightPunch;
+                
+                if(player.LeftPunch)
+                {
+                    Debug.Log("LeftCounterPunch");
+                    player.MyAnimator.Play("LeftCounterPunch");
+                }
+                else
+                {
+                    Debug.Log("RightCounterPunch");
+                    player.MyAnimator.Play("RightCounterPunch");
+                }
             }
             else
             {// Normal Punch
-                left_punch = player.LeftPunch;
-                right_punch = player.RightPunch;
+                if (player.LeftPunch)
+                {
+                    Debug.Log("LeftPunch");
+                    player.MyAnimator.Play("LeftPunch");
+                }
+                else
+                {
+                    Debug.Log("RightPunch");
+                    player.MyAnimator.Play("RightPunch");
+                }
             }
         }
-
-        Debug.Log(left_counter_punch.ToString() + right_counter_punch.ToString()
-            + left_punch.ToString() + right_punch.ToString());
-        player.MyAnimator.SetBool("LeftCounterPunch", left_counter_punch);
-        player.MyAnimator.SetBool("RightCounterPunch", right_counter_punch);
-        player.MyAnimator.SetBool("LeftPunch", left_punch);
-        player.MyAnimator.SetBool("RightPunch", right_punch);
     }
 }
