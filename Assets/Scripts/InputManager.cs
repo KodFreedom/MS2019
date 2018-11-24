@@ -99,7 +99,6 @@ public class InputManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
             m_IsKeyboardButton[i] = false;
-        
     }
 
     private void Update()

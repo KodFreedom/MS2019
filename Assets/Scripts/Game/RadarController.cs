@@ -18,4 +18,15 @@ public class RadarController : MonoBehaviour
         rotation_.y += kRotateSpeed * Time.deltaTime;
         transform.localRotation = Quaternion.Euler(rotation_);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            if (other.gameObject.name.Equals("UltraCollider"))
+            {
+                GameManager.Instance.Data.Player.OnUltraHit();
+            }
+        }
+    }
 }

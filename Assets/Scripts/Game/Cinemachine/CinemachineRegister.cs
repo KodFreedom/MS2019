@@ -9,7 +9,7 @@ public class CinemachineRegister : MonoBehaviour
         var cinemachine = GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
         if(cinemachine)
         {
-            GameManager.Instance.Cinemachines.Register(cinemachine);
+            GameManager.Instance.Data.Cinemachines.Register(cinemachine);
         }
 	}
 }

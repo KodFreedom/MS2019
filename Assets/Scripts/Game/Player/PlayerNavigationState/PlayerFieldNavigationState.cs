@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerFieldNavigationState : PlayerNavigationState
 {
-    private static int kBattleAreaLayer = LayerMask.NameToLayer("BattleArea");
-
     public override string Name()
     {
         return "PlayerFieldNavigationState";
@@ -23,36 +21,35 @@ public class PlayerFieldNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
-        base.Update(player);
         if (player.IsPlayingEvent) return;
-        FindBattleArea(player);
-    }
 
-    public override void OnTriggerEnter(PlayerController player, Collider other)
-    {
-        if (other.gameObject.layer == kBattleAreaLayer)
+        if(player.BattleArea)
         {
-            player.BattleArea.OnBattleAreaEnter(player);
-            player.EventNavigationState.SetNextState(player.BattleNavigationState);
-            player.Change(player.EventNavigationState);
+            if(CheckArrive(player))
+            {
+                player.BattleArea.OnBattleStart(player);
+                player.EventNavigationState.SetNextState(player.BattleNavigationState);
+                player.Change(player.EventNavigationState);
+            }
         }
+        else
+        {
+            FindBattleArea(player);
+        }  
     }
 
     private void FindBattleArea(PlayerController player)
     {
+        player.BattleArea = GameManager.Instance.Data.GetNextBattleArea();
         if (player.BattleArea == null)
         {
-            player.BattleArea = GameManager.Instance.Data.GetNextBattleArea();
-            if (player.BattleArea == null)
-            {
-                // Stage Clear
-                GameManager.Instance.StageClear();
+            // Stage Clear
+            GameManager.Instance.StageClear();
 
-                // Change To event state
-                player.EventNavigationState.SetNextState(player.FieldNavigationState);
-                player.Change(player.EventNavigationState);
-                return;
-            }
+            // Change To event state
+            player.EventNavigationState.SetNextState(player.FieldNavigationState);
+            player.Change(player.EventNavigationState);
+            return;
         }
 
         player.NavAgent.SetDestination(player.BattleArea.transform.position);

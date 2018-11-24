@@ -5,32 +5,48 @@ using UnityEngine.UI;
 
 public class ResultController : MonoBehaviour
 {
-    private InputManager input_ = null;
+    [SerializeField] float kTimeToChange = 30f;
+    [SerializeField] float kFadeTime = 0.5f;
+    [SerializeField] Image kFadeOut = null;
+    [SerializeField] ResultPanel kPanel = null;
     private AsyncOperation title_scene_ = null;
-    private bool to_title_scene = false;
+    private float time_counter_ = 0f;
 
-	private void Start ()
+    public void OnGameClear()
     {
-        input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
+        if (time_counter_ > 0f) return;
+        kPanel.Act();
         title_scene_ = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Title");
         title_scene_.allowSceneActivation = false;
+        time_counter_ = kTimeToChange + kFadeTime;
+    }
+
+    private void Start ()
+    {
+        GameManager.Instance.Data.Register(this);
     }
 
     private void Update()
     {
-        if (input_.GetPunchL()
-            || input_.GetPunchR())
-        {
-            to_title_scene = true;
-        }
-
         ToTitleScene();
     }
 
     private void ToTitleScene()
     {
-        if (!to_title_scene) return;
-        Debug.Log("Prepare to go to title scene");
-        title_scene_.allowSceneActivation = true;
+        var color = kFadeOut.color;
+        if (color.a >= 1f)
+        {
+            title_scene_.allowSceneActivation = true;
+        }
+
+        if (time_counter_ > 0f)
+        {
+            time_counter_ -= Time.deltaTime;
+            if (time_counter_ <= kFadeTime)
+            {
+                color.a += Time.deltaTime / kFadeTime;
+                kFadeOut.color = color;
+            }
+        }
     }
 }

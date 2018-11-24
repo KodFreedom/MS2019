@@ -46,7 +46,7 @@ public class CameraShake : CinemachineExtension
         // Note: change this to something more interesting!
         return new Vector3(
             Random.Range(-max_range_, max_range_),
-            Random.Range(-max_range_, max_range_),
+            Random.Range(0f, max_range_),
             0f);
     }
 

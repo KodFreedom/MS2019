@@ -1,19 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float kTimeToAttack = 3f;
+    [SerializeField] float Life = 3f;
+    [SerializeField] float kStopDistance = 0.5f;
+    [SerializeField] float kPunchCoolDown = 3f;
+    [SerializeField] float kThrowCoolDown = 3f;
+    [SerializeField] GameObject kThrowItem = null;
+    [SerializeField] Transform kThrowHand = null;
     public Animator MyAnimator { get; private set; }
-    private static int kPlayerLayer;
-    private float current_life_ = 3f;
-    private PlayerController player_ = null;
-    private float attack_timer_ = 0f;
+    private int player_layer_ = 0;
+    private PlayerController target_ = null;
     private GameObject punch_collider_ = null;
-    [SerializeField] float wait_time_ = 0f;
+    private ThrowItemController throw_item_ = null;
+    private NavMeshAgent agent_ = null;
+    private float punch_timer_ = 0f;
+    private float throw_timer_ = 0f;
+    private float wait_time_ = 0f;
 
-    public bool IsDead { get { return current_life_ == 0f; } }
+    public bool IsDead { get { return Life <= 0f; } }
 
     public void SetWaitTime(float time)
     {
@@ -22,47 +30,59 @@ public class EnemyController : MonoBehaviour
 
     public void OnPlayerEntered(PlayerController player)
     {
-        player_ = player;
+        target_ = player;
+        MyAnimator.applyRootMotion = false;
+        punch_timer_ = punch_timer_ > 0f ? kPunchCoolDown : 0f;
+        throw_timer_ = throw_timer_ >= 0f ? kThrowCoolDown : -1f;
+    }
+
+    public void OnPlayerExited()
+    {
+        target_ = null;
     }
 
     public void OnBeginFight()
     {
-        attack_timer_ = kTimeToAttack;
-    }
-
-    public void OnExitFight()
-    {
-        attack_timer_ = 0f;
+        throw_timer_ = -1f;
+        DestroyThrowItem();
+        agent_.enabled = true;
+        agent_.SetDestination(target_.transform.position + target_.transform.forward * kStopDistance);
+        MyAnimator.CrossFade("Run", 0.2f);
     }
 
 	private void Start ()
     {
-        kPlayerLayer = LayerMask.NameToLayer("Player");
+        player_layer_ = LayerMask.NameToLayer("Player");
         transform.parent.GetComponent<BattleAreaController>().Register(this);
         MyAnimator = GetComponent<Animator>();
+        agent_ = GetComponent<NavMeshAgent>();
+        agent_.enabled = false;
         punch_collider_ = transform.Find("PunchCollider").gameObject;
     }
 	
 	private void Update ()
     {
-        if (current_life_ <= 0f) return;
+        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") > 0.5f);
+
+        if (Life <= 0f) return;
         if (wait_time_ > 0f)
         {
             wait_time_ -= Time.deltaTime;
             return;
         }
 
-        if (player_)
+        if (target_)
         {
-            if (player_.IsPlayingEvent) return;
-            TurnToPlayer();
-            Attack();
+            if (target_.IsPlayingEvent) return;
+            Navigation();
+            Punch();
+            Throw();
         }
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == kPlayerLayer)
+        if(other.gameObject.layer == player_layer_)
         {
             if(other.gameObject.name.Equals("PunchCollider"))
             {
@@ -75,55 +95,121 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void TurnToPlayer()
+    private void Navigation()
     {
-        transform.LookAt(player_.transform, Vector3.up);
+        if (agent_.enabled == true)
+        {
+            if (CheckArrive())
+            {
+                agent_.enabled = false;
+                punch_timer_ = kPunchCoolDown;
+                MyAnimator.CrossFade("Idle", 0.2f);
+            }
+        }
+        else
+        {// Turn to player
+            var direction = Vector3.Scale(target_.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
+            transform.forward = Vector3.Slerp(transform.forward, direction, 0.5f);
+        }
     }
 
-    private void Attack()
+    private void Punch()
     {
-        if(attack_timer_ > 0f)
+        if(punch_timer_ > 0f)
         {
-            attack_timer_ -= Time.deltaTime;
+            punch_timer_ -= Time.deltaTime;
             
-            if(MyAnimator.GetBool("IsHitted") == true
-                || MyAnimator.GetBool("IsAttack") == true)
+            if(MyAnimator.GetBool("EnableAttack") == false)
             {
-                attack_timer_ = kTimeToAttack;
+                punch_timer_ = kPunchCoolDown;
             }
 
-            if(attack_timer_ <= 0f)
+            if(punch_timer_ <= 0f)
             {
-                MyAnimator.SetBool("IsAttack", true);
-                attack_timer_ = kTimeToAttack;
+                MyAnimator.Play("Punch");
+                punch_timer_ = kPunchCoolDown;
+            }
+        }
+    }
+
+    private void Throw()
+    {
+        if(throw_item_)
+        {
+            if(MyAnimator.GetFloat("EnableThrow") > 0.5f)
+            {
+                throw_item_.Act(target_);
+                throw_item_ = null;
             }
         }
 
-        punch_collider_.SetActive(MyAnimator.GetFloat("EnablePunchCollider") == 1f);
+        if (throw_timer_ > 0f)
+        {
+            throw_timer_ -= Time.deltaTime;
+
+            if (MyAnimator.GetBool("EnableAttack") == false)
+            {
+                throw_timer_ = kThrowCoolDown;
+            }
+
+            if (throw_timer_ <= 0f)
+            {
+                MyAnimator.Play("Throw");
+                throw_item_ = Instantiate(kThrowItem, kThrowHand).GetComponent<ThrowItemController>();
+                throw_timer_ = kThrowCoolDown;
+            }
+        }
+    }
+
+    private void DestroyThrowItem()
+    {
+        if(throw_item_)
+        {
+            Destroy(throw_item_.gameObject);
+            throw_item_ = null;
+        }
     }
 
     private void HitByPunch()
     {
-        player_.OnPunchHit();
+        if (agent_.enabled == true || target_ == null) return;
 
-        current_life_ -= player_.Attack;
-
-        if (current_life_ <= 0f)
+        target_.OnPunchHit();
+        DestroyThrowItem();
+        Life -= target_.Attack;
+        if (Life <= 0f)
         {
-            current_life_ = 0f;
-            MyAnimator.SetBool("IsDead", true);
+            Life = 0f;
+            MyAnimator.Play("Dying");
         }
         else
         {
-            MyAnimator.SetBool("IsHitted", true);
+            MyAnimator.CrossFade("Hit", 0.2f);
         }
     }
 
     private void HitByUltra()
     {
-        player_.OnUltraHit();
+        GameManager.Instance.Data.Player.OnUltraHit();
+        agent_.enabled = false;
+        DestroyThrowItem();
+        Life = 0f;
+        MyAnimator.Play("Dying");
+    }
 
-        current_life_ = 0f;
-        MyAnimator.SetBool("IsDead", true);
+    private bool CheckArrive()
+    {
+        // Check if we've reached the destination
+        if (!agent_.pathPending)
+        {
+            if (agent_.remainingDistance <= agent_.stoppingDistance)
+            {
+                if (!agent_.hasPath || agent_.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

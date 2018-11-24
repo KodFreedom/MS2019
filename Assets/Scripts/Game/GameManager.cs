@@ -5,20 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
     public GameData Data { get; private set; }
-    public InputManager MyInput { get; private set; }
-    public CinemachineManager Cinemachines { get; private set; }
-    public EventFadeController EventFadeIn { get; private set; }
-    public EventFadeController EventFadeOut { get; private set; }
-    public Light SunLight { get; private set; }
-    
-    private StageLoader stage_loader_ = null;
+    public bool GetReady { get; private set; }
     private bool game_clear_ = false;
 
     public bool IsLastStage()
     {
-        return stage_loader_.NextStage == null;
+        return Data.MyStageLoader.NextStage == null;
     }
 
     public void GameClear()
@@ -27,12 +20,11 @@ public class GameManager : MonoBehaviour
         game_clear_ = true;
         Data.Player.IsPlayingEvent = true;
         Data.Result.OnGameClear();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
     }
 
     public void StageClear()
     {
-        stage_loader_.OnStageClear();
+        Data.MyStageLoader.OnStageClear();
     }
 
     public void ChangeStage()
@@ -43,19 +35,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            stage_loader_.OnStageChange();
-        }
-    }
-
-    public void Register(EventFadeController event_fade, EventFadeController.FadeState state)
-    {
-        if(state == EventFadeController.FadeState.kFadeIn)
-        {
-            EventFadeIn = event_fade;
-        }
-        else
-        {
-            EventFadeOut = event_fade;
+            Data.MyStageLoader.OnStageChange();
         }
     }
 
@@ -80,14 +60,24 @@ public class GameManager : MonoBehaviour
         }
 
         Data = new GameData();
-        SunLight = GetComponentInChildren<Light>();
-        Cinemachines = GetComponent<CinemachineManager>();
-        stage_loader_ = GetComponent<StageLoader>();
-        stage_loader_.Init();
+        Data.Register(GetComponentInChildren<Light>());
+        Data.Register(GetComponent<CinemachineManager>());
+        Data.Register(GetComponent<StageLoader>());
+        GetReady = false;
     }
 
     private void Start()
     {
-        MyInput = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
+        Data.Register(JoyconManager.Instance.gameObject.GetComponent<InputManager>());
+    }
+
+    private void Update()
+    {
+        if (GetReady) return;
+        if(Data.GetReady())
+        {
+            GetReady = true;
+            Data.Player.ReadyToStart();
+        }
     }
 }

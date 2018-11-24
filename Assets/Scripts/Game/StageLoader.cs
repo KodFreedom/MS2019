@@ -25,11 +25,12 @@ public class StageLoader : MonoBehaviour
         current_stage_ = NextStage;
         NextStage = LoadNextStage();
 
-        current_stage_.GetComponent<StageController>().PrepareStartEvent();
-        InitBattleAreas(current_stage_);
+        var stage_controller = current_stage_.GetComponent<StageController>();
+        stage_controller.PrepareStartEvent();
+        InitBattleAreas(stage_controller);
     }
 
-    public void Init()
+    private void Start()
     {
         NextStage = LoadNextStage();
     }
@@ -42,15 +43,15 @@ public class StageLoader : MonoBehaviour
         }
 
         GameObject result = Instantiate<GameObject>(kStages[counter_]);
+        result.GetComponent<StageController>().Init();
         counter_++;
         return result;
     }
 
-    private void InitBattleAreas(GameObject stage)
+    private void InitBattleAreas(StageController stage)
     {
-        if (stage == null) return;
-
-        var battle_areas = stage.transform.Find("BattleAreas").GetComponentsInChildren<BattleAreaController>();
+        stage.BattleAreas.SetActive(true);
+        var battle_areas = stage.BattleAreas.GetComponentsInChildren<BattleAreaController>();
         List<BattleAreaController> result = new List<BattleAreaController>();
         foreach(var battle_area in battle_areas)
         {
