@@ -51,7 +51,7 @@ public class InputManager : MonoBehaviour
     }
 
     [SerializeField]
-    private bool m_IsKeyboardMode = true;               // キーボードで操作できるようにするか
+    private bool m_IsKeyboardMode = false;               // キーボードで操作できるようにするか
 
     [SerializeField]
     private bool m_IsDebug = true;                      // デバッグ中か

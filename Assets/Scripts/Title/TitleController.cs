@@ -8,8 +8,11 @@ public class TitleController : MonoBehaviour
     private AsyncOperation game_scene_ = null;
     private bool to_game_scene_ = false;
 
-	// Use this for initialization
-	void Start ()
+    public float timeOut;
+    private float timeElapsed;
+
+    // Use this for initialization
+    void Start ()
     {
         input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
         game_scene_ = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game");
@@ -19,14 +22,18 @@ public class TitleController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(input_.GetPunchL()
-            || input_.GetPunchR())
+		if(ImagePanel.isBreak)
         {
+            timeElapsed += Time.deltaTime;
+            GameObject.DontDestroyOnLoad(this);
             to_game_scene_ = true;
         }
 
-        ToGameScene();
-	}
+        if(timeElapsed >= 2)
+        {
+            ToGameScene();
+        }
+    }
 
     private void ToGameScene()
     {
