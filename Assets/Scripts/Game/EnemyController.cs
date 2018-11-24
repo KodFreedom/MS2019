@@ -9,15 +9,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float kStopDistance = 0.5f;
     [SerializeField] float kPunchCoolDown = 3f;
     [SerializeField] float kThrowCoolDown = 3f;
+    [SerializeField] GameObject kThrowItem = null;
+    [SerializeField] Transform kThrowHand = null;
     public Animator MyAnimator { get; private set; }
     private int player_layer_ = 0;
     private PlayerController target_ = null;
     private GameObject punch_collider_ = null;
+    private ThrowItemController throw_item_ = null;
     private NavMeshAgent agent_ = null;
     private float punch_timer_ = 0f;
+    private float throw_timer_ = 0f;
     private float wait_time_ = 0f;
 
-    public bool IsDead { get { return Life == 0f; } }
+    public bool IsDead { get { return Life <= 0f; } }
 
     public void SetWaitTime(float time)
     {
@@ -29,6 +33,7 @@ public class EnemyController : MonoBehaviour
         target_ = player;
         MyAnimator.applyRootMotion = false;
         punch_timer_ = punch_timer_ > 0f ? kPunchCoolDown : 0f;
+        throw_timer_ = throw_timer_ >= 0f ? kThrowCoolDown : -1f;
     }
 
     public void OnPlayerExited()
@@ -38,8 +43,11 @@ public class EnemyController : MonoBehaviour
 
     public void OnBeginFight()
     {
+        throw_timer_ = -1f;
+        DestroyThrowItem();
         agent_.enabled = true;
         agent_.SetDestination(target_.transform.position + target_.transform.forward * kStopDistance);
+        MyAnimator.CrossFade("Run", 0.2f);
     }
 
 	private void Start ()
@@ -68,6 +76,7 @@ public class EnemyController : MonoBehaviour
             if (target_.IsPlayingEvent) return;
             Navigation();
             Punch();
+            Throw();
         }
 	}
 
@@ -94,6 +103,7 @@ public class EnemyController : MonoBehaviour
             {
                 agent_.enabled = false;
                 punch_timer_ = kPunchCoolDown;
+                MyAnimator.CrossFade("Idle", 0.2f);
             }
         }
         else
@@ -116,9 +126,47 @@ public class EnemyController : MonoBehaviour
 
             if(punch_timer_ <= 0f)
             {
-                MyAnimator.SetBool("IsAttack", true);
+                MyAnimator.Play("Punch");
                 punch_timer_ = kPunchCoolDown;
             }
+        }
+    }
+
+    private void Throw()
+    {
+        if(throw_item_)
+        {
+            if(MyAnimator.GetFloat("EnableThrow") > 0.5f)
+            {
+                throw_item_.Act(target_);
+                throw_item_ = null;
+            }
+        }
+
+        if (throw_timer_ > 0f)
+        {
+            throw_timer_ -= Time.deltaTime;
+
+            if (MyAnimator.GetBool("EnableAttack") == false)
+            {
+                throw_timer_ = kThrowCoolDown;
+            }
+
+            if (throw_timer_ <= 0f)
+            {
+                MyAnimator.Play("Throw");
+                throw_item_ = Instantiate(kThrowItem, kThrowHand).GetComponent<ThrowItemController>();
+                throw_timer_ = kThrowCoolDown;
+            }
+        }
+    }
+
+    private void DestroyThrowItem()
+    {
+        if(throw_item_)
+        {
+            Destroy(throw_item_.gameObject);
+            throw_item_ = null;
         }
     }
 
@@ -127,26 +175,26 @@ public class EnemyController : MonoBehaviour
         if (agent_.enabled == true || target_ == null) return;
 
         target_.OnPunchHit();
-
+        DestroyThrowItem();
         Life -= target_.Attack;
-
         if (Life <= 0f)
         {
             Life = 0f;
-            MyAnimator.SetBool("IsDead", true);
+            MyAnimator.Play("Dying");
         }
         else
         {
-            MyAnimator.SetBool("IsHitted", true);
+            MyAnimator.CrossFade("Hit", 0.2f);
         }
     }
 
     private void HitByUltra()
     {
-        agent_.enabled = false;
         GameManager.Instance.Data.Player.OnUltraHit();
+        agent_.enabled = false;
+        DestroyThrowItem();
         Life = 0f;
-        MyAnimator.SetBool("IsDead", true);
+        MyAnimator.Play("Dying");
     }
 
     private bool CheckArrive()

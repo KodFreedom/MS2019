@@ -76,7 +76,7 @@ public class PlayerParameter : MonoBehaviour
     public CinemachineTargetGroup UltraTargetGroup { get { return kUltraTargetGroup; } }
     public HandEffect LeftHandEffects { get { return kLeftHandEffects; } }
     public HandEffect RightHandEffects { get { return kRightHandEffects; } }
-    public List<EnemyController> CounterTargets { get; private set; }
+    public List<GameObject> CounterTargets { get; private set; }
     public AnimationCurve CounterTimeScale { get { return kCounterTimeScale; } }
 
     public void ChangeEnergy(float amount)
@@ -90,7 +90,7 @@ public class PlayerParameter : MonoBehaviour
         Timer += delta_time;
     }
 
-    public void Register(EnemyController counter_target)
+    public void Register(GameObject counter_target)
     {
         if (counter_target == null) return;
         if (CounterTargets.Contains(counter_target)) return;
@@ -107,6 +107,6 @@ public class PlayerParameter : MonoBehaviour
         MaxEnergy = 100f;
         CurrentEnergy = 0f;
         Timer = 0f;
-        CounterTargets = new List<EnemyController>();
+        CounterTargets = new List<GameObject>();
     }
 }
