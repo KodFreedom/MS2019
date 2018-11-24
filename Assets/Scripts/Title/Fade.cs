@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Fade : MonoBehaviour
 {
     public float fadeSpeed = 0.02f;        //透明度が変わるスピードを管理
-    float red, green, blue, alfa;   //パネルの色、不透明度を管理
+    float red, green, blue;   //パネルの色、不透明度を管理
 
     public bool isFadeOut = false;  //フェードアウト処理の開始、完了を管理するフラグ
     public bool isFadeIn = false;   //フェードイン処理の開始、完了を管理するフラグ
@@ -17,6 +17,8 @@ public class Fade : MonoBehaviour
     public float timeOut;
     private float timeElapsed;
     ImagePanel obj;
+
+    static float alfa;
 
     void Start()
     {
@@ -68,5 +70,10 @@ public class Fade : MonoBehaviour
     void SetAlpha()
     {
         fadeImage.color = new Color(red, green, blue, alfa);
+    }
+
+    public static float GetAlfa()
+    {
+        return alfa;
     }
 }

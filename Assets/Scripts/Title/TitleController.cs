@@ -22,16 +22,22 @@ public class TitleController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(ImagePanel.isBreak)
+        GameObject.DontDestroyOnLoad(this);
+
+        if (ImagePanel.isBreak)
         {
             timeElapsed += Time.deltaTime;
-            GameObject.DontDestroyOnLoad(this);
             to_game_scene_ = true;
         }
 
         if(timeElapsed >= 2)
         {
             ToGameScene();
+        }
+
+        if(Fade.GetAlfa() <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 

@@ -1466,7 +1466,6 @@ GameObject:
   - component: {fileID: 690110613}
   - component: {fileID: 690110612}
   - component: {fileID: 690110611}
-  - component: {fileID: 690110614}
   - component: {fileID: 690110615}
   m_Layer: 0
   m_Name: Main Camera
@@ -1535,17 +1534,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &690110614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 690110610}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c8ed4841739a141a8043f618e588d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &690110615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,7 +1576,6 @@ GameObject:
   - component: {fileID: 935545493}
   - component: {fileID: 935545492}
   - component: {fileID: 935545491}
-  - component: {fileID: 935545496}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1685,17 +1672,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &935545496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 935545490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c8ed4841739a141a8043f618e588d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1006136519
 Prefab:
   m_ObjectHideFlags: 0
@@ -1800,7 +1776,7 @@ Prefab:
     - target: {fileID: 114220440828567964, guid: 53a1a2162a0c83e44bb21ff00efd7583,
         type: 2}
       propertyPath: fadeSpeed
-      value: 0.005
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a1a2162a0c83e44bb21ff00efd7583, type: 2}
