@@ -22,10 +22,9 @@ public class Debris : MonoBehaviour
     void Update ()
     {
         GameObject.DontDestroyOnLoad(this);
-        //transform.parent = GameObject.Find("Canvas").transform;
 
         //this.transform.localScale -= new Vector3(0.004f, 0.004f, 0.004f);
-        this.transform.Rotate(new Vector3( 0.0f, 0.0f, 0.0f));
+        this.transform.Rotate(new Vector3( 0.5f, 0.0f, 0.0f));
         SkipForward = Vector3.Scale(Direction.position - transform.position, new Vector3(1, 1, 1)).normalized;
         rb.AddForce(SkipForward.x * AddPower.x, SkipForward.y * AddPower.y, SkipForward.z * AddPower.z, ForceMode.VelocityChange);
     }

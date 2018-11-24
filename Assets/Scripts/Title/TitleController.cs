@@ -24,12 +24,12 @@ public class TitleController : MonoBehaviour
     {
 		if(ImagePanel.isBreak)
         {
-            timeElapsed++;
+            timeElapsed += Time.deltaTime;
             GameObject.DontDestroyOnLoad(this);
             to_game_scene_ = true;
         }
 
-        if(timeElapsed >= 60)
+        if(timeElapsed >= 2)
         {
             ToGameScene();
         }
