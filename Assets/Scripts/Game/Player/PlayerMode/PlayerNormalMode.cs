@@ -150,7 +150,7 @@ public class PlayerNormalMode : PlayerMode
                 {
                     if (enemy == null) continue;
                     parameter.ChangeEnergy(player.Parameter.CounterEnergy);
-                    Debug.Log("Counter Successed : " + enemy.gameObject.name);
+                    Debug.Log("Counter Successed : " + enemy.name);
                 }
 
                 parameter.ClearCounterTargets();

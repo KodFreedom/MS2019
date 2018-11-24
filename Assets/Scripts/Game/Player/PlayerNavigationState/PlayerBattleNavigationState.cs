@@ -15,18 +15,31 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void Init(PlayerController player)
     {
+        knockback_speed_ = 0f;
+        knockback_acc_ = 0f;
+        knockback_freeze_time_ = 0f;
         player.NavAgent.isStopped = true;
+        player.TargetEnemy = null;
+        player.Parameter.ClearCounterTargets();
         player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Uninit(PlayerController player)
     {
-        player.Parameter.CounterCheckDelayCounter = -1f;
     }
 
     public override void Update(PlayerController player)
     {
-        if (player.IsPlayingEvent) return;
+        if (player.IsPlayingEvent)
+        {
+            player.Parameter.ClearCounterTargets();
+            player.Parameter.CounterCheckDelayCounter = -1f;
+            if (knockback_acc_ != 0f)
+            {
+                knockback_freeze_time_ = Time.deltaTime;
+            }
+            return;
+        }
 
         CheckHitted(player);
 
@@ -42,11 +55,13 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
     public override void OnTriggerEnter(PlayerController player, Collider other)
     {
+        if (knockback_acc_ != 0f) return;
+
         if (other.gameObject.CompareTag("EnemyAttackCollider"))
         {
-            Debug.Log("OnEnemyPunchEnter");
+            Debug.Log("OnEnemyAttackEnter");
             var parameter = player.Parameter;
-            parameter.Register(other.GetComponentInParent<EnemyController>());
+            parameter.Register(other.gameObject);
             if(parameter.CounterCheckDelayCounter < 0f)
             {
                 parameter.CounterCheckDelayCounter = parameter.CounterCheckDelay;
@@ -94,6 +109,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
                 // change to event state
                 player.EventNavigationState.SetNextState(player.FieldNavigationState);
+                player.EventNavigationState.SetWaitTime(0.5f);
                 player.Change(player.EventNavigationState);
             }
         }
