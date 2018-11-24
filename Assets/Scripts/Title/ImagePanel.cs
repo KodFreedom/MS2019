@@ -67,12 +67,24 @@ public class ImagePanel : MonoBehaviour
         {
             fInterval += Time.deltaTime;
 
-            if (fInterval >= 0.1f)
+            if (fInterval >= 0.05f)
             {
                 bInterval = false;
                 fInterval = 0;
             }
         }
+
+        //if (input_.GetPunchL() || input_.GetPunchR())
+        //{
+        //    var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+        //    var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+        //    camera_shake.Shake(100.0f, 1.0f);
+
+        //    bInterval = true;
+        //    PunchCnt = 1;
+        //    panel.GetComponent<Renderer>().material.mainTexture = texure2;
+        //    Debug.Log(PunchCnt);
+        //}
 
         if (!bInterval && PunchCnt == 0 && input_.GetPunchL() || !bInterval && PunchCnt == 0 && input_.GetPunchR())
         {
@@ -88,6 +100,10 @@ public class ImagePanel : MonoBehaviour
 
         if (!bInterval && PunchCnt == 1 && input_.GetPunchL() || !bInterval && PunchCnt == 1 && input_.GetPunchR())
         {
+            var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
+            var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
+            camera_shake.Shake(10.0f, 1.0f);
+
             bInterval = true;
             isBreak = true;
             crash();
