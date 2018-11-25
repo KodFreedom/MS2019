@@ -31913,8 +31913,8 @@ MonoBehaviour:
     target: {fileID: 4791061449972646}
   kPrepareTime: 1
   kSkyBox: {fileID: 2100000, guid: 8669e074c2b07ac4a91be71c901375dd, type: 2}
-  kLightDirection: {x: 50, y: 189, z: 0}
-  kLightColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+  kLightDirection: {x: 50, y: 341.4, z: 0}
+  kLightColor: {r: 1, g: 1, b: 1, a: 1}
   kModels: {fileID: 1120536400218202}
   kBattleAreas: {fileID: 1285725333273878}
 --- !u!114 &114381927332802514

@@ -401,6 +401,30 @@ Prefab:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1984772523566912, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.41706324
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.146463
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.06829682
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.89439505
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 341.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
   m_IsPrefabAsset: 0
