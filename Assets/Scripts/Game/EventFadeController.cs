@@ -14,44 +14,32 @@ public class EventFadeController : MonoBehaviour
 
     [SerializeField] float kFadeTime = 1f;
     [SerializeField] FadeState kState = FadeState.kFadeIn;
-    private Image fade_image_ = null;
+    private Material fade_material_ = null;
     private float time_counter_ = -1f;
+    private float rate_ = 0f;
 
 	// Use this for initialization
 	private void Start ()
     {
         GameManager.Instance.Data.Register(this, kState);
-        fade_image_ = GetComponent<Image>();
-        fade_image_.color = new Color(1f, 1f, 1f, 0f);
+        fade_material_ = GetComponent<Image>().material;
+        rate_ = kState == FadeState.kFadeOut ? 0f : 1f;
+        fade_material_.SetFloat("_Rate", rate_);
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         time_counter_ = 0f;
-        if (fade_image_ == null) return;
-        if (kState == FadeState.kFadeOut)
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, 0f);
-        }
-        else
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, 1f);
-        }
+        rate_ = kState == FadeState.kFadeOut ? 0f : 1f;
+        fade_material_.SetFloat("_Rate", rate_);
     }
 
     private void OnDisable()
     {
         time_counter_ = -1f;
-        if (fade_image_ == null) return;
-        if (kState == FadeState.kFadeOut)
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, 0f);
-        }
-        else
-        {
-            fade_image_.color = new Color(1f, 1f, 1f, 1f);
-        }
+        //rate_ = kState == FadeState.kFadeOut ? 0f : 1f;
+        //fade_material_.SetFloat("_Rate", rate_);
     }
 
     // Update is called once per frame
@@ -74,7 +62,8 @@ public class EventFadeController : MonoBehaviour
 
     private void FadeIn()
     {
-        fade_image_.color = new Color(1f, 1f, 1f, 1f - time_counter_ / kFadeTime);
+        rate_ = 1f - time_counter_ / kFadeTime;
+        fade_material_.SetFloat("_Rate", rate_);
         time_counter_ += Time.deltaTime;
         if (time_counter_ >= kFadeTime)
         {
@@ -84,7 +73,8 @@ public class EventFadeController : MonoBehaviour
 
     private void FadeOut()
     {
-        fade_image_.color = new Color(1f, 1f, 1f, time_counter_ / kFadeTime);
+        rate_ = time_counter_ / kFadeTime;
+        fade_material_.SetFloat("_Rate", rate_);
         time_counter_ += Time.deltaTime;
         if(time_counter_ >= kFadeTime)
         {
