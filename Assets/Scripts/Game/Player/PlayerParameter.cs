@@ -50,6 +50,7 @@ public class PlayerParameter : MonoBehaviour
     [SerializeField] float kCounterCheckDelay = 0.2f;
     [SerializeField] float kCounterEffectTime = 0.5f;
     [SerializeField] AnimationCurve kCounterTimeScale;
+    [SerializeField] Transform kHead;
 
     public float kTimeScale = 1f;
     public float kScriptableTimeScale = 1f;
@@ -78,6 +79,7 @@ public class PlayerParameter : MonoBehaviour
     public HandEffect RightHandEffects { get { return kRightHandEffects; } }
     public List<GameObject> CounterTargets { get; private set; }
     public AnimationCurve CounterTimeScale { get { return kCounterTimeScale; } }
+    public Transform Head { get { return kHead; } }
 
     public void ChangeEnergy(float amount)
     {

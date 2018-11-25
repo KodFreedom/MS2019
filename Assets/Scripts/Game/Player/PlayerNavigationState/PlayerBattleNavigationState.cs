@@ -130,9 +130,20 @@ public class PlayerBattleNavigationState : PlayerNavigationState
                 knockback_acc_ = -knockback_speed_ / knockback_time;
 
                 player.OnDamaged();
-                player.Parameter.ClearCounterTargets();
-                player.Parameter.CounterCheckDelayCounter = -1f;
                 player.BattleArea.OnBattlePause();
+
+                var parameter = player.Parameter;
+                foreach (var enemy in parameter.CounterTargets)
+                {
+                    if (enemy == null) continue;
+                    if (enemy.name.Contains("Can"))
+                    {
+                        enemy.GetComponent<ThrowItemController>().OnClear();
+                    }
+                }
+                parameter.ClearCounterTargets();
+                parameter.CounterCheckDelayCounter = -1f;
+
             }
         }
     }
