@@ -149,6 +149,10 @@ public class PlayerNormalMode : PlayerMode
                 foreach (var enemy in parameter.CounterTargets)
                 {
                     if (enemy == null) continue;
+                    if(enemy.name.Contains("Can"))
+                    {
+                        enemy.GetComponent<ThrowItemController>().OnReflect();
+                    }
                     parameter.ChangeEnergy(player.Parameter.CounterEnergy);
                     Debug.Log("Counter Successed : " + enemy.name);
                 }

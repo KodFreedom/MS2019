@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d56bdc9ec3fa05439f9ca1e96a6eaed
+guid: 0dd67e7d9a337614c9440c44c96b0845
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: upperarm_right
     400128: upperleg_left
     400130: upperleg_right
-    7400000: EnemyPunch1
+    7400000: Enemy_throw
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -166,10 +166,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: EnemyPunch1
+      name: Enemy_throw
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 35
+      lastFrame: 56
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -188,7 +188,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
-      - name: EnablePunchCollider
+      - name: EnableThrow
         curve:
           serializedVersion: 2
           curve:
@@ -202,7 +202,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.45
+            time: 0.6
             value: 1
             inSlope: Infinity
             outSlope: 0
@@ -211,7 +211,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.6
+            time: 0.7
             value: 0
             inSlope: Infinity
             outSlope: 0
@@ -235,7 +235,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -18763,7 +18763,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1461028923216580}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2, y: 0, z: 2}
+  m_LocalPosition: {x: 1.5, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4353006153472198}
@@ -21337,7 +21337,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1178843360914292}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2, y: 0, z: 4}
+  m_LocalPosition: {x: -1.5, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4171947313496876}
@@ -23716,7 +23716,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589924504162798}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2, y: 0, z: 4}
+  m_LocalPosition: {x: 1.5, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4172714337472242}
@@ -25853,7 +25853,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1435801236866462}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2, y: 0, z: 2}
+  m_LocalPosition: {x: -1.5, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4786275929114480}
@@ -31804,7 +31804,7 @@ MonoBehaviour:
   kStopDistance: 1
   kPunchCoolDown: 3
   kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4933370098042350}
 --- !u!114 &114166333382558874
 MonoBehaviour:
@@ -31846,7 +31846,7 @@ MonoBehaviour:
   kStopDistance: 1
   kPunchCoolDown: 3
   kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4583422663827638}
 --- !u!114 &114287239140897264
 MonoBehaviour:
@@ -31862,8 +31862,8 @@ MonoBehaviour:
   Life: 3
   kStopDistance: 1
   kPunchCoolDown: 3
-  kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowCoolDown: 7
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4605231011732560}
 --- !u!114 &114306634519239084
 MonoBehaviour:
@@ -32089,8 +32089,8 @@ MonoBehaviour:
   Life: 3
   kStopDistance: 1
   kPunchCoolDown: 3
-  kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowCoolDown: 4.5
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4818649148350884}
 --- !u!114 &114588072118008580
 MonoBehaviour:
@@ -32200,8 +32200,8 @@ MonoBehaviour:
   Life: 3
   kStopDistance: 1
   kPunchCoolDown: 3
-  kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowCoolDown: 4.5
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4066472373607876}
 --- !u!114 &114839679953278664
 MonoBehaviour:
@@ -32261,8 +32261,8 @@ MonoBehaviour:
   Life: 3
   kStopDistance: 1
   kPunchCoolDown: 3
-  kThrowCoolDown: 3
-  kThrowItem: {fileID: 0}
+  kThrowCoolDown: 4.5
+  kThrowItem: {fileID: 1320794387584514, guid: a03c42a719b2b6d46b56f4f2f28b289a, type: 2}
   kThrowHand: {fileID: 4307640125381316}
 --- !u!135 &135000755060371782
 SphereCollider:

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d56bdc9ec3fa05439f9ca1e96a6eaed
+guid: 38d034be3edf246458eb62b1fa17ccde
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: upperarm_right
     400128: upperleg_left
     400130: upperleg_right
-    7400000: EnemyPunch1
+    7400000: EnemyDownVer2
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -166,10 +166,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: EnemyPunch1
+      name: EnemyDownVer2
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 35
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -187,50 +187,7 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves:
-      - name: EnablePunchCollider
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.45
-            value: 1
-            inSlope: Infinity
-            outSlope: 0
-            tangentMode: 7
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.6
-            value: 0
-            inSlope: Infinity
-            outSlope: 0
-            tangentMode: 71
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          preInfinity: 3
-          postInfinity: 3
-          rotationOrder: 4
+      curves: []
       events: []
       transformMask: []
       maskType: 3
