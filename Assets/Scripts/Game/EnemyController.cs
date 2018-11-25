@@ -126,7 +126,7 @@ public class EnemyController : MonoBehaviour
 
             if(punch_timer_ <= 0f)
             {
-                MyAnimator.Play("Punch");
+                MyAnimator.Play("Punch" + Random.Range(0, 2).ToString());
                 punch_timer_ = kPunchCoolDown;
             }
         }

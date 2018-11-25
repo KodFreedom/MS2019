@@ -241,7 +241,7 @@ ModelImporter:
     400232: wireController4
     400234: wireController5
     400236: wireController6
-    7400000: Enemy_Punch1
+    7400000: EnemyPunch0
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -272,7 +272,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Enemy_Punch1
+      name: EnemyPunch0
       takeName: Take 001
       firstFrame: 1
       lastFrame: 58
@@ -308,7 +308,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.5
+            time: 0.46
             value: 1
             inSlope: Infinity
             outSlope: 0
