@@ -403,7 +403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1984772523566912, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4868931458376812, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
       propertyPath: m_LocalRotation.x
