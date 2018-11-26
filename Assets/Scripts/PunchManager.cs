@@ -36,7 +36,7 @@ public class PunchManager {
         for (int joyconType = 0; joyconType < 2; joyconType++)
         {
             // ジャイロが大きければ処理しない
-            int GyroCount = 0;
+            /*int GyroCount = 0;
             for (int i = 0; i < 7; i++)
             {
                 if (m_pGyroBuff[joyconType, i].magnitude > 12.0f)
@@ -54,11 +54,11 @@ public class PunchManager {
             }
             if (GyroCount >= 3)
             {
-                //Debug.Log("ジャイロオーバー！");
+                Debug.Log("ジャイロオーバー！");
                 continue;
-            }
+            }*/
 
-            int AccelXCount = 0;
+            /*int AccelXCount = 0;
             for (int i = 0; i < 12; i++)
             {
                 if (m_pAccelBuff[joyconType, i].x < -0.4)
@@ -70,7 +70,7 @@ public class PunchManager {
             {
                 //Debug.Log("必殺技と区別");
                 continue;
-            }
+            }*/
 
 
 
@@ -95,7 +95,7 @@ public class PunchManager {
             if (maxSpeed < 0.0f) continue;
 
             // 突き出しつつ、最後に止めたときにパンチ
-            if (maxSpeed - m_pAccelBuff[joyconType, 0].y > 2.0f && m_pAccelBuff[joyconType, 0].y < -0.8f && IsAccelPlus == true)
+            if (maxSpeed - m_pAccelBuff[joyconType, 0].y > 4.0f && m_pAccelBuff[joyconType, 0].y < -1.8f && IsAccelPlus == true)
             {
                 m_IsPunch[joyconType] = true;
 
@@ -104,6 +104,8 @@ public class PunchManager {
                 //Debug.Log("→回転速度：" + m_GyroBuff[joyconType, 0].magnitude + "Z回転：" + m_GyroBuff[joyconType, 0].z);
             }
         }
+
+        
     }
 
     public bool GetIsPunchL()

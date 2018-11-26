@@ -56,6 +56,9 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private bool m_IsDebug = true;                      // デバッグ中か
 
+    [SerializeField]
+    private bool m_IsSerial = false;
+
 
     //private static readonly Joycon.Button[] m_buttons =
     //    Enum.GetValues(typeof(Joycon.Button)) as Joycon.Button[];
@@ -76,6 +79,8 @@ public class InputManager : MonoBehaviour
     private ThunderModeChange m_ThunderModeChange;
     private VibrationManager m_VibrationManager;
 
+    private DoSomething m_DoSomething;
+
     private void Start()
     {
         m_joycons = JoyconManager.Instance.j;
@@ -95,7 +100,8 @@ public class InputManager : MonoBehaviour
         m_SkillManager = new SkillManager(m_SensorStorage, m_SyncJoycon);
         m_ThunderModeChange = new ThunderModeChange(this);
         m_VibrationManager = new VibrationManager(this);
-
+        if(m_IsSerial)
+            m_DoSomething = new DoSomething();
 
         for (int i = 0; i < 4; i++)
             m_IsKeyboardButton[i] = false;
@@ -109,6 +115,8 @@ public class InputManager : MonoBehaviour
         m_ThunderModeChange.Update();
         m_VibrationManager.Update();
         m_SyncJoycon.Update();
+        if (m_IsSerial)
+            m_DoSomething.Update();
 
         KeyboardDebug();
         Dbg();
@@ -314,6 +322,27 @@ public class InputManager : MonoBehaviour
         m_VibrationManager.VibrationSkill(time);
     }
 
+    // LEDを消灯させる
+    public void SetLedLightDown()
+    {
+        if (m_IsSerial)
+            m_DoSomething.Write("1");
+    }
+
+    // LEDの点灯演出をする
+    public void SetLedLightUp()
+    {
+        if (m_IsSerial)
+            m_DoSomething.Write("2");
+    }
+
+    // LEDを通常状態に戻す
+    public void SetLedNormal()
+    {
+        if (m_IsSerial)
+            m_DoSomething.Write("3");
+    }
+
     // キーボードでのデバッグ
     private void KeyboardDebug()
     {
@@ -341,14 +370,13 @@ public class InputManager : MonoBehaviour
 
     }
 
-
     // デバッグ
     private void Dbg()
     {
         if (!m_IsDebug)
             return;
 
-        /*
+        
         // ボタンで振動テスト
         if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_A))
         {
@@ -384,8 +412,8 @@ public class InputManager : MonoBehaviour
         {
             VibrationSkill();
         }
-        */
-        
+
+
         /*if (GetThunderMode())
         {
             Debug.Log("放電モード中！");
@@ -394,6 +422,38 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log("放電モードしてない");
         }*/
+
+        if (m_IsSerial)
+        {
+            if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_B))
+            {
+                m_DoSomething.Write("1");
+            }
+            if (GetTriggerButtonR(JOYCON_BUTTON_RIGHT.DPAD_Y))
+            {
+                m_DoSomething.Write("ClientResult");
+            }
+        }
+
+        if (Input.GetKey(KeyCode.O) == true)
+        {
+            SetLedLightDown();
+        }
+        if (Input.GetKey(KeyCode.P) == true)
+        {
+            SetLedLightUp();
+        }
+
+        /*if (Input.GetKey((KeyCode)JOYCON_KEYBOARD.PUNCH_L) == true)
+        {
+            Debug.Log("テスト");
+        }*/
+
+
+        if (GetPressButtonR(JOYCON_BUTTON_RIGHT.R))
+        {
+            Debug.Log("加速： " + m_SensorStorage.GetAccelBuff()[1, 0] + "回転： " + m_SensorStorage.GetGyroBuff()[1, 0] + m_SensorStorage.GetGyroBuff()[1, 0].magnitude);
+        }
     }
 
     

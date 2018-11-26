@@ -563,8 +563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f098364a967ec9478f0e4fe4842b0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsKeyboardMode: 1
+  m_IsKeyboardMode: 0
   m_IsDebug: 1
+  m_IsSerial: 0
 --- !u!4 &1036441023
 Transform:
   m_ObjectHideFlags: 0
@@ -601,7 +602,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1044526746}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a5ab0cffc876d2478a2385bec672b03, type: 3}
   m_Name: 
