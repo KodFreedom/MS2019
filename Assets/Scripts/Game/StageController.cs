@@ -54,6 +54,12 @@ public class StageController : MonoBehaviour
             SoundManager.Instance.PlayBgm(kBgm);
         }
 
+        if(GameManager.Instance.IsLastStage())
+        {
+            Debug.Log("SetLedLightDown");
+            GameManager.Instance.Data.MyInput.SetLedLightDown();
+        }
+
         kModels.SetActive(true);
         var game_data = GameManager.Instance.Data;
         var player = game_data.Player;

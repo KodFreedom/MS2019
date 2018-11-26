@@ -37,6 +37,7 @@ public class ResultController : MonoBehaviour
         if (color.a >= 1f)
         {
             title_scene_.allowSceneActivation = true;
+            GameManager.Instance.Data.MyInput.SetLedNormal();
         }
 
         if (time_counter_ > 0f)
