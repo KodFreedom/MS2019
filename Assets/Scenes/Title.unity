@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeOut: 0
   Ac: {fileID: 1170840227}
+  Ds: {fileID: 2081630867}
 --- !u!1 &230689525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1167986885458924, guid: 53a1a2162a0c83e44bb21ff00efd7583,
@@ -3184,7 +3185,6 @@ GameObject:
   - component: {fileID: 2081630868}
   - component: {fileID: 2081630869}
   - component: {fileID: 2081630870}
-  - component: {fileID: 2081630871}
   m_Layer: 0
   m_Name: THUNDER
   m_TagString: Untagged
@@ -3267,19 +3267,6 @@ MonoBehaviour:
   MaxValue: 109
   ActiveTarget: {fileID: 785406158}
   ActiveTarget2: {fileID: 785406158}
---- !u!114 &2081630871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2081630867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9ff5c4ca15220d479ee45e257e359af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeOut: 0
-  Ac: {fileID: 1170840227}
 --- !u!1 &2116689068
 GameObject:
   m_ObjectHideFlags: 0

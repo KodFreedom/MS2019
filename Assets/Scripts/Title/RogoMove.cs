@@ -43,6 +43,7 @@ public class RogoMove : MonoBehaviour
 
         if (!bMinus)
         {
+
             ActiveTarget.SetActive(true);
             if (Startfade.GetStartfadeAlfa() <= 0)
             {

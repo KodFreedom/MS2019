@@ -89,6 +89,7 @@ public class ImagePanel : MonoBehaviour
             var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
             var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
             camera_shake.Shake(50.0f, 1.0f);
+            SoundManager.Instance.PlaySe("Title_break000", false);
 
             bInterval = true;
             PunchCnt = 1;
@@ -103,6 +104,7 @@ public class ImagePanel : MonoBehaviour
             var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
             var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
             camera_shake.Shake(50.0f, 1.0f);
+            SoundManager.Instance.PlaySe("Title_break001", false);
 
             bInterval = true;
             isBreak = true;
