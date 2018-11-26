@@ -42,6 +42,7 @@ public class Fade : MonoBehaviour
         if (isFadeOut)
         {
             StartFadeOut();
+            Debug.Log("FadeOut Start!");
         }
     }
 

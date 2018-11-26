@@ -15,8 +15,17 @@ public class ImagePanel : MonoBehaviour
     [Tooltip("表示させる画像")]
     public Texture texure2 = null;
 
+    [Tooltip("表示させる画像")]
+    public Texture  BreakTitleRogo = null;
+
     [Tooltip("破壊前に見える板")]
     public GameObject panel;
+
+    [Tooltip("破壊前に見える板")]
+    public GameObject DestroyObj;
+
+    [Tooltip("破壊前に見える板")]
+    public GameObject CreatObj;
 
     //[Tooltip("破壊前に見える板")]
     //public GameObject panel2;
@@ -83,6 +92,8 @@ public class ImagePanel : MonoBehaviour
 
             bInterval = true;
             PunchCnt = 1;
+            DestroyObj.SetActive(false);
+            CreatObj.SetActive(true);
             panel.GetComponent<Renderer>().material.mainTexture = texure2;
             Debug.Log(PunchCnt);
         }
