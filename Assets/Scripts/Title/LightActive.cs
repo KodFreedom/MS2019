@@ -13,7 +13,7 @@ public class LightActive : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        ActiveTime = Random.Range(0.1f, 1.0f);
+        ActiveTime = Random.Range(0.1f, 0.7f);
         Interbal = 0.0f;
         bInterbalTime = false;
         bActiveTime = true;
@@ -36,7 +36,7 @@ public class LightActive : MonoBehaviour
                 ActiveObj.SetActive(false);
                 bInterbalTime = true;
                 bActiveTime = false;
-                Interbal = Random.Range(0.1f, 1.0f);
+                Interbal = Random.Range(0.1f, 0.7f);
             }
         }
 
@@ -50,7 +50,7 @@ public class LightActive : MonoBehaviour
             {
                 bInterbalTime = false;
                 bActiveTime = true;
-                ActiveTime = Random.Range(0.1f, 1.0f);
+                ActiveTime = Random.Range(0.1f, 0.7f);
             }
         }
 
