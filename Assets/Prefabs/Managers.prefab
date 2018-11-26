@@ -238,7 +238,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -347,7 +347,26 @@ MonoBehaviour:
   BgmFadeTime: 0.5
   BgmPlayer: {fileID: 82937464822771776}
   SePlayer: {fileID: 82609298913988742}
+  MaxBgmVolume: 0.5
   SoundEffects:
   - {fileID: 8300000, guid: f6a5b04292f0f3542af702217eaee5f6, type: 3}
+  - {fileID: 8300000, guid: 609fe5b5efeb472458dfab0ae59ea576, type: 3}
+  - {fileID: 8300000, guid: 796d9da4fdffe644e9a081da21ef46df, type: 3}
+  - {fileID: 8300000, guid: c0954a33bfc9ce14a8365bc2ac929150, type: 3}
+  - {fileID: 8300000, guid: f55c8f27ba7ef0c4fa1add5ac1af0248, type: 3}
+  - {fileID: 8300000, guid: fd1a5bf017a5fd84e98ce37488320448, type: 3}
+  - {fileID: 8300000, guid: 2d3ef3073588e0346a5f4b3cc389c1da, type: 3}
+  - {fileID: 8300000, guid: bf7d7676d688df342bb5e52d9d9184cd, type: 3}
+  - {fileID: 8300000, guid: e690cdb43d78e1342b3f5b40b6513590, type: 3}
+  - {fileID: 8300000, guid: dc681a0dc50b39649b54a81d9e19b48b, type: 3}
+  - {fileID: 8300000, guid: afe2369b120673843bb206e2dcb1c081, type: 3}
+  - {fileID: 8300000, guid: c8a5d7aa9f90a4d488becf9250421179, type: 3}
+  - {fileID: 8300000, guid: 6737d23eec98efe41a35d705e18e59e2, type: 3}
+  - {fileID: 8300000, guid: 6ff60e3b21b00b2468d669148259e562, type: 3}
+  - {fileID: 8300000, guid: e20474a38c6a02c46aa9a9012ecb4d14, type: 3}
+  - {fileID: 8300000, guid: b3a3148ed4584724fb3dd9f04e4914db, type: 3}
   BackgroundMusics:
   - {fileID: 8300000, guid: 591bff1bee7d0fb4aabd51929d90bc4f, type: 3}
+  - {fileID: 8300000, guid: 6e06c81cfbd2b5e4394b3b609e77d369, type: 3}
+  - {fileID: 8300000, guid: 8dfcf74f9776eb74993390e71e02fa33, type: 3}
+  - {fileID: 8300000, guid: 3345a82682a3170499360c695fcfacef, type: 3}

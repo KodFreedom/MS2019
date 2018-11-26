@@ -56,6 +56,7 @@ public class ResultThunder : MonoBehaviour
             timer_ = kFadeTime;
             panel.Shake(kShakeRange, kShakeTime);
             current_state_ = State.kUpdateThunder;
+            SoundManager.Instance.PlaySe("Result_score000", false);
         }
     }
 

@@ -278,6 +278,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: kStages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4218746163019158, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,53 +318,97 @@ Prefab:
     - target: {fileID: 114258998856779626, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114258998856779626, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114668632603308704, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114668632603308704, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114455441061722754, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114455441061722754, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114611164938810222, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114611164938810222, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114596889127446864, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114596889127446864, guid: 718d5707dbb100f45909b9aa0489c25b,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.014014549
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.99990183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -24.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: near clip plane
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: kStages.Array.data[1]
+      value: 
+      objectReference: {fileID: 1277599868941490, guid: b6dd29657170e6845ac324079097adb0,
+        type: 2}
+    - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: kStages.Array.data[2]
+      value: 
+      objectReference: {fileID: 1995697013315010, guid: 3e48b79c0d3b6ab47b33f3aa901bcf93,
+        type: 2}
+    - target: {fileID: 114103735693734692, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: kStages.Array.data[0]
+      value: 
+      objectReference: {fileID: 1995697013315010, guid: 3e48b79c0d3b6ab47b33f3aa901bcf93,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
   m_IsPrefabAsset: 0

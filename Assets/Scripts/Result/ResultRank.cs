@@ -38,6 +38,7 @@ public class ResultRank : MonoBehaviour
             timer_ = kFadeTime;
             panel.Shake(kShakeRange, kShakeTime);
             panel.OnResultEventOver();
+            SoundManager.Instance.PlaySe("Result_score001", false);
         }
     }
 

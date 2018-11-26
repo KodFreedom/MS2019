@@ -13,10 +13,12 @@ public class PlayerFieldNavigationState : PlayerNavigationState
     {
         player.NavAgent.isStopped = false;
         player.NavAgent.angularSpeed = 24f;
+        SoundManager.Instance.PlaySe("Game_walk000", true);
     }
 
     public override void Uninit(PlayerController player)
     {
+        SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
     }
 
     public override void Update(PlayerController player)

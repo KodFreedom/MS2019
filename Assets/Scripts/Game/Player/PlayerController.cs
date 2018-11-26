@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private VibrationFlag vibration_flag_;
 
     [SerializeField] float kMinChargeAmount = 0.1f;
-    [SerializeField] string kState; // Debug表示
 
     /// <summary>
     /// 移動ステートの切り替え
@@ -70,10 +69,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("To : " + next_state.Name());
-        kState = next_state.Name();
         CurrentNavigationState = next_state;
         CurrentNavigationState.Init(this);
-        kState = CurrentNavigationState.Name();
     }
 
     /// <summary>
@@ -125,6 +122,7 @@ public class PlayerController : MonoBehaviour
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
         vibration_flag_.ultra_hit = true;
+        SoundManager.Instance.PlaySe("Game_CA000", false);
     }
 
     public void OnDamaged()
@@ -286,6 +284,14 @@ public class PlayerController : MonoBehaviour
         // Charging Effect
         Parameter.LeftHandEffects.chargingEffect.SetPlay(left_amount);
         Parameter.RightHandEffects.chargingEffect.SetPlay(right_amount);
+        if((left_amount + right_amount) > 0f)
+        {
+            SoundManager.Instance.PlaySe("Game_charge000", true);
+        }
+        else
+        {
+            SoundManager.Instance.StopLoopSe("Game_charge000", 1f);
+        }
 
         // Energy Effect
         Parameter.LeftHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;

@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     private float punch_timer_ = 0f;
     private float throw_timer_ = 0f;
     private float wait_time_ = 0f;
+    private int se_number_ = 0;
 
     public bool IsDead { get { return Life <= 0f; } }
 
@@ -48,6 +49,7 @@ public class EnemyController : MonoBehaviour
         agent_.enabled = true;
         agent_.SetDestination(target_.transform.position + target_.transform.forward * kStopDistance);
         MyAnimator.CrossFade("Run", 0.2f);
+        SoundManager.Instance.PlaySe("Game_walk000", true);
     }
 
 	private void Start ()
@@ -58,6 +60,7 @@ public class EnemyController : MonoBehaviour
         agent_ = GetComponent<NavMeshAgent>();
         agent_.enabled = false;
         punch_collider_ = transform.Find("PunchCollider").gameObject;
+        se_number_ = Random.Range(0, 3);
     }
 	
 	private void Update ()
@@ -104,6 +107,7 @@ public class EnemyController : MonoBehaviour
                 agent_.enabled = false;
                 punch_timer_ = kPunchCoolDown;
                 MyAnimator.CrossFade("Idle", 0.2f);
+                SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
             }
         }
         else
@@ -172,7 +176,7 @@ public class EnemyController : MonoBehaviour
 
     private void HitByPunch()
     {
-        if (agent_.enabled == true || target_ == null) return;
+        if (agent_.enabled == true || target_ == null || Life <= 0f) return;
 
         target_.OnPunchHit();
         DestroyThrowItem();
@@ -181,20 +185,25 @@ public class EnemyController : MonoBehaviour
         {
             Life = 0f;
             MyAnimator.Play("Dying");
+            SoundManager.Instance.PlaySe("Game_EnmyLose00" + se_number_, false);
         }
         else
         {
             MyAnimator.CrossFade("Hit", 0.2f);
+            SoundManager.Instance.PlaySe("Game_EnmyDmg00" + se_number_, false);
         }
     }
 
     private void HitByUltra()
     {
+        if (Life <= 0f) return;
         GameManager.Instance.Data.Player.OnUltraHit();
         agent_.enabled = false;
         DestroyThrowItem();
         Life = 0f;
         MyAnimator.Play("Dying");
+        SoundManager.Instance.PlaySe("Game_EnmyLose00" + se_number_, false);
+        SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
     }
 
     private bool CheckArrive()

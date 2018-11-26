@@ -41,6 +41,7 @@ public class ResultController : MonoBehaviour
 
         if (time_counter_ > 0f)
         {
+            SoundManager.Instance.StopBgm("Result_BGM000");
             time_counter_ -= Time.deltaTime;
             if (time_counter_ <= kFadeTime)
             {

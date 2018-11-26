@@ -81,6 +81,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
             {
                 player.NavAgent.isStopped = true;
                 player.BattleArea.OnBattleResume();
+                SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
             }
         }
     }
@@ -160,6 +161,7 @@ public class PlayerBattleNavigationState : PlayerNavigationState
 
                 player.NavAgent.isStopped = false;
                 player.NavAgent.SetDestination(player.BattleArea.transform.position);
+                SoundManager.Instance.PlaySe("Game_walk000", true);
             }
             return;
         }
