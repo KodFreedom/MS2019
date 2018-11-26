@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Stage2Material
+  m_Name: TowerInsideMaterial
   m_Shader: {fileID: 4800000, guid: 60cdf979bee402e40b1ab1c93df8b6f9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IlluminTexture:
-        m_Texture: {fileID: 2800000, guid: 6c07d1551f60ee847a7925aba8ca772c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 83ac67e3868d88e4a8344b9a960cdabc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 22baeec18ffa8f940918e0bf709f3fba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7b157065904bbd64cbe0e238ab3ff20b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -67,7 +67,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Gloss: 20
+    - _Gloss: 38
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -75,7 +75,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RingRadius: 0.2
+    - _RingRadius: 4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -84,5 +84,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RingColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RingColor: {r: 0, g: 0.86832047, b: 1, a: 1}
     - _Specular: {r: 1, g: 1, b: 1, a: 1}
