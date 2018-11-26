@@ -360,6 +360,32 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.014014549
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.99990183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698398298532252, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -24.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: near clip plane
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 20108964145521898, guid: 718d5707dbb100f45909b9aa0489c25b,
+        type: 2}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 718d5707dbb100f45909b9aa0489c25b, type: 2}
   m_IsPrefabAsset: 0

@@ -31917,6 +31917,7 @@ MonoBehaviour:
   kLightColor: {r: 1, g: 1, b: 1, a: 1}
   kModels: {fileID: 1120536400218202}
   kBattleAreas: {fileID: 1285725333273878}
+  kBgm: Game_BGM000
 --- !u!114 &114381927332802514
 MonoBehaviour:
   m_ObjectHideFlags: 1

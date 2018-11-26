@@ -32,6 +32,7 @@ public class StageController : MonoBehaviour
     [SerializeField] Color kLightColor = Color.white;
     [SerializeField] GameObject kModels = null;
     [SerializeField] GameObject kBattleAreas = null;
+    [SerializeField] string kBgm;
     public GameObject BattleAreas { get { return kBattleAreas; } }
     private Dictionary<string, PlayableBinding> binding_dictionary_start_ = new Dictionary<string, PlayableBinding>();
     private Dictionary<string, PlayableBinding> binding_dictionary_clear_ = new Dictionary<string, PlayableBinding>();
@@ -47,6 +48,11 @@ public class StageController : MonoBehaviour
 
         Debug.Log(gameObject.name + "PrepareStartEvent");
         start_event_state_ = EventState.kPreparing;
+
+        if(kBgm.Length > 0)
+        {
+            SoundManager.Instance.PlayBgm(kBgm);
+        }
 
         kModels.SetActive(true);
         var game_data = GameManager.Instance.Data;
@@ -358,6 +364,10 @@ public class StageController : MonoBehaviour
     private void OnClearEventStopping()
     {
         Debug.Log(gameObject.name + "OnClearEventStopping");
+        if (kBgm.Length > 0)
+        {
+            SoundManager.Instance.StopBgm(kBgm);
+        }
         clear_event_state_ = EventState.kStopped;
         var player = GameManager.Instance.Data.Player;
         //player.MyAnimator.applyRootMotion = false;

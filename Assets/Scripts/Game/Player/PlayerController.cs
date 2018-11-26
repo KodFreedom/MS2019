@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
         vibration_flag_.ultra_hit = true;
+        SoundManager.Instance.PlaySe("Game_CA000", false);
     }
 
     public void OnDamaged()
@@ -286,6 +287,14 @@ public class PlayerController : MonoBehaviour
         // Charging Effect
         Parameter.LeftHandEffects.chargingEffect.SetPlay(left_amount);
         Parameter.RightHandEffects.chargingEffect.SetPlay(right_amount);
+        if((left_amount + right_amount) > 0f)
+        {
+            SoundManager.Instance.PlaySe("Game_charge000", true);
+        }
+        else
+        {
+            SoundManager.Instance.StopLoopSe("Game_charge000", 1f);
+        }
 
         // Energy Effect
         Parameter.LeftHandEffects.chargeEffect.Power = Parameter.CurrentEnergy;

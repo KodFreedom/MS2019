@@ -29,6 +29,7 @@ public class PlayerNormalMode : PlayerMode
     public override void OnHitted(PlayerController player)
     {
         player.MyAnimator.CrossFade("Idle", 0.2f);
+        SoundManager.Instance.PlaySe("Game_damage000", false);
     }
 
     public override void Update(PlayerController player)
@@ -159,8 +160,9 @@ public class PlayerNormalMode : PlayerMode
 
                 parameter.ClearCounterTargets();
                 counter_effect_counter_ = parameter.CounterEffectTime;
-                
-                if(player.LeftPunch)
+                SoundManager.Instance.PlaySe("Game_counter000", false);
+
+                if (player.LeftPunch)
                 {
                     Debug.Log("LeftCounterPunch");
                     player.MyAnimator.Play("LeftCounterPunch");
