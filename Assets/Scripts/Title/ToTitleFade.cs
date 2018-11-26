@@ -25,7 +25,7 @@ public class ToTitleFade : MonoBehaviour {
         green = fadeImage.color.g;
         blue = fadeImage.color.b;
         alfa = fadeImage.color.a;
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
     }
 
     void Update()
