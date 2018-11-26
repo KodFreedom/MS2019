@@ -122,7 +122,6 @@ public class PlayerController : MonoBehaviour
         var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
         camera_shake.Shake(Parameter.UltraCameraShakeRange, Parameter.UltraCameraShakeTime);
         vibration_flag_.ultra_hit = true;
-        SoundManager.Instance.PlaySe("Game_CA000", false);
     }
 
     public void OnDamaged()

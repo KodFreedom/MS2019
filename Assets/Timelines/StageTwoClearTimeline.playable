@@ -547,7 +547,7 @@ AnimationClip:
         time: 0
         value: {x: 0, y: 0.000007629395, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: -58.256413, z: Infinity}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -555,7 +555,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.95
         value: {x: 0, y: -113.6, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
+        inSlope: {x: 0, y: Infinity, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
@@ -572,8 +572,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.25
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        inSlope: {x: Infinity, y: Infinity, z: 0}
+        outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -581,7 +581,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.95
         value: {x: 0.08495712, y: 0.35900116, z: 7.8839207}
-        inSlope: {x: 0, y: 0, z: 0}
+        inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
@@ -701,18 +701,18 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.25
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.95
         value: 0.08495712
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -738,18 +738,18 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.25
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.95
         value: 0.35900116
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -776,17 +776,17 @@ AnimationClip:
         time: 1.25
         value: 0
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: Infinity
+        tangentMode: 97
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.95
         value: 7.8839207
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -841,17 +841,17 @@ AnimationClip:
         time: 0
         value: 0.000007629395
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: -58.256413
+        tangentMode: 65
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.95
         value: -113.6
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -869,8 +869,8 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: Infinity
+        tangentMode: 97
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -1786,7 +1786,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: d3cbb0af19378624994cf2bb54fcb306
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &114510220916580536
 MonoBehaviour:
@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: f1dc9977dff46d34ea0a97775cb6f4f1
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &114640075514713914
 MonoBehaviour:
@@ -2230,5 +2230,5 @@ MonoBehaviour:
   m_Name: CinemachineShot
   m_EditorClassIdentifier: 
   VirtualCamera:
-    exposedName: 74746c6fda111be408693ad940434e14
+    exposedName: 
     defaultValue: {fileID: 0}

@@ -339,6 +339,11 @@ public class StageController : MonoBehaviour
 
     private void OnClearEventPreparing()
     {
+        if (prepare_time_counter_ > kPrepareTime)
+        {
+            clear_event_state_ = EventState.kStarting;
+        }
+
         var player = GameManager.Instance.Data.Player;
         if (kClearEventPlayerInfo.SetPosition)
         {
@@ -352,10 +357,6 @@ public class StageController : MonoBehaviour
             player.transform.rotation = Quaternion.Euler(rotation);
         }
         prepare_time_counter_ += Time.deltaTime;
-        if (prepare_time_counter_ > kPrepareTime)
-        {
-            clear_event_state_ = EventState.kStarting;
-        }
     }
 
     private void OnStartEventStopping()

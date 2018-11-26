@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     private float punch_timer_ = 0f;
     private float throw_timer_ = 0f;
     private float wait_time_ = 0f;
-    private int se_number_ = 0;
+    private int type_number_ = 0;
 
     public bool IsDead { get { return Life <= 0f; } }
 
@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour
         agent_ = GetComponent<NavMeshAgent>();
         agent_.enabled = false;
         punch_collider_ = transform.Find("PunchCollider").gameObject;
-        se_number_ = Random.Range(0, 3);
+        type_number_ = Random.Range(0, 3);
     }
 	
 	private void Update ()
@@ -184,13 +184,13 @@ public class EnemyController : MonoBehaviour
         if (Life <= 0f)
         {
             Life = 0f;
-            MyAnimator.Play("Dying");
-            SoundManager.Instance.PlaySe("Game_EnmyLose00" + se_number_, false);
+            MyAnimator.Play("Dying" + type_number_);
+            SoundManager.Instance.PlaySe("Game_EnmyLose00" + type_number_, false);
         }
         else
         {
             MyAnimator.CrossFade("Hit", 0.2f);
-            SoundManager.Instance.PlaySe("Game_EnmyDmg00" + se_number_, false);
+            SoundManager.Instance.PlaySe("Game_EnmyDmg00" + type_number_, false);
         }
     }
 
@@ -201,8 +201,8 @@ public class EnemyController : MonoBehaviour
         agent_.enabled = false;
         DestroyThrowItem();
         Life = 0f;
-        MyAnimator.Play("Dying");
-        SoundManager.Instance.PlaySe("Game_EnmyLose00" + se_number_, false);
+        MyAnimator.Play("Dying" + type_number_);
+        SoundManager.Instance.PlaySe("Game_EnmyLose00" + type_number_, false);
         SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
     }
 
