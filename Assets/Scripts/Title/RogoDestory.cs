@@ -20,7 +20,7 @@ public class RogoDestory : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
 
-        if (timeElapsed >= 1.50f)
+        if (timeElapsed >= 1.55f)
         {
             SoundManager.Instance.PlaySe("Title_logo000", false);
 
