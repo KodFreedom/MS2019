@@ -5,7 +5,7 @@ using UnityEngine;
 public class RadarController : MonoBehaviour
 {
     [SerializeField] float kRotateSpeed = 60f;
-    [SerializeField] float kBgmWaitTIme = 1f;
+    [SerializeField] float kBgmWaitTIme = 0.5f;
     private Vector3 rotation_ = Vector3.zero;
     private float wait_time_ = 0f;
 
