@@ -45,7 +45,7 @@ public class ResultController : MonoBehaviour
             time_counter_ -= Time.deltaTime;
             if (time_counter_ <= kFadeTime)
             {
-                SoundManager.Instance.StopBgm("Result_BGM000");
+                SoundManager.Instance.StopBgm("Result_BGM002");
                 color.a += Time.deltaTime / kFadeTime;
                 kFadeOut.color = color;
             }

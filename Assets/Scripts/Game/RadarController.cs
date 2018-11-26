@@ -25,7 +25,7 @@ public class RadarController : MonoBehaviour
             wait_time_ -= Time.unscaledDeltaTime;
             if(wait_time_ <= 0f)
             {
-                SoundManager.Instance.PlayBgm("Result_BGM000");
+                SoundManager.Instance.PlayBgm("Result_BGM002");
             }
         }
     }

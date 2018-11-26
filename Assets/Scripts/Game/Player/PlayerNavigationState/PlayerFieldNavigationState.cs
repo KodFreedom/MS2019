@@ -30,11 +30,13 @@ public class PlayerFieldNavigationState : PlayerNavigationState
         {
             player.NavAgent.speed = 0f;
             player.NavAgent.angularSpeed = 0f;
+            SoundManager.Instance.StopLoopSe("Game_walk000", 0f);
         }
         else
         {
             player.NavAgent.speed = speed_;
             player.NavAgent.angularSpeed = rotate_speed_;
+            SoundManager.Instance.PlaySe("Game_walk000", true);
         }
 
         if(player.BattleArea)
