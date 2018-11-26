@@ -12,7 +12,7 @@ public class PlayerFieldNavigationState : PlayerNavigationState
     public override void Init(PlayerController player)
     {
         player.NavAgent.isStopped = false;
-        player.NavAgent.angularSpeed = 18f;
+        player.NavAgent.angularSpeed = 24f;
     }
 
     public override void Uninit(PlayerController player)

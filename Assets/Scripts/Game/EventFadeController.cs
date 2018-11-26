@@ -14,7 +14,7 @@ public class EventFadeController : MonoBehaviour
 
     [SerializeField] float kFadeTime = 1f;
     [SerializeField] FadeState kState = FadeState.kFadeIn;
-    private Material fade_material_ = null;
+    [SerializeField] Material kFadeMaterial = null;
     private float time_counter_ = -1f;
     private float rate_ = 0f;
 
@@ -22,9 +22,6 @@ public class EventFadeController : MonoBehaviour
 	private void Start ()
     {
         GameManager.Instance.Data.Register(this, kState);
-        fade_material_ = GetComponent<Image>().material;
-        rate_ = kState == FadeState.kFadeOut ? 0f : 1f;
-        fade_material_.SetFloat("_Rate", rate_);
         gameObject.SetActive(false);
     }
 
@@ -32,7 +29,7 @@ public class EventFadeController : MonoBehaviour
     {
         time_counter_ = 0f;
         rate_ = kState == FadeState.kFadeOut ? 0f : 1f;
-        fade_material_.SetFloat("_Rate", rate_);
+        kFadeMaterial.SetFloat("_Rate", rate_);
     }
 
     private void OnDisable()
@@ -63,7 +60,7 @@ public class EventFadeController : MonoBehaviour
     private void FadeIn()
     {
         rate_ = 1f - time_counter_ / kFadeTime;
-        fade_material_.SetFloat("_Rate", rate_);
+        kFadeMaterial.SetFloat("_Rate", rate_);
         time_counter_ += Time.deltaTime;
         if (time_counter_ >= kFadeTime)
         {
@@ -74,7 +71,7 @@ public class EventFadeController : MonoBehaviour
     private void FadeOut()
     {
         rate_ = time_counter_ / kFadeTime;
-        fade_material_.SetFloat("_Rate", rate_);
+        kFadeMaterial.SetFloat("_Rate", rate_);
         time_counter_ += Time.deltaTime;
         if(time_counter_ >= kFadeTime)
         {
