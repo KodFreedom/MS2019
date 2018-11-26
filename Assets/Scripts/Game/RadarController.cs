@@ -38,6 +38,7 @@ public class RadarController : MonoBehaviour
             {
                 GameManager.Instance.Data.Player.OnUltraHit();
                 wait_time_ = kBgmWaitTIme;
+                GameManager.Instance.Data.MyInput.SetLedLightUp();
             }
         }
     }
