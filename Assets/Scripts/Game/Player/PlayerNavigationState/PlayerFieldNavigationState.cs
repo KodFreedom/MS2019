@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerFieldNavigationState : PlayerNavigationState
 {
+    private float speed_ = 3.5f;
+    private float rotate_speed_ = 24f;
+
     public override string Name()
     {
         return "PlayerFieldNavigationState";
@@ -23,7 +26,16 @@ public class PlayerFieldNavigationState : PlayerNavigationState
 
     public override void Update(PlayerController player)
     {
-        if (player.IsPlayingEvent) return;
+        if (player.IsPlayingEvent)
+        {
+            player.NavAgent.speed = 0f;
+            player.NavAgent.angularSpeed = 0f;
+        }
+        else
+        {
+            player.NavAgent.speed = speed_;
+            player.NavAgent.angularSpeed = rotate_speed_;
+        }
 
         if(player.BattleArea)
         {

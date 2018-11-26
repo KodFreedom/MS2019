@@ -30,7 +30,10 @@ public class CameraShake : CinemachineExtension
             {
                 float rate = (max_time_ - timer_) / max_time_;
                 Vector3 shake_amount = GetOffset() * rate;
-                state.PositionCorrection += shake_amount;
+                var fixed_shake_amount = vcam.transform.right * shake_amount.x
+                    + vcam.transform.up * shake_amount.y
+                    + vcam.transform.forward * shake_amount.z;
+                state.PositionCorrection += fixed_shake_amount;
                 timer_ += Time.deltaTime;
                 if(timer_ > max_time_)
                 {
