@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class RadarController : MonoBehaviour
 {
-    [SerializeField] float kRotateSpeed = 60f;
+    //[SerializeField] float kRotateSpeed = 60f;
     [SerializeField] float kBgmWaitTIme = 0.5f;
-    private Vector3 rotation_ = Vector3.zero;
+    //private Vector3 rotation_ = Vector3.zero;
     private float wait_time_ = 0f;
 
     private void Start()
     {
-        rotation_ = transform.localRotation.eulerAngles;
+        //rotation_ = transform.localRotation.eulerAngles;
     }
 
     // Update is called once per frame
     private void Update ()
     {
-        rotation_.y += kRotateSpeed * Time.deltaTime;
-        transform.localRotation = Quaternion.Euler(rotation_);
+        //rotation_.y += kRotateSpeed * Time.deltaTime;
+        //transform.localRotation = Quaternion.Euler(rotation_);
 
         if(wait_time_ > 0f)
         {

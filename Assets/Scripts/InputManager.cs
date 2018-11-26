@@ -57,7 +57,7 @@ public class InputManager : MonoBehaviour
     private bool m_IsDebug = true;                      // デバッグ中か
 
     [SerializeField]
-    private bool m_IsSerial = false;
+    private bool m_IsSerial = true;
 
 
     //private static readonly Joycon.Button[] m_buttons =
