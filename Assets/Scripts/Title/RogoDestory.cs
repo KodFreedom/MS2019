@@ -7,6 +7,7 @@ public class RogoDestory : MonoBehaviour
     public float timeOut;
     private float timeElapsed;
     public GameObject Ac;
+    public GameObject Ds;
 
     // Use this for initialization
     void Start ()
@@ -21,8 +22,13 @@ public class RogoDestory : MonoBehaviour
 
         if (timeElapsed >= 1.50f)
         {
+            SoundManager.Instance.PlaySe("Title_logo000", false);
+
+            Debug.Log("playSound");
+
             Ac.SetActive(true);
 
+            Destroy(Ds);
             Destroy(this.gameObject);
         }
     }

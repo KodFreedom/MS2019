@@ -17,6 +17,7 @@ public class TitleController : MonoBehaviour
         input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
         game_scene_ = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game");
         game_scene_.allowSceneActivation = false;
+        SoundManager.Instance.PlayBgm("Title_BGM");
 	}
 	
 	// Update is called once per frame
@@ -32,6 +33,7 @@ public class TitleController : MonoBehaviour
 
         if(timeElapsed >= 2)
         {
+            SoundManager.Instance.StopBgm("Title_BGM");
             ToGameScene();
         }
 
