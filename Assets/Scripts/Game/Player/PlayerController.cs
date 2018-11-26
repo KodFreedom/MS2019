@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private VibrationFlag vibration_flag_;
 
     [SerializeField] float kMinChargeAmount = 0.1f;
-    [SerializeField] string kState; // Debug表示
 
     /// <summary>
     /// 移動ステートの切り替え
@@ -70,10 +69,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("To : " + next_state.Name());
-        kState = next_state.Name();
         CurrentNavigationState = next_state;
         CurrentNavigationState.Init(this);
-        kState = CurrentNavigationState.Name();
     }
 
     /// <summary>

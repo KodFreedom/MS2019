@@ -56,6 +56,7 @@ public class ResultTime : MonoBehaviour
             timer_ = kFadeTime;
             panel.Shake(kShakeRange, kShakeTime);
             current_state_ = State.kUpdateTimer;
+            SoundManager.Instance.PlaySe("Result_score000", false);
         }
     }
 
