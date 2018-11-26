@@ -24,7 +24,7 @@ public class ImagePanel : MonoBehaviour
     [Tooltip("破壊後の破片を纏めているオブジェクト")]
     public GameObject debris;
 
-    public static bool isBreak = false;
+    public static bool isBreak;
 
     private InputManager input_ = null;
 
@@ -35,6 +35,7 @@ public class ImagePanel : MonoBehaviour
 
     void Start()
     {
+        isBreak = false;
         bInterval = false;
         fInterval = 0.0f;
         input_ = JoyconManager.Instance.gameObject.GetComponent<InputManager>();
@@ -74,23 +75,11 @@ public class ImagePanel : MonoBehaviour
             }
         }
 
-        //if (input_.GetPunchL() || input_.GetPunchR())
-        //{
-        //    var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
-        //    var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
-        //    camera_shake.Shake(100.0f, 1.0f);
-
-        //    bInterval = true;
-        //    PunchCnt = 1;
-        //    panel.GetComponent<Renderer>().material.mainTexture = texure2;
-        //    Debug.Log(PunchCnt);
-        //}
-
         if (!bInterval && PunchCnt == 0 && input_.GetPunchL() || !bInterval && PunchCnt == 0 && input_.GetPunchR())
         {
             var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
             var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
-            camera_shake.Shake(10.0f, 1.0f);
+            camera_shake.Shake(50.0f, 1.0f);
 
             bInterval = true;
             PunchCnt = 1;
@@ -102,7 +91,7 @@ public class ImagePanel : MonoBehaviour
         {
             var current_vcam = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
             var camera_shake = current_vcam.VirtualCameraGameObject.GetComponent<CameraShake>();
-            camera_shake.Shake(10.0f, 1.0f);
+            camera_shake.Shake(50.0f, 1.0f);
 
             bInterval = true;
             isBreak = true;

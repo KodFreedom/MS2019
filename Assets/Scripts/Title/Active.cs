@@ -15,12 +15,9 @@ public class Active : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        GameObject.DontDestroyOnLoad(this);
-
         if (ImagePanel.isBreak)
         {
             ActiveObj.SetActive(true);
-
         }
     }
 }
