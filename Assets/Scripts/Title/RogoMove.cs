@@ -16,6 +16,7 @@ public class RogoMove : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        MoveValue = 0.0f;
         AddPos.x = 2.0f;
 	}
 	
