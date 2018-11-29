@@ -208,11 +208,12 @@ public class PlayerController : MonoBehaviour
     private void UpdateInput()
     {
         var input = GameManager.Instance.Data.MyInput;
-        input_info_.left_punch = input.GetPunchL();
-        input_info_.right_punch = input.GetPunchR();
-        input_info_.ultra = input.GetSpecialSkill();
-        input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f);
-        input_info_.right_charge = -input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f);
+        var leap_motion = LeapMotionInputManager.Instance;
+        input_info_.left_punch = input.GetPunchL() | leap_motion.GetPunch(LeapMotionInputManager.HandSide.Left);
+        input_info_.right_punch = input.GetPunchR() | leap_motion.GetPunch(LeapMotionInputManager.HandSide.Right);
+        input_info_.ultra = input.GetSpecialSkill() | leap_motion.GetUltra();
+        input_info_.left_charge = input.GetGyroL().y + (Input.GetKey(KeyCode.LeftArrow) ? -10f : 0f) + leap_motion.GetForearmRotateAcc(LeapMotionInputManager.HandSide.Left);
+        input_info_.right_charge = -input.GetGyroR().y + (Input.GetKey(KeyCode.RightArrow) ? 10f : 0f) + leap_motion.GetForearmRotateAcc(LeapMotionInputManager.HandSide.Right);
     }
 
     // 振動
@@ -270,8 +271,11 @@ public class PlayerController : MonoBehaviour
 
         if (enable_charge_)
         {
-            ik_controller_.RotateLeft(input_info_.left_charge);
-            ik_controller_.RotateRight(input_info_.right_charge);
+            //ik_controller_.RotateLeft(input_info_.left_charge);
+            //ik_controller_.RotateRight(input_info_.right_charge);
+            var leap_motion = LeapMotionInputManager.Instance;
+            ik_controller_.SetRotationLeft(leap_motion.GetForearmRotate(LeapMotionInputManager.HandSide.Left) + 90f);
+            ik_controller_.SetRotationRight(leap_motion.GetForearmRotate(LeapMotionInputManager.HandSide.Right) - 90f);
 
             left_amount = Mathf.Abs(input_info_.left_charge);
             left_amount = left_amount > kMinChargeAmount ? left_amount : 0f;

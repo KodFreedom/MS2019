@@ -25,59 +25,59 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySe(string name, bool loop)
     {
-        if (!sound_effects_.ContainsKey(name)) return;
+        //if (!sound_effects_.ContainsKey(name)) return;
 
-        if (SoundEffects[sound_effects_[name]].loadState == AudioDataLoadState.Loaded)
-        {
-            if (!loop)
-            {
-                SePlayer.PlayOneShot(SoundEffects[sound_effects_[name]]);
-            }
-            else
-            {
-                if(looping_ses_.ContainsKey(name))
-                {
-                    //var loop_se = looping_ses_[name];
-                    //loop_se.stop_time = -1f;
-                    //loop_se.audio_source.volume = 1f;
-                    //looping_ses_[name] = loop_se;
-                }
-                else
-                {
-                    LoopSe loop_se = new LoopSe();
-                    loop_se.stop_time = -1f;
-                    loop_se.audio_source = SePlayer.gameObject.AddComponent<AudioSource>();
-                    loop_se.audio_source.clip = SoundEffects[sound_effects_[name]];
-                    loop_se.audio_source.loop = true;
-                    loop_se.audio_source.Play();
-                    looping_ses_.Add(name, loop_se);
-                }
-            }
-        }
+        //if (SoundEffects[sound_effects_[name]].loadState == AudioDataLoadState.Loaded)
+        //{
+        //    if (!loop)
+        //    {
+        //        SePlayer.PlayOneShot(SoundEffects[sound_effects_[name]]);
+        //    }
+        //    else
+        //    {
+        //        if(looping_ses_.ContainsKey(name))
+        //        {
+        //            //var loop_se = looping_ses_[name];
+        //            //loop_se.stop_time = -1f;
+        //            //loop_se.audio_source.volume = 1f;
+        //            //looping_ses_[name] = loop_se;
+        //        }
+        //        else
+        //        {
+        //            LoopSe loop_se = new LoopSe();
+        //            loop_se.stop_time = -1f;
+        //            loop_se.audio_source = SePlayer.gameObject.AddComponent<AudioSource>();
+        //            loop_se.audio_source.clip = SoundEffects[sound_effects_[name]];
+        //            loop_se.audio_source.loop = true;
+        //            loop_se.audio_source.Play();
+        //            looping_ses_.Add(name, loop_se);
+        //        }
+        //    }
+        //}
     }
 
     public void StopLoopSe(string name, float stop_time)
     {
-        if (!looping_ses_.ContainsKey(name)) return;
-        var loop_se = looping_ses_[name];
-        loop_se.stop_time = stop_time;
-        looping_ses_[name] = loop_se;
+        //if (!looping_ses_.ContainsKey(name)) return;
+        //var loop_se = looping_ses_[name];
+        //loop_se.stop_time = stop_time;
+        //looping_ses_[name] = loop_se;
     }
 
     public void PlayBgm(string name)
     {
-        if (!background_musics_.ContainsKey(name)) return;
-        Debug.Log("PlayBgm : " + name);
-        next_bgm_ = background_musics_[name];
+        //if (!background_musics_.ContainsKey(name)) return;
+        //Debug.Log("PlayBgm : " + name);
+        //next_bgm_ = background_musics_[name];
     }
 
     public void StopBgm(string name)
     {
-        if (!background_musics_.ContainsKey(name)) return;
-        if(current_bgm_ == background_musics_[name])
-        {
-            current_bgm_ = -1;
-        }
+        //if (!background_musics_.ContainsKey(name)) return;
+        //if(current_bgm_ == background_musics_[name])
+        //{
+        //    current_bgm_ = -1;
+        //}
     }
 
     private void Awake()

@@ -33,6 +33,16 @@ public class CustomIkController : MonoBehaviour
         right_hand_euler_.x = Mathf.Clamp(right_hand_euler_.x + amount, kRotateRangeR.x, kRotateRangeR.y);
     }
 
+    public void SetRotationLeft(float amount)
+    {
+        left_hand_euler_.x = amount;
+    }
+
+    public void SetRotationRight(float amount)
+    {
+        right_hand_euler_.x = amount;
+    }
+
     // Use this for initialization
     private void Start ()
     {
@@ -57,14 +67,16 @@ public class CustomIkController : MonoBehaviour
     {
         if (kLeftHand)
         {
-            var ik_rotation = Quaternion.Euler(left_hand_euler_ * weight_);
-            kLeftHand.localRotation *= ik_rotation;
+            var euler = kLeftHand.localEulerAngles;
+            euler.x = Mathf.Lerp(euler.x, left_hand_euler_.x, weight_);
+            kLeftHand.localEulerAngles = euler;
         }
 
         if (kRightHand)
         {
-            var ik_rotation = Quaternion.Euler(right_hand_euler_ * weight_);
-            kRightHand.localRotation *= ik_rotation;
+            var euler = kRightHand.localEulerAngles;
+            euler.x = Mathf.Lerp(euler.x, right_hand_euler_.x, weight_);
+            kRightHand.localEulerAngles = euler;
         }
     }
 }
